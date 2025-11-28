@@ -1,0 +1,21 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  padding: 32px 16px;
+    display: flex;align-items: center;
+  background: var(--bg-slot-section);
+  background-image: url('../../assets/images/icons/slotsBg.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+}
+
+.title {
+  color: var(--light-title);
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.26px;
+}

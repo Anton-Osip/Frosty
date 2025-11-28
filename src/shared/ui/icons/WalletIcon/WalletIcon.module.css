@@ -1,0 +1,17 @@
+.walletIcon {
+  display: flex;
+  width: 39px;
+  height: 39px;
+  padding: 9px;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  background: var(--accent-main);
+  transition: background-color 0.2s ease-in-out;
+  color: var(--light-title);
+}
+
+.walletIcon:hover {
+  background: var(--accent-main-h);
+}

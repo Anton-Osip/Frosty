@@ -1,0 +1,15 @@
+.heartIcon path {
+  transition: fill 0.2s ease;
+}
+
+.dark path {
+  fill: #313b52;
+}
+
+.light path {
+  fill: var(--light-title);
+}
+
+.heartIcon:hover path {
+  fill: var(--error);
+}

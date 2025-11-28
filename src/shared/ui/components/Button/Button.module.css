@@ -1,0 +1,75 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 14px; /* Дефолтное значение */
+  font-weight: 600;
+  color: var(--light-title);
+  background: transparent;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+
+  font-size: 16px;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.16px;
+}
+
+/* Варианты */
+.dark {
+  background: var(--dark-on);
+}
+
+.accent {
+  background: var(--accent-main);
+}
+
+/* Ховер эффекты */
+.dark:hover {
+  background: var(--dark-on-h);
+}
+
+.accent:hover {
+  background: var(--accent-main-h);
+}
+
+/* Размеры */
+.sm {
+  padding: 10px 14px;
+  font-size: 14px;
+  min-height: 36px;
+}
+
+.md {
+  padding: 14px 16px;
+  font-size: 16px;
+  min-height: 44px;
+}
+
+.lg {
+  padding: 16px 20px;
+  font-size: 18px;
+  min-height: 52px;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Фокус состояние */
+.button:focus-visible {
+  outline: 2px solid rgba(24, 115, 242, 0.7);
+  outline-offset: 2px;
+}
+
+/* Отключенное состояние */
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button:disabled:hover {
+  background-color: inherit;
+}

@@ -1,0 +1,76 @@
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding: 3px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--dark-on);
+  border-radius: 160px;
+  transition:
+    background-color 0.25s ease-out,
+    box-shadow 0.25s ease-out;
+}
+
+.toggle:focus-visible {
+  outline: 2px solid rgba(24, 115, 242, 0.7);
+  outline-offset: 2px;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  border-radius: 999px;
+  background-color: var(--light-desc-dark, #313b52);
+  transition:
+    transform 0.25s ease-out,
+    background-color 0.25s ease-out;
+  transform: translateX(0);
+}
+
+.md {
+  width: 50px;
+  height: 28px;
+}
+
+.md .thumb {
+  width: 22px;
+  height: 22px;
+}
+
+.md.on .thumb {
+  transform: translateX(22px);
+}
+
+.sm {
+  width: 40px;
+  height: 22px;
+}
+
+.sm .thumb {
+  width: 18px;
+  height: 18px;
+}
+
+.sm.on .thumb {
+  transform: translateX(16px);
+}
+
+.on {
+  background-color: var(--accent-main);
+}
+
+.on .thumb {
+  background-color: var(--light-title);
+}
+
+.off {
+  background-color: var(--dark-on);
+}
+
+.disabled {
+  cursor: default;
+  opacity: 0.5;
+}

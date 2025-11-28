@@ -1,0 +1,11 @@
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.segmentsAndDropdown {
+    display: grid;
+    grid-template-columns: auto 80px;
+    gap: 8px;
+}

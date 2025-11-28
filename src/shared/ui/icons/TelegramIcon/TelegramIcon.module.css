@@ -1,0 +1,5 @@
+.icon {
+  display: block;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}

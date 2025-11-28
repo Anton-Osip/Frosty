@@ -1,0 +1,61 @@
+.root {
+  display: flex;
+  align-items: center;
+    justify-content: space-around;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 16px;
+  background: var(--dark-sidebar, #131824);
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 55px;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+}
+
+.root::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+  transition: background-color 0.25s ease-out;
+}
+
+.label {
+  font-family: 'Suisse Intl', 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #727e9b;
+  white-space: nowrap;
+  transition: color 0.25s ease-out;
+}
+.tab:hover .label{
+    color: var(--text-primary);
+}
+
+.tabActive {
+  background: var(--dark-on, #212738);
+}
+
+.tabActive .label {
+  color: var(--light-title, #f0f5ff);
+}
+
+.fadeRight {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: 55px;
+  background: transparent;
+  pointer-events: none;
+}

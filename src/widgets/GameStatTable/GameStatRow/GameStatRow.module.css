@@ -1,0 +1,45 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--dark-sidebar, #131824);
+  box-sizing: border-box;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.thumb {
+  width: 15px;
+  height: 19px;
+  border-radius: 2px;
+  background: #202738;
+  flex-shrink: 0;
+}
+
+.name {
+  max-width: 200px;
+  font-family: 'Suisse Intl', 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--light-title, #f0f5ff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.amount {
+  font-family: 'Suisse Intl', 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #727e9b;
+  white-space: nowrap;
+}

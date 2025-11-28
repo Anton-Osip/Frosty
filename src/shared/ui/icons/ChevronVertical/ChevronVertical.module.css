@@ -1,0 +1,10 @@
+.chevron {
+  width: 8px;
+  height: 14px;
+  transition: color 0.2s ease;
+  color: var(--light-description);
+}
+
+.chevron:hover {
+  color: var(--light-title);
+}

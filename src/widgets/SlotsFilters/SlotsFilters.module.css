@@ -1,0 +1,12 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dropdownList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+}

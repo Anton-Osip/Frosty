@@ -1,0 +1,25 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--light-title);
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.brand:hover {
+  color: var(--light-description);
+}
+
+.logo {
+  display: flex;
+  width: 25px;
+  height: 22px;
+}
+
+.brandName {
+  font-family: 'Suisse Intl', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}

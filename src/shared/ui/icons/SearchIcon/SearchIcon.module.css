@@ -1,0 +1,16 @@
+.icon {
+  transition: color 0.2s ease;
+  color: var(--light-description);
+}
+
+.icon:hover {
+  color: var(--light-title);
+}
+
+.iconPrimary {
+  color: var(--accent-main);
+}
+
+.iconSecondary {
+  color: #6c757d;
+}

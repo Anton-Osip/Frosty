@@ -1,0 +1,40 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--dark-on, #212738);
+  font-family: 'Suisse Intl', 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--light-title, #f0f5ff);
+}
+
+.headerCellLeft {
+  text-align: left;
+}
+
+.headerCellRight {
+  text-align: right;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+.rowDefault {
+  background: var(--dark-sidebar, #131824);
+}
+
+.rowHighlight .amount {
+  color: #18f24e;
+}

@@ -1,0 +1,71 @@
+.balanceCard {
+  min-width: 148px;
+  height: 39px;
+  display: inline-flex;
+  align-items: center;
+  background: var(--dark-on);
+  border-radius: 10px;
+  padding: 0 0 0 16px;
+  gap: 10px;
+  position: relative;
+  justify-content: space-between;
+  margin-right: 14px;
+}
+
+.balanceValue {
+  color: var(--light-title);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.016em;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.balanceButton {
+  height: 39px;
+  width: 39px;
+  min-width: 39px;
+  min-height: 39px;
+  max-width: 39px;
+  max-height: 39px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background: var(--accent-main);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.balanceButton:hover {
+  background: var(--accent-main-h);
+}
+
+.icon {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.icon :global(div.walletIcon) {
+  width: 39px !important;
+  height: 39px !important;
+  padding: 10px !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.icon :global(div.walletIcon svg) {
+  width: 19px !important;
+  height: 19px !important;
+}

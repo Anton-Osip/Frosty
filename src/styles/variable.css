@@ -1,0 +1,17 @@
+:root {
+  --bg-primary: #090d14;
+  --bg-slot-section: #0f141f;
+  --selection-primary: #34476b;
+  --selection-accent: #0095ff;
+  --accent-main: #1873f2;
+  --accent-main-h: #135bbf;
+  --selection-secondary: #212e47;
+  --dark-on: #212738;
+  --dark-on-h: #2b3247;
+  --dark-sidebar: #131824;
+  --text-primary: #ffffff;
+  --light-title: #f0f5ff;
+  --light-description: #727e9b;
+  --light-desc-dark: #313b52;
+  --error: #f2494b;
+}
