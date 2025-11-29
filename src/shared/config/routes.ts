@@ -6,4 +6,3 @@ export const ROUTES = {
 } as const;
 
 export const getSlotRoute = (id: string | number) => `/slot/${id}`;
-

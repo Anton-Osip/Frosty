@@ -37,7 +37,7 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
   return (
     <div className={s.stats}>
       <div className={s.segmentsAndDropdown}>
-        <SegmentedTabs tabs={TAB_OPTIONS} value={activeTab} onChange={onTabChange}  />
+        <SegmentedTabs tabs={TAB_OPTIONS} value={activeTab} onChange={onTabChange} />
         <Dropdown
           options={ITEMS_PER_PAGE_OPTIONS}
           value={itemsPerPage}

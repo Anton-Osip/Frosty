@@ -1,7 +1,7 @@
 .root {
   display: flex;
   align-items: center;
-    justify-content: space-around;
+  justify-content: space-around;
   gap: 4px;
   padding: 8px;
   border-radius: 16px;
@@ -39,8 +39,8 @@
   white-space: nowrap;
   transition: color 0.25s ease-out;
 }
-.tab:hover .label{
-    color: var(--text-primary);
+.tab:hover .label {
+  color: var(--text-primary);
 }
 
 .tabActive {

@@ -1,80 +1,78 @@
 .winners {
-    width: 100%;
-    margin-top: 9px;
-    padding: 16px 16px 0 16px;
-    background-color: var(--dark-sidebar);
-    border-radius: 16px;
-    box-sizing: border-box;
+  width: 100%;
+  margin-top: 9px;
+  padding: 16px 16px 0 16px;
+  background-color: var(--dark-sidebar);
+  border-radius: 16px;
+  box-sizing: border-box;
 }
 
 .winnersList {
-    display: flex;
-    gap: 8px;
-    align-items: flex-end;
-    justify-content: space-between;
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 .winnerItem {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  flex: 1;
 }
 
 .winnerItem.place1 {
-    max-width: 38%;
+  max-width: 38%;
 }
 
-.winnerItem.place2, .winnerItem.place3 {
-    max-width: 28%;
+.winnerItem.place2,
+.winnerItem.place3 {
+  max-width: 28%;
 }
 
 .winnerInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
 }
 
 .avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 1600px;
-    background-color: var(--dark-on-h);
-    flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 1600px;
+  background-color: var(--dark-on-h);
+  flex-shrink: 0;
 }
 
 .name {
-    color: var(--light-description);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    letter-spacing: -0.14px;
-    text-align: center;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
+  color: var(--light-description);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.14px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .amount {
-    color: var(--light-title);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    letter-spacing: -0.16px;
-    text-align: center;
+  color: var(--light-title);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.16px;
+  text-align: center;
 }
 
 .pedestal {
-    position: relative;
-    width: 100%;
-    margin: 0 auto;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
 }
-
-
-

@@ -5,7 +5,7 @@ type HeartType = 'light' | 'dark';
 type HeartIconProps = {
   type?: HeartType;
   className?: string;
-}
+};
 
 export function HeartIcon({ type = 'dark', className }: HeartIconProps) {
   const variantClassName = type === 'light' ? s.light : s.dark;

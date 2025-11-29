@@ -10,11 +10,7 @@ export const BalanceCard = () => {
   return (
     <div className={s.balanceCard}>
       <span className={s.balanceValue}>1 589,05 ₽</span>
-      <button
-        className={s.balanceButton}
-        onClick={handleWalletButtonClick}
-        type='button'
-      >
+      <button className={s.balanceButton} onClick={handleWalletButtonClick} type='button'>
         <WalletIcon className={s.icon} />
       </button>
     </div>

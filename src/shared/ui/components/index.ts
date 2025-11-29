@@ -5,4 +5,3 @@ export { Dropdown } from './Dropdown/Dropdown';
 export { SearchInput } from './SearchInput/SearchInput';
 export { ToggleSwitch } from './ToggleSwitch/ToggleSwitch';
 export { UserPhoto } from './UserPhoto/UserPhoto';
-

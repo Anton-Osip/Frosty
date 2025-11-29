@@ -7,7 +7,7 @@ type ToggleSwitchProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onChange
   defaultOn?: boolean;
   onToggle?: (nextValue: boolean) => void;
   size?: 'sm' | 'md';
-}
+};
 
 export function ToggleSwitch({
   isOn,

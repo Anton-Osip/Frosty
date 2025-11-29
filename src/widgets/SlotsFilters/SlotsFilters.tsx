@@ -30,18 +30,8 @@ export const SlotsFilters = ({
     <div className={s.filters}>
       <SearchInput />
       <div className={s.dropdownList}>
-        <Dropdown
-          options={PROVIDER_OPTIONS}
-          value={providerFilter}
-          onChange={onProviderChange}
-          variant='default'
-        />
-        <Dropdown
-          options={POPULAR_OPTIONS}
-          value={popularFilter}
-          onChange={onPopularChange}
-          variant='default'
-        />
+        <Dropdown options={PROVIDER_OPTIONS} value={providerFilter} onChange={onProviderChange} variant='default' />
+        <Dropdown options={POPULAR_OPTIONS} value={popularFilter} onChange={onPopularChange} variant='default' />
       </div>
     </div>
   );

@@ -1,11 +1,10 @@
-export {GameStatTable} from './GameStatTable/GameStatTable';
-export {Header} from './Header/Header';
-export {SegmentedTabs} from './SegmentedTabs/SegmentedTabs';
-export {SlotHeader} from './SlotHeader/SlotHeader';
-export {SlotsFilters} from './SlotsFilters/SlotsFilters';
-export {SlotsGrid} from './SlotsGrid/SlotsGrid';
-export {SlotsSection} from './SlotsSection/SlotsSection';
-export {SlotsStats} from './SlotsStats/SlotsStats';
-export {SlotTabsSection} from './SlotTabsSection/SlotTabsSection';
-export {Winners} from './Winners/Winnsers.tsx';
-
+export { GameStatTable } from './GameStatTable/GameStatTable';
+export { Header } from './Header/Header';
+export { SegmentedTabs } from './SegmentedTabs/SegmentedTabs';
+export { SlotHeader } from './SlotHeader/SlotHeader';
+export { SlotsFilters } from './SlotsFilters/SlotsFilters';
+export { SlotsGrid } from './SlotsGrid/SlotsGrid';
+export { SlotsSection } from './SlotsSection/SlotsSection';
+export { SlotsStats } from './SlotsStats/SlotsStats';
+export { SlotTabsSection } from './SlotTabsSection/SlotTabsSection';
+export { Winners } from './Winners/Winnsers.tsx';

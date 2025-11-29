@@ -6,4 +6,3 @@ export { HeartIcon } from './HeartIcon/HeartIcon';
 export { SearchIcon } from './SearchIcon/SearchIcon';
 export { TelegramIcon } from './TelegramIcon/TelegramIcon';
 export { WalletIcon } from './WalletIcon/WalletIcon';
-

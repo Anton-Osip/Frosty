@@ -1,40 +1,40 @@
 .header {
-    width: 100%;
-    min-height: 64px;
-    padding: 13px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--dark-sidebar);
-    position: sticky;
-    gap: 8px;
-    top: 0;
-    z-index: 100;
+  width: 100%;
+  min-height: 64px;
+  padding: 13px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--dark-sidebar);
+  position: sticky;
+  gap: 8px;
+  top: 0;
+  z-index: 100;
 }
 
 .controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .userButton {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .userButtonContent {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .chevron {
-    width: 14px;
-    height: 8px;
-    transition: color 0.2s ease;
+  width: 14px;
+  height: 8px;
+  transition: color 0.2s ease;
 }
