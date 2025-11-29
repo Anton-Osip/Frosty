@@ -7,6 +7,10 @@
   gap: 17px;
   border-radius: 16px;
   background: var(--dark-sidebar);
+  background-image: url('../../assets/images/icons/F.svg');
+  background-repeat: no-repeat;
+  background-position: top -44px right 0;
+  background-size: 92% 122%;
 }
 
 .photoAndDescription {
