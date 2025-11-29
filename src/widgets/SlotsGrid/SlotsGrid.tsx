@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Slot } from '../../entities/slot/ui';
 import { Button } from '../../shared/ui/components';
 import { getSlotRoute } from '../../shared/config/routes';
 import s from './SlotsGrid.module.css';
+import { SlotImage } from '../SlotImage/SlotImage.tsx';
 
 type SlotData = {
   id: number;
@@ -30,7 +30,7 @@ export const SlotsGrid = ({ slotsData, isLoading }: SlotsGridProps) => {
 
   const loadedSurfaceItems = useMemo(() => {
     return slotsData.map(slot => (
-      <Slot
+      <SlotImage
         key={slot.id}
         src={slot.backgroundImage}
         onClick={() =>

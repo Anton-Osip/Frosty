@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { Suspense } from 'react';
-import { Preloader, Slots, Error } from './pages';
+import { Preloader, Slots, Error, Slot } from './pages';
 import { Header } from './widgets';
-import { SlotCard } from './entities/slot/ui';
 import { ROUTES } from './shared/config/routes';
 
 const AppLayout = () => (
@@ -23,7 +22,7 @@ function App() {
         <Route path={ROUTES.ROOT} element={<Preloader />} />
         <Route element={<AppLayout />}>
           <Route path={ROUTES.SLOTS} element={<Slots />} />
-          <Route path={ROUTES.SLOT} element={<SlotCard />} />
+          <Route path={ROUTES.SLOT} element={<Slot />} />
         </Route>
         <Route path={ROUTES.ERROR} element={<Error />} />
         <Route path='*' element={<Navigate to={ROUTES.ERROR} replace />} />

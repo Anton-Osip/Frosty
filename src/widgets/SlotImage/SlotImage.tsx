@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import s from './Slot.module.css';
+import s from './SlotImage.module.css';
 
 type SlotProps = {
   className?: string;
@@ -7,7 +7,7 @@ type SlotProps = {
   onClick?: () => void;
 };
 
-export const Slot = ({ className, src, onClick }: SlotProps) => {
+export const SlotImage = ({ className, src, onClick }: SlotProps) => {
   const style: CSSProperties = {
     background: 'var(--dark-sidebar, #131824)',
     cursor: onClick ? 'pointer' : 'default',

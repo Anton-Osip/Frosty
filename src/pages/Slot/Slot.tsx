@@ -1,17 +1,17 @@
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useCallback, useMemo, useState } from 'react';
-import s from './SlotCard.module.css';
+import s from './Slot.module.css';
 
-import previewTest1 from '../../../assets/images/png/previewTest1.png';
-import previewTest2 from '../../../assets/images/png/previewTest2.png';
-import previewTest3 from '../../../assets/images/png/previewTest3.png';
-import previewTest4 from '../../../assets/images/png/previewTest4.png';
-import previewTest5 from '../../../assets/images/png/previewTest5.png';
-import previewTest6 from '../../../assets/images/png/previewTest6.png';
-import previewTest7 from '../../../assets/images/png/previewTest7.png';
-import previewTest8 from '../../../assets/images/png/previewTest8.png';
-import previewTest9 from '../../../assets/images/png/previewTest9.png';
-import { SlotHeader, SlotTabsSection, SlotsStats } from '../../../widgets';
+import previewTest1 from '../../assets/images/png/previewTest1.png';
+import previewTest2 from '../../assets/images/png/previewTest2.png';
+import previewTest3 from '../../assets/images/png/previewTest3.png';
+import previewTest4 from '../../assets/images/png/previewTest4.png';
+import previewTest5 from '../../assets/images/png/previewTest5.png';
+import previewTest6 from '../../assets/images/png/previewTest6.png';
+import previewTest7 from '../../assets/images/png/previewTest7.png';
+import previewTest8 from '../../assets/images/png/previewTest8.png';
+import previewTest9 from '../../assets/images/png/previewTest9.png';
+import { SlotHeader, SlotTabsSection, SlotsStats } from '../../widgets';
 
 const IMAGE_MAP: { [key: string]: string } = {
   previewTest1: previewTest1,
@@ -37,7 +37,7 @@ const IMAGE_BY_ID: { [key: string]: string } = {
   '9': previewTest9,
 };
 
-export const SlotCard = () => {
+export const Slot = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
 
