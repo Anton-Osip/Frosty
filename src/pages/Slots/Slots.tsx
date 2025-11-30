@@ -11,6 +11,7 @@ import previewTest6 from '../../assets/images/png/previewTest6.png';
 import previewTest7 from '../../assets/images/png/previewTest7.png';
 import previewTest8 from '../../assets/images/png/previewTest8.png';
 import previewTest9 from '../../assets/images/png/previewTest9.png';
+import { useAuthStore, useUserInfoStore } from '../../shared/stores';
 
 const MOCK_SLOTS_DATA = [
   { id: 1, backgroundImage: previewTest1, name: 'Sweet Bonanza 1000', description: 'Pragmatic Play' },
@@ -54,6 +55,15 @@ export const Slots = () => {
     [],
   );
   const handleTabChange = useCallback((value: string) => setActiveTab(value), []);
+  // ----------------
+  const { userId } = useAuthStore();
+  const { fetchUserInfo } = useUserInfoStore();
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserInfo(userId);
+    }
+  }, [fetchUserInfo, userId]);
 
   return (
     <div className={s.page}>
