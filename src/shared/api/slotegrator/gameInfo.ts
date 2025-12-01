@@ -25,10 +25,7 @@ export interface GameInfoResponse {
   is_favorite: boolean;
 }
 
-export const getGameInfo = async (
-  uuid: string,
-  params?: GetGameInfoQueryParams,
-): Promise<GameInfoResponse> => {
+export const getGameInfo = async (uuid: string, params?: GetGameInfoQueryParams): Promise<GameInfoResponse> => {
   const response = await apiClient.get<GameInfoResponse>(`/slotegrator/games/info/${uuid}`, {
     params,
   });
@@ -39,34 +36,20 @@ export interface FavoriteResponse {
   detail: string;
 }
 
-export const addToFavorites = async (
-  uuid: string,
-  userId: number,
-): Promise<FavoriteResponse> => {
-  const response = await apiClient.post<FavoriteResponse>(
-    `/slotegrator/games/favorite/${uuid}`,
-    null,
-    {
-      params: {
-        user_id: userId,
-      },
+export const addToFavorites = async (uuid: string, userId: number): Promise<FavoriteResponse> => {
+  const response = await apiClient.post<FavoriteResponse>(`/slotegrator/games/favorite/${uuid}`, null, {
+    params: {
+      user_id: userId,
     },
-  );
+  });
   return response.data;
 };
 
-export const removeFromFavorites = async (
-  uuid: string,
-  userId: number,
-): Promise<FavoriteResponse> => {
-  const response = await apiClient.delete<FavoriteResponse>(
-    `/slotegrator/games/favorite/${uuid}`,
-    {
-      params: {
-        user_id: userId,
-      },
+export const removeFromFavorites = async (uuid: string, userId: number): Promise<FavoriteResponse> => {
+  const response = await apiClient.delete<FavoriteResponse>(`/slotegrator/games/favorite/${uuid}`, {
+    params: {
+      user_id: userId,
     },
-  );
+  });
   return response.data;
 };
-

@@ -4,9 +4,8 @@ import s from './Slot.module.css';
 import { SlotHeader, SlotTabsSection, SlotsStats } from '../../widgets';
 import { useAuthStore, useGameInfoStore } from '../../shared/stores';
 
-
 export const Slot = () => {
-  const { id:uuid } = useParams();
+  const { id: uuid } = useParams();
   const { userId } = useAuthStore();
   const { fetchGameInfo, data, isLoading, toggleFavorite, isTogglingFavorite } = useGameInfoStore();
 
@@ -48,36 +47,36 @@ export const Slot = () => {
   }, [uuid, userId, toggleFavorite]);
 
   return (
-    <div className = {s.wrapper}>
+    <div className={s.wrapper}>
       <SlotHeader
-        slotImage = {data?.image || ''}
-        name = {data?.name || ''}
-        description = {null}
-        isFavorite = {data?.is_favorite || false}
-        id = {data?.uuid}
-        isToggleOn = {isToggleOn}
-        isLoading = {isLoading}
-        isTogglingFavorite = {isTogglingFavorite}
-        onToggleChange = {setIsToggleOn}
-        onFavoriteClick = {handleFavoriteClick}
-        onPlay = {handlePlay}
-        onDemo = {handleDemo}
+        slotImage={data?.image || ''}
+        name={data?.name || ''}
+        description={null}
+        isFavorite={data?.is_favorite || false}
+        id={data?.uuid}
+        isToggleOn={isToggleOn}
+        isLoading={isLoading}
+        isTogglingFavorite={isTogglingFavorite}
+        onToggleChange={setIsToggleOn}
+        onFavoriteClick={handleFavoriteClick}
+        onPlay={handlePlay}
+        onDemo={handleDemo}
       />
 
       <SlotTabsSection
-        activeTabSlot = {activeTabSlot}
-        onTabChangeSlot = {handleTabChangeSlot}
-        activeTab = {activeTab}
-        onTabChange = {handleTabChange}
-        itemsPerPage = {itemsPerPage}
-        onItemsPerPageChange = {handleItemsPerPageChange}
+        activeTabSlot={activeTabSlot}
+        onTabChangeSlot={handleTabChangeSlot}
+        activeTab={activeTab}
+        onTabChange={handleTabChange}
+        itemsPerPage={itemsPerPage}
+        onItemsPerPageChange={handleItemsPerPageChange}
       />
 
       <SlotsStats
-        activeTab = {activeTab}
-        itemsPerPage = {itemsPerPage}
-        onTabChange = {handleTabChange}
-        onItemsPerPageChange = {handleItemsPerPageChange}
+        activeTab={activeTab}
+        itemsPerPage={itemsPerPage}
+        onTabChange={handleTabChange}
+        onItemsPerPageChange={handleItemsPerPageChange}
       />
     </div>
   );

@@ -68,4 +68,3 @@ export const useGameInfoStore = create<GameInfoState>(set => ({
     set({ isLoading: false, isTogglingFavorite: false, error: null, data: null });
   },
 }));
-
