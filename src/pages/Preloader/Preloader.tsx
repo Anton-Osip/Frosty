@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Lottie from 'lottie-react';
 import s from './Preloader.module.css';
-import preloaderSvg from '../../assets/images/png/preloader.png';
+import chipAnimation from '../../assets/anomation/chip.json';
+import logoAnimation from '../../assets/anomation/logo.json';
 import { ROUTES } from '../../shared/config/routes';
 import { useAuthStore } from '../../shared/stores';
 
@@ -29,9 +31,8 @@ export const Preloader = () => {
 
   return (
     <div className={s.preloader}>
-      <div className={s.spinner}>
-        <img src={preloaderSvg} alt='Loading' className={s.rotatingSvg} />
-      </div>
+      <Lottie animationData={logoAnimation} className={s.logoAnimation} loop={true} />
+      <Lottie animationData={chipAnimation} className={s.chipAnimation} loop={true} />
     </div>
   );
 };

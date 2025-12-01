@@ -1,5 +1,7 @@
 import { SearchInput, Dropdown } from '../../shared/ui/components';
 import s from './SlotsFilters.module.css';
+import { useProvidersStore } from '../../shared/stores';
+import { useEffect } from 'react';
 
 type Option = { label: string; value: string };
 
@@ -11,11 +13,6 @@ type SlotsFiltersProps = {
   onPopularChange: (option: Option) => void;
   onSearchChange?: (value: string) => void;
 };
-
-const PROVIDER_OPTIONS: Option[] = [
-  { label: 'Провайдеры', value: 'all' },
-  { label: 'NetEnt', value: 'netent' },
-];
 
 const POPULAR_OPTIONS: Option[] = [
   { label: 'Популярные', value: 'all' },
@@ -30,13 +27,28 @@ export const SlotsFilters = ({
   onPopularChange,
   onSearchChange,
 }: SlotsFiltersProps) => {
+  const { data, fetchProviders } = useProvidersStore();
+
+  useEffect(() => {
+    fetchProviders();
+  }, [fetchProviders]);
+
+  const providerOptions: Option[] = [
+    { label: 'Провайдеры', value: 'all' },
+    ...(data?.map(provider => ({
+      label: provider.label ?? provider.provider,
+      value: provider.provider,
+    })) ?? []),
+  ];
+
   return (
     <div className={s.filters}>
       <SearchInput value={searchQuery} onChange={onSearchChange} />
       <div className={s.dropdownList}>
         <Dropdown
           className={s.dropdown}
-          options={PROVIDER_OPTIONS}
+          scrollable
+          options={providerOptions}
           value={providerFilter}
           onChange={onProviderChange}
           variant='default'

@@ -15,9 +15,18 @@ type DropdownProps = {
   width?: number | string;
   height?: number | string;
   className?: string;
+  scrollable?: boolean;
 };
 
-export const Dropdown = ({ options, value, onChange, variant = 'default', height = 38, className }: DropdownProps) => {
+export const Dropdown = ({
+  options,
+  value,
+  onChange,
+  variant = 'default',
+  height = 38,
+  className,
+  scrollable = false,
+}: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -65,27 +74,32 @@ export const Dropdown = ({ options, value, onChange, variant = 'default', height
         </span>
       </button>
 
-      <ul className={`${s.list} ${isOpen ? s.open : ''}`} role='listbox'>
-        {options.map(option => {
-          const isActive = option.value === value;
+      <div
+        className={`${s.listWrapper} ${isOpen ? s.open : ''} ${scrollable ? s.listScrollable : ''}`.trim()}
+        role='listbox'
+      >
+        <ul className={`${s.list} ${scrollable ? s.listScrollable : ''}`.trim()}>
+          {options.map(option => {
+            const isActive = option.value === value;
 
-          return (
-            <li key={option.value} role='option'>
-              <button
-                className={`${s.option} ${isActive ? s.optionActive : ''}`}
-                onClick={() => handleOptionClick(option)}
-                type='button'
-                aria-selected={isActive}
-              >
-                <span className={s.optionContent}>
-                  <span className={s.optionRadio} aria-hidden='true' />
-                  <span className={s.optionLabel}>{option.label}</span>
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+            return (
+              <li key={option.value} role='option'>
+                <button
+                  className={`${s.option} ${isActive ? s.optionActive : ''}`}
+                  onClick={() => handleOptionClick(option)}
+                  type='button'
+                  aria-selected={isActive}
+                >
+                  <span className={s.optionContent}>
+                    <span className={s.optionRadio} aria-hidden='true' />
+                    <span className={s.optionLabel}>{option.label}</span>
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

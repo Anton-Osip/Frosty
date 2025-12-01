@@ -63,14 +63,10 @@
 .chevronOpen {
   transform: rotate(180deg);
 }
-
-.list {
+.listWrapper {
   margin: 10px 0 0;
-  list-style: none;
   border-radius: 10px;
   background: #e1e4ea;
-  display: flex;
-  flex-direction: column;
   position: absolute;
   z-index: 1000;
   left: 0;
@@ -86,12 +82,42 @@
   visibility: hidden;
   overflow: hidden;
 }
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
 
-.list.open {
+.listWrapper.open {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
   visibility: visible;
+}
+
+.listScrollable {
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c3c8d4 transparent;
+}
+
+.listScrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listScrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.listScrollable::-webkit-scrollbar-thumb {
+  background: #c3c8d4;
+  border-radius: 999px;
+}
+
+.listScrollable::-webkit-scrollbar-thumb:hover {
+  background: #a4abba;
 }
 
 .option {

@@ -1,6 +1,5 @@
 .balanceCard {
-  width: 148px;
-  flex: 0 1 148px;
+  width: max-content;
   height: 39px;
   display: flex;
   align-items: center;

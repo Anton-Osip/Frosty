@@ -13,8 +13,8 @@ export const BalanceCard = ({ balance }: BalanceCardProps) => {
 
   const formatBalance = (value: number): string => {
     return new Intl.NumberFormat('ru-RU', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
     }).format(value);
   };
 

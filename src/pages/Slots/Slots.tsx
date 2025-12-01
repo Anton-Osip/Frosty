@@ -38,7 +38,6 @@ export const Slots = () => {
     const lastGame = gamesData.games[gamesData.games.length - 1];
     const params: GetGamesQueryParams = {
       search: debouncedSearchQuery || undefined,
-      providers: providerFilter !== 'all' ? [providerFilter] : undefined,
       sort_order:
         popularFilter === 'week'
           ? 'popular'
@@ -54,6 +53,7 @@ export const Slots = () => {
       last_tx_count: lastGame.tx_count || null,
       last_created_at: lastGame.created_at || null,
       limit: parseInt(itemsPerPage, 9) || 9,
+      providers: providerFilter !== 'all' ? [providerFilter] : undefined,
     };
     loadMore(params);
   }, [gamesData, userId, isLoadingMore, debouncedSearchQuery, providerFilter, popularFilter, itemsPerPage, loadMore]);
@@ -83,7 +83,7 @@ export const Slots = () => {
     if (userId) {
       const data: GetGamesQueryParams = {
         search: debouncedSearchQuery || undefined,
-        providers: providerFilter !== 'all' ? [providerFilter] : undefined,
+        providers: providerFilter !== 'all' ? [providerFilter.toLowerCase()] : undefined,
         sort_order:
           popularFilter === 'week'
             ? 'popular'
