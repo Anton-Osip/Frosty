@@ -2,12 +2,13 @@ import { useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import s from './Slot.module.css';
 import { SlotHeader, SlotTabsSection, SlotsStats } from '../../widgets';
-import { useAuthStore, useGameInfoStore } from '../../shared/stores';
+import { useAuthStore, useGameInfoStore, useGameInitStore } from '../../shared/stores';
 
 export const Slot = () => {
   const { id: uuid } = useParams();
   const { userId } = useAuthStore();
   const { fetchGameInfo, data, isLoading, toggleFavorite, isTogglingFavorite } = useGameInfoStore();
+  const { initGame, initDemoGame, gameUrl, demoUrl } = useGameInitStore();
 
   const [activeTabSlot, setActiveTabSlot] = useState('big_wins');
   const [itemsPerPage, setItemsPerPage] = useState('10');
@@ -19,6 +20,24 @@ export const Slot = () => {
       fetchGameInfo(uuid, { region: null, user_id: userId });
     }
   }, [fetchGameInfo, userId, uuid]);
+
+  useEffect(() => {
+    if (gameUrl) {
+      import('@twa-dev/sdk').then(module => {
+        const WebApp = module.default;
+        WebApp.openLink(gameUrl);
+      });
+    }
+  }, [gameUrl]);
+
+  useEffect(() => {
+    if (demoUrl) {
+      import('@twa-dev/sdk').then(module => {
+        const WebApp = module.default;
+        WebApp.openLink(demoUrl);
+      });
+    }
+  }, [demoUrl]);
 
   const handleItemsPerPageChange = useCallback((option: { label: string; value: string }) => {
     setItemsPerPage(option.value);
@@ -32,13 +51,31 @@ export const Slot = () => {
     setActiveTabSlot(value);
   }, []);
 
-  const handlePlay = useCallback(() => {
-    // Здесь логика для запуска игры
-  }, []);
+  const handlePlay = useCallback(async () => {
+    if (!uuid || !userId) {
+      console.error('Missing uuid or userId');
+      return;
+    }
 
-  const handleDemo = useCallback(() => {
-    // Здесь логика для демо-режима
-  }, []);
+    try {
+      await initGame({ user_id: userId, game_uuid: uuid });
+    } catch (error) {
+      console.error('Failed to initialize game:', error);
+    }
+  }, [uuid, userId, initGame]);
+
+  const handleDemo = useCallback(async () => {
+    if (!uuid) {
+      console.error('Missing uuid');
+      return;
+    }
+
+    try {
+      await initDemoGame({ game_uuid: uuid });
+    } catch (error) {
+      console.error('Failed to initialize demo game:', error);
+    }
+  }, [uuid, initDemoGame]);
 
   const handleFavoriteClick = useCallback(() => {
     if (uuid && userId) {
