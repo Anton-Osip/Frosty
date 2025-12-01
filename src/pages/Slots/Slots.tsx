@@ -98,11 +98,11 @@ export const Slots = () => {
         last_uuid: null,
         last_tx_count: null,
         last_created_at: null,
-        limit: parseInt(itemsPerPage, 9) || 9,
+        limit: 9,
       };
       fetchGames(data);
     }
-  }, [fetchGames, userId, providerFilter, popularFilter, itemsPerPage, debouncedSearchQuery]);
+  }, [fetchGames, userId, providerFilter, popularFilter, debouncedSearchQuery]);
 
   return (
     <div className={s.page}>
