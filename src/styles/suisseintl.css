@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 700; /* Bold web font */
+  font-display: swap;
+  src: url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.eot');
+  src:
+    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.eot?#iefix') format('embedded-opentype'),
+    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.woff2') format('woff2'),
+    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.woff') format('woff'),
+    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.ttf') format('truetype'),
+    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.svg#SuisseIntl-Bold') format('svg');
+}
