@@ -1,4 +1,5 @@
 @import './styles/variable.css';
+@import './styles/suisseintl.css';
 
 *,
 *::before,
@@ -6,46 +7,42 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Suisse Intl', sans-serif;
 }
 
 html {
-  min-height: 100dvh;
   height: 100%;
   width: 100dvw;
+  font-family: 'Suisse Intl', sans-serif;
 }
 
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  min-height: 100%;
-  width: 100%;
-  font-family:
-    Suisse Intl,
-    BlinkMacSystemFont,
-    sans-serif;
+  min-height: 100dvh;
+  height: 100%;
+  width: 100dvw;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 0;
   margin: 0;
-}
-
-#root {
-  width: 100%;
-  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .page {
   max-width: 560px;
   margin: 0 auto;
   width: 100%;
-  height: 100dvh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .content {
-  height: 100dvh;
+  height: 100%;
+  width: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;

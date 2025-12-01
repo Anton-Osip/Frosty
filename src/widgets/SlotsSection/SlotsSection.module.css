@@ -6,14 +6,15 @@
   align-items: center;
   background: var(--bg-slot-section);
   background-image: url('../../assets/images/icons/slotsBg.svg');
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  background-position: right 10px center;
   background-repeat: no-repeat;
   box-sizing: border-box;
 }
 
 .title {
   color: var(--light-title);
+  font-family: 'Suisse Intl', sans-serif;
   font-size: 26px;
   font-style: normal;
   font-weight: 600;

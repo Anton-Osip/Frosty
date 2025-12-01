@@ -65,18 +65,25 @@ export const Dropdown = ({ options, value, onChange, variant = 'default', height
       </button>
 
       <ul className={`${s.list} ${isOpen ? s.open : ''}`} role='listbox'>
-        {options.map(option => (
-          <li key={option.value} role='option'>
-            <button
-              className={`${s.option} ${option.value === value ? s.optionActive : ''}`}
-              onClick={() => handleOptionClick(option)}
-              type='button'
-              aria-selected={option.value === value}
-            >
-              {option.label}
-            </button>
-          </li>
-        ))}
+        {options.map(option => {
+          const isActive = option.value === value;
+
+          return (
+            <li key={option.value} role='option'>
+              <button
+                className={`${s.option} ${isActive ? s.optionActive : ''}`}
+                onClick={() => handleOptionClick(option)}
+                type='button'
+                aria-selected={isActive}
+              >
+                <span className={s.optionContent}>
+                  <span className={s.optionRadio} aria-hidden='true' />
+                  <span className={s.optionLabel}>{option.label}</span>
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
