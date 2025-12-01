@@ -13,6 +13,12 @@
   width: 100%;
 }
 
+@media screen and (max-width: 424px) {
+  .slots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .slots > * {
   min-height: 0;
   width: 100%;

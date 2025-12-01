@@ -20,7 +20,7 @@ export const BalanceCard = ({ balance }: BalanceCardProps) => {
 
   return (
     <div className={s.balanceCard}>
-      <span className={s.balanceValue}>{formatBalance(balance)} ₽</span>
+      <p className={s.balanceValue}>{formatBalance(balance)} ₽</p>
       <button className={s.balanceButton} onClick={handleWalletButtonClick} type='button'>
         <WalletIcon className={s.icon} />
       </button>

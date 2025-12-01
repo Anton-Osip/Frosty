@@ -59,7 +59,7 @@ export const SlotsGrid = ({
       </div>
       {hasMore && !isLoading && !isLoadingMore && (
         <div className={s.centeredButton}>
-          <Button variant='dark' size='md' style={{ width: '173px' }} onClick={onLoadMore}>
+          <Button variant='dark' size='md' onClick={onLoadMore}>
             Смотреть больше
           </Button>
         </div>

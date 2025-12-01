@@ -14,15 +14,16 @@ type DropdownProps = {
   variant?: 'default' | 'hover';
   width?: number | string;
   height?: number | string;
+  className?: string;
 };
 
-export const Dropdown = ({ options, value, onChange, variant = 'default', height = 38 }: DropdownProps) => {
+export const Dropdown = ({ options, value, onChange, variant = 'default', height = 38, className }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const selectedOption = options.find(option => option.value === value) || options[0];
 
-  const wrapperClassName = `${s.wrapper} ${s[variant]}`;
+  const wrapperClassName = `${s.wrapper} ${s[variant]} ${className || ''}`.trim();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

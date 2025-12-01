@@ -10,3 +10,13 @@
   justify-content: space-between;
   gap: 8px;
 }
+
+.dropdown button {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 360px) {
+  .dropdown button {
+    font-size: 12px;
+  }
+}

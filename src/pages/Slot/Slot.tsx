@@ -51,7 +51,7 @@ export const Slot = () => {
       <SlotHeader
         slotImage={data?.image || ''}
         name={data?.name || ''}
-        description={null}
+        description={data?.provider.provider || ''}
         isFavorite={data?.is_favorite || false}
         id={data?.uuid}
         isToggleOn={isToggleOn}

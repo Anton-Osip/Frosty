@@ -1,7 +1,8 @@
 .balanceCard {
-  min-width: 148px;
+  width: 148px;
+  flex: 0 1 148px;
   height: 39px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   background: var(--dark-on);
   border-radius: 10px;
@@ -14,6 +15,10 @@
 
 .balanceValue {
   color: var(--light-title);
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.16px;
@@ -21,6 +26,7 @@
   display: flex;
   align-items: center;
   height: 100%;
+  white-space: nowrap;
 }
 
 .balanceButton {

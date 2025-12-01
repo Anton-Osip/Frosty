@@ -39,6 +39,10 @@
   white-space: nowrap;
   transition: color 0.25s ease-out;
 }
+
+.tab:hover {
+  background: var(--dark-on-h, #2b3247);
+}
 .tab:hover .label {
   color: var(--text-primary);
 }

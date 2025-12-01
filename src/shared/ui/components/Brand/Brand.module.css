@@ -23,3 +23,9 @@
   font-weight: 600;
   letter-spacing: -0.02em;
 }
+
+@media screen and (max-width: 368px) {
+  .brandName {
+    display: none;
+  }
+}
