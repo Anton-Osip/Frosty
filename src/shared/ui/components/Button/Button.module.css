@@ -18,7 +18,6 @@
   letter-spacing: -0.16px;
 }
 
-/* Варианты */
 .dark {
   background: var(--dark-on);
 }
@@ -27,16 +26,14 @@
   background: var(--accent-main);
 }
 
-/* Ховер эффекты */
 .dark:hover {
-  background: var(--dark-on-h);
+  background: #282f42;
 }
 
 .accent:hover {
-  background: var(--accent-main-h);
+  background: #3580e9;
 }
 
-/* Размеры */
 .sm {
   padding: 10px 14px;
   font-size: 14px;
