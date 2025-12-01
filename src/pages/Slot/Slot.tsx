@@ -16,6 +16,10 @@ export const Slot = () => {
   const [isToggleOn, setIsToggleOn] = useState(false);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [uuid]);
+
+  useEffect(() => {
     if (userId && uuid) {
       fetchGameInfo(uuid, { region: null, user_id: userId });
     }

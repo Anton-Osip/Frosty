@@ -11,16 +11,9 @@ type SlotsGridProps = {
   isLoading: boolean;
   isLoadingMore?: boolean;
   onLoadMore?: () => void;
-  hasMore?: boolean;
 };
 
-export const SlotsGrid = ({
-  slotsData,
-  isLoading,
-  isLoadingMore = false,
-  onLoadMore,
-  hasMore = false,
-}: SlotsGridProps) => {
+export const SlotsGrid = ({ slotsData, isLoading, isLoadingMore = false, onLoadMore }: SlotsGridProps) => {
   const navigate = useNavigate();
 
   const skeletonItems = useMemo(() => {
@@ -45,11 +38,15 @@ export const SlotsGrid = ({
     ));
   }, [slotsData, navigate]);
 
+  const shouldShowButton = !isLoading && slotsData.length > 0;
+
   return (
     <div className={s.grid}>
       <div className={s.slots}>
         {isLoading ? (
           skeletonItems
+        ) : slotsData.length === 0 ? (
+          <div className={s.emptyMessage}>Игр не найдено</div>
         ) : (
           <>
             {loadedSurfaceItems}
@@ -57,7 +54,7 @@ export const SlotsGrid = ({
           </>
         )}
       </div>
-      {hasMore && !isLoading && !isLoadingMore && (
+      {shouldShowButton && onLoadMore && (
         <div className={s.centeredButton}>
           <Button variant='dark' size='md' onClick={onLoadMore}>
             Смотреть больше

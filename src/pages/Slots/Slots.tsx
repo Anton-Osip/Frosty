@@ -83,7 +83,7 @@ export const Slots = () => {
     if (userId) {
       const data: GetGamesQueryParams = {
         search: debouncedSearchQuery || undefined,
-        providers: providerFilter !== 'all' ? [providerFilter.toLowerCase()] : undefined,
+        providers: providerFilter !== 'all' ? [providerFilter] : undefined,
         sort_order:
           popularFilter === 'week'
             ? 'popular'
@@ -120,10 +120,9 @@ export const Slots = () => {
 
         <SlotsGrid
           slotsData={gamesData?.games || []}
-          isLoading={isLoading || !gamesData || gamesData.games.length === 0}
+          isLoading={isLoading || !gamesData}
           isLoadingMore={isLoadingMore}
           onLoadMore={handleLoadMore}
-          hasMore={gamesData ? gamesData.games.length >= (parseInt(itemsPerPage, 9) || 9) : false}
         />
 
         <SlotsStats
