@@ -29,7 +29,7 @@ export default defineConfig({
         "font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com",
         "img-src 'self' data: blob: https://*",
         "media-src 'self' blob: https://pdd-base-course.hb.ru-msk.vkcloud-storage.ru https://*",
-        "connect-src 'self' https://nonshrinkingly-hyperexcitable-shaquana.ngrok-free.dev wss://hadlee-tombless-unforgivably.ngrok-free.dev https://dev.antiblunder.com https://api.pddtv.ru https://dev-api.fr0.me",
+        "connect-src 'self' https://nonshrinkingly-hyperexcitable-shaquana.ngrok-free.dev wss://hadlee-tombless-unforgivably.ngrok-free.dev https://dev.antiblunder.com https://api.pddtv.ru https://dev-api.fr0.me https://api.ipify.org",
         "object-src 'none'",
         "base-uri 'self'",
         'frame-ancestors *',

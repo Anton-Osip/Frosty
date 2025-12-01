@@ -4,20 +4,23 @@ import { Button } from '../../shared/ui/components';
 import { getSlotRoute } from '../../shared/config/routes';
 import s from './SlotsGrid.module.css';
 import { SlotImage } from '../SlotImage/SlotImage.tsx';
-
-type SlotData = {
-  id: number;
-  backgroundImage: string;
-  name: string;
-  description: string;
-};
+import type { Game } from '../../shared/api/slotegrator/games.ts';
 
 type SlotsGridProps = {
-  slotsData: SlotData[];
+  slotsData: Game[];
   isLoading: boolean;
+  isLoadingMore?: boolean;
+  onLoadMore?: () => void;
+  hasMore?: boolean;
 };
 
-export const SlotsGrid = ({ slotsData, isLoading }: SlotsGridProps) => {
+export const SlotsGrid = ({
+  slotsData,
+  isLoading,
+  isLoadingMore = false,
+  onLoadMore,
+  hasMore = false,
+}: SlotsGridProps) => {
   const navigate = useNavigate();
 
   const skeletonItems = useMemo(() => {
@@ -31,11 +34,11 @@ export const SlotsGrid = ({ slotsData, isLoading }: SlotsGridProps) => {
   const loadedSurfaceItems = useMemo(() => {
     return slotsData.map(slot => (
       <SlotImage
-        key={slot.id}
-        src={slot.backgroundImage}
+        key={slot.uuid}
+        src={slot.image || ''}
         onClick={() =>
           navigate(
-            `${getSlotRoute(slot.id)}?name=${encodeURIComponent(slot.name)}&description=${encodeURIComponent(slot.description)}&image=${encodeURIComponent(slot.backgroundImage)}`,
+            `${getSlotRoute(slot.uuid)}?name=${encodeURIComponent(slot.name)}&image=${encodeURIComponent(slot.image || '')}`,
           )
         }
       />
@@ -44,12 +47,23 @@ export const SlotsGrid = ({ slotsData, isLoading }: SlotsGridProps) => {
 
   return (
     <div className={s.grid}>
-      <div className={s.slots}>{isLoading ? skeletonItems : loadedSurfaceItems}</div>
-      <div className={s.centeredButton}>
-        <Button variant='dark' size='md' style={{ width: '173px' }}>
-          Смотреть больше
-        </Button>
+      <div className={s.slots}>
+        {isLoading ? (
+          skeletonItems
+        ) : (
+          <>
+            {loadedSurfaceItems}
+            {isLoadingMore && skeletonItems}
+          </>
+        )}
       </div>
+      {hasMore && !isLoading && !isLoadingMore && (
+        <div className={s.centeredButton}>
+          <Button variant='dark' size='md' style={{ width: '173px' }} onClick={onLoadMore}>
+            Смотреть больше
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

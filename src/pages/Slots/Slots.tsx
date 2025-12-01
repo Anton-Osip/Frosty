@@ -1,46 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import s from './Slots.module.css';
 import { SlotsSection, SlotsFilters, SlotsGrid, SlotsStats } from '../../widgets';
-
-import previewTest1 from '../../assets/images/png/previewTest1.png';
-import previewTest2 from '../../assets/images/png/previewTest2.png';
-import previewTest3 from '../../assets/images/png/previewTest3.png';
-import previewTest4 from '../../assets/images/png/previewTest4.png';
-import previewTest5 from '../../assets/images/png/previewTest5.png';
-import previewTest6 from '../../assets/images/png/previewTest6.png';
-import previewTest7 from '../../assets/images/png/previewTest7.png';
-import previewTest8 from '../../assets/images/png/previewTest8.png';
-import previewTest9 from '../../assets/images/png/previewTest9.png';
-import { useAuthStore, useBalanceStore, useUserInfoStore } from '../../shared/stores';
-
-const MOCK_SLOTS_DATA = [
-  { id: 1, backgroundImage: previewTest1, name: 'Sweet Bonanza 1000', description: 'Pragmatic Play' },
-  { id: 2, backgroundImage: previewTest2, name: 'Zeus vs Hades: Gods of War', description: 'Pragmatic Play' },
-  { id: 3, backgroundImage: previewTest3, name: 'Starlight Princess', description: 'Pragmatic Play' },
-  { id: 4, backgroundImage: previewTest4, name: 'Sugar Rush', description: 'Pragmatic Play' },
-  { id: 5, backgroundImage: previewTest5, name: 'Fruit Party', description: 'Pragmatic Play' },
-  { id: 6, backgroundImage: previewTest6, name: 'Dog House', description: 'Pragmatic Play' },
-  { id: 7, backgroundImage: previewTest7, name: 'Sugar Rush 1000', description: 'Pragmatic Play' },
-  { id: 8, backgroundImage: previewTest8, name: 'Cleocatra', description: 'Pragmatic Play' },
-  { id: 9, backgroundImage: previewTest9, name: 'Sweet Bonanza Xmas', description: 'Pragmatic Play' },
-];
+import { useAuthStore, useBalanceStore, useGamesStore, useUserInfoStore } from '../../shared/stores';
+import type { GetGamesQueryParams } from '../../shared/api/slotegrator/games.ts';
 
 export const Slots = () => {
   const [providerFilter, setProviderFilter] = useState('all');
   const [popularFilter, setPopularFilter] = useState('all');
   const [activeTab, setActiveTab] = useState('big_players');
   const [itemsPerPage, setItemsPerPage] = useState('10');
-  const [isLoading, setIsLoading] = useState(true);
-  const [slotsData, setSlotsData] = useState<typeof MOCK_SLOTS_DATA>([]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSlotsData(MOCK_SLOTS_DATA);
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
 
   const handleProviderChange = useCallback(
     (option: { label: string; value: string }) => setProviderFilter(option.value),
@@ -55,10 +25,38 @@ export const Slots = () => {
     [],
   );
   const handleTabChange = useCallback((value: string) => setActiveTab(value), []);
+  const handleSearchChange = useCallback((value: string) => setSearchQuery(value), []);
   // ----------------
   const { userId } = useAuthStore();
   const { fetchUserInfo } = useUserInfoStore();
   const { fetchBalance } = useBalanceStore();
+  const { fetchGames, loadMore, data: gamesData, isLoading, isLoadingMore } = useGamesStore();
+
+  const handleLoadMore = useCallback(() => {
+    if (!gamesData?.games.length || !userId || isLoadingMore) return;
+
+    const lastGame = gamesData.games[gamesData.games.length - 1];
+    const params: GetGamesQueryParams = {
+      search: debouncedSearchQuery || undefined,
+      providers: providerFilter !== 'all' ? [providerFilter] : undefined,
+      sort_order:
+        popularFilter === 'week'
+          ? 'popular'
+          : popularFilter !== 'all'
+            ? (popularFilter as 'asc' | 'desc' | 'popular' | 'new')
+            : undefined,
+      only_favorites: false,
+      user_id: userId,
+      region: null,
+      is_mobile: false,
+      last_name: lastGame.name || null,
+      last_uuid: lastGame.uuid || null,
+      last_tx_count: lastGame.tx_count || null,
+      last_created_at: lastGame.created_at || null,
+      limit: parseInt(itemsPerPage, 9) || 9,
+    };
+    loadMore(params);
+  }, [gamesData, userId, isLoadingMore, debouncedSearchQuery, providerFilter, popularFilter, itemsPerPage, loadMore]);
 
   useEffect(() => {
     if (userId) {
@@ -72,6 +70,40 @@ export const Slots = () => {
     }
   }, [fetchBalance, userId]);
 
+  // Debounce для поиска
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (userId) {
+      const data: GetGamesQueryParams = {
+        search: debouncedSearchQuery || undefined,
+        providers: providerFilter !== 'all' ? [providerFilter] : undefined,
+        sort_order:
+          popularFilter === 'week'
+            ? 'popular'
+            : popularFilter !== 'all'
+              ? (popularFilter as 'asc' | 'desc' | 'popular' | 'new')
+              : undefined,
+        only_favorites: false,
+        user_id: userId,
+        region: null,
+        is_mobile: false,
+        last_name: null,
+        last_uuid: null,
+        last_tx_count: null,
+        last_created_at: null,
+        limit: parseInt(itemsPerPage, 9) || 9,
+      };
+      fetchGames(data);
+    }
+  }, [fetchGames, userId, providerFilter, popularFilter, itemsPerPage, debouncedSearchQuery]);
+
   return (
     <div className={s.page}>
       <SlotsSection />
@@ -80,11 +112,19 @@ export const Slots = () => {
         <SlotsFilters
           providerFilter={providerFilter}
           popularFilter={popularFilter}
+          searchQuery={searchQuery}
           onProviderChange={handleProviderChange}
           onPopularChange={handlePopularChange}
+          onSearchChange={handleSearchChange}
         />
 
-        <SlotsGrid slotsData={slotsData} isLoading={isLoading} />
+        <SlotsGrid
+          slotsData={gamesData?.games || []}
+          isLoading={isLoading || !gamesData || gamesData.games.length === 0}
+          isLoadingMore={isLoadingMore}
+          onLoadMore={handleLoadMore}
+          hasMore={gamesData ? gamesData.games.length >= (parseInt(itemsPerPage, 9) || 9) : false}
+        />
 
         <SlotsStats
           activeTab={activeTab}
