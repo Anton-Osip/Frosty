@@ -1,64 +1,25 @@
-import { useParams, useSearchParams } from 'react-router-dom';
-import { useCallback, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
 import s from './Slot.module.css';
-
-import previewTest1 from '../../assets/images/png/previewTest1.png';
-import previewTest2 from '../../assets/images/png/previewTest2.png';
-import previewTest3 from '../../assets/images/png/previewTest3.png';
-import previewTest4 from '../../assets/images/png/previewTest4.png';
-import previewTest5 from '../../assets/images/png/previewTest5.png';
-import previewTest6 from '../../assets/images/png/previewTest6.png';
-import previewTest7 from '../../assets/images/png/previewTest7.png';
-import previewTest8 from '../../assets/images/png/previewTest8.png';
-import previewTest9 from '../../assets/images/png/previewTest9.png';
 import { SlotHeader, SlotTabsSection, SlotsStats } from '../../widgets';
+import { useAuthStore, useGameInfoStore } from '../../shared/stores';
 
-const IMAGE_MAP: { [key: string]: string } = {
-  previewTest1: previewTest1,
-  previewTest2: previewTest2,
-  previewTest3: previewTest3,
-  previewTest4: previewTest4,
-  previewTest5: previewTest5,
-  previewTest6: previewTest6,
-  previewTest7: previewTest7,
-  previewTest8: previewTest8,
-  previewTest9: previewTest9,
-};
-
-const IMAGE_BY_ID: { [key: string]: string } = {
-  '1': previewTest1,
-  '2': previewTest2,
-  '3': previewTest3,
-  '4': previewTest4,
-  '5': previewTest5,
-  '6': previewTest6,
-  '7': previewTest7,
-  '8': previewTest8,
-  '9': previewTest9,
-};
 
 export const Slot = () => {
-  const { id } = useParams();
-  const [searchParams] = useSearchParams();
-
-  const name = searchParams.get('name');
-  const description = searchParams.get('description');
-  const imageKey = searchParams.get('image');
+  const { id:uuid } = useParams();
+  const { userId } = useAuthStore();
+  const { fetchGameInfo, data, isLoading, toggleFavorite, isTogglingFavorite } = useGameInfoStore();
 
   const [activeTabSlot, setActiveTabSlot] = useState('big_wins');
   const [itemsPerPage, setItemsPerPage] = useState('10');
   const [activeTab, setActiveTab] = useState('big_players');
   const [isToggleOn, setIsToggleOn] = useState(false);
 
-  const slotImage = useMemo(() => {
-    if (imageKey && IMAGE_MAP[imageKey]) {
-      return IMAGE_MAP[imageKey];
+  useEffect(() => {
+    if (userId && uuid) {
+      fetchGameInfo(uuid, { region: null, user_id: userId });
     }
-    if (id && IMAGE_BY_ID[id]) {
-      return IMAGE_BY_ID[id];
-    }
-    return previewTest2;
-  }, [id, imageKey]);
+  }, [fetchGameInfo, userId, uuid]);
 
   const handleItemsPerPageChange = useCallback((option: { label: string; value: string }) => {
     setItemsPerPage(option.value);
@@ -80,33 +41,43 @@ export const Slot = () => {
     // Здесь логика для демо-режима
   }, []);
 
+  const handleFavoriteClick = useCallback(() => {
+    if (uuid && userId) {
+      toggleFavorite(uuid, userId);
+    }
+  }, [uuid, userId, toggleFavorite]);
+
   return (
-    <div className={s.wrapper}>
+    <div className = {s.wrapper}>
       <SlotHeader
-        slotImage={slotImage}
-        name={name}
-        description={description}
-        id={id}
-        isToggleOn={isToggleOn}
-        onToggleChange={setIsToggleOn}
-        onPlay={handlePlay}
-        onDemo={handleDemo}
+        slotImage = {data?.image || ''}
+        name = {data?.name || ''}
+        description = {null}
+        isFavorite = {data?.is_favorite || false}
+        id = {data?.uuid}
+        isToggleOn = {isToggleOn}
+        isLoading = {isLoading}
+        isTogglingFavorite = {isTogglingFavorite}
+        onToggleChange = {setIsToggleOn}
+        onFavoriteClick = {handleFavoriteClick}
+        onPlay = {handlePlay}
+        onDemo = {handleDemo}
       />
 
       <SlotTabsSection
-        activeTabSlot={activeTabSlot}
-        onTabChangeSlot={handleTabChangeSlot}
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-        itemsPerPage={itemsPerPage}
-        onItemsPerPageChange={handleItemsPerPageChange}
+        activeTabSlot = {activeTabSlot}
+        onTabChangeSlot = {handleTabChangeSlot}
+        activeTab = {activeTab}
+        onTabChange = {handleTabChange}
+        itemsPerPage = {itemsPerPage}
+        onItemsPerPageChange = {handleItemsPerPageChange}
       />
 
       <SlotsStats
-        activeTab={activeTab}
-        itemsPerPage={itemsPerPage}
-        onTabChange={handleTabChange}
-        onItemsPerPageChange={handleItemsPerPageChange}
+        activeTab = {activeTab}
+        itemsPerPage = {itemsPerPage}
+        onTabChange = {handleTabChange}
+        onItemsPerPageChange = {handleItemsPerPageChange}
       />
     </div>
   );
