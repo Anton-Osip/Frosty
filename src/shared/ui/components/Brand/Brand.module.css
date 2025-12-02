@@ -21,7 +21,7 @@
   font-family: 'Suisse Intl', sans-serif;
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: -1px;
 }
 
 @media screen and (max-width: 380px) {
