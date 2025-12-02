@@ -14,7 +14,7 @@
   width: 100%;
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 359px) {
   .slots {
     grid-template-columns: repeat(2, 1fr);
   }
