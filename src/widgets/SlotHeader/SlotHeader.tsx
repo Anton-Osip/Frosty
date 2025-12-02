@@ -13,8 +13,8 @@ type SlotHeaderProps = {
   isTogglingFavorite?: boolean;
   onToggleChange: (value: boolean) => void;
   onFavoriteClick?: () => void;
-  onPlay: () => void;
-  onDemo: () => void;
+  onPlay: (uuid?: string) => void;
+  onDemo: (uuid?: string) => void;
 };
 
 export const SlotHeader = ({
@@ -38,8 +38,12 @@ export const SlotHeader = ({
           <div className={s.skeletonImage}>
             <div className={s.skeletonShimmer} />
           </div>
-        ) : (
+        ) : slotImage ? (
           <img src={slotImage} alt={name || 'Slot image'} className={s.slotImage} />
+        ) : (
+          <div className={s.skeletonImage}>
+            <div className={s.skeletonShimmer} />
+          </div>
         )}
 
         <div className={s.descriptionHeartToggle}>
@@ -67,7 +71,7 @@ export const SlotHeader = ({
 
       <div className={s.buttons}>
         <Button
-          onClick={onPlay}
+          onClick={() => onPlay(id)}
           variant='accent'
           width='100%'
           height='39px'
@@ -78,7 +82,7 @@ export const SlotHeader = ({
         </Button>
         <Button
           style={{ minHeight: 'auto' }}
-          onClick={onDemo}
+          onClick={() => onDemo(id)}
           variant='dark'
           width='100%'
           height='39px'
