@@ -2,18 +2,16 @@ import type { CSSProperties } from 'react';
 import s from './GameStatRow.module.css';
 
 type Props = {
-  /** Название игры, по умолчанию "Dice" */
   name?: string;
-  /** Сумма в рублях, уже отформатированная, по умолчанию "0,00" */
   amount?: string;
-  /** URL иконки игры; если не передан — показываем квадратный плейсхолдер */
   imageSrc?: string;
-  /** Дополнительные классы-обёртки */
   className?: string;
+  highlight?: boolean;
 };
 
-export const GameStatRow = ({ name = 'Dice', amount = '0,00', imageSrc, className }: Props) => {
+export const GameStatRow = ({ name = 'Dice', amount = '0,00', imageSrc, className, highlight }: Props) => {
   const rootClassName = [s.root, className ?? ''].filter(Boolean).join(' ');
+  const amountClassName = highlight ? s.amountHighlight : s.amount;
 
   const thumbStyle: CSSProperties = imageSrc
     ? {
@@ -31,7 +29,7 @@ export const GameStatRow = ({ name = 'Dice', amount = '0,00', imageSrc, classNam
           {name}
         </span>
       </div>
-      <span className={s.amount}>{amount} ₽</span>
+      <span className={amountClassName}>{amount} ₽</span>
     </div>
   );
 };

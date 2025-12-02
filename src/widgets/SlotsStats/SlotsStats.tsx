@@ -1,13 +1,20 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Dropdown } from '../../shared/ui/components';
-import { SegmentedTabs, GameStatTable } from '../';
+import { SegmentedTabs, GameStatTable, type GameStatItem } from '../';
 import s from './SlotsStats.module.css';
+import { useAuthStore, useMyBetsStore, useTotalBetsStore, useHighBetsStore } from '../../shared/stores';
+import type {
+  GetMyBetsListQueryParams,
+  GetTotalBetsListQueryParams,
+  GetHighBetsListQueryParams,
+} from '../../shared/api/slotegrator/statistics';
 
 type Option = { label: string; value: string };
 
 type SlotsStatsProps = {
   activeTab: string;
   itemsPerPage: string;
+  uuid?: string;
   onTabChange: (value: string) => void;
   onItemsPerPageChange: (option: Option) => void;
 };
@@ -24,15 +31,52 @@ const ITEMS_PER_PAGE_OPTIONS: Option[] = [
   { label: '30', value: '30' },
 ];
 
-export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPageChange }: SlotsStatsProps) => {
-  const emptyTableData = useMemo(() => {
-    return Array.from({ length: 10 }, () => ({
-      name: undefined,
-      amount: undefined,
-      imageSrc: undefined,
-      highlight: false,
+const formatAmount = (amount: number): string => {
+  return amount.toLocaleString('ru-RU', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};
+
+export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPageChange, uuid }: SlotsStatsProps) => {
+  const { fetchMyBetsList, data: myBetsData } = useMyBetsStore();
+  const { fetchTotalBetsList, data: totalBetsData } = useTotalBetsStore();
+  const { fetchHighBetsList, data: highBetsData } = useHighBetsStore();
+  const { userId } = useAuthStore();
+
+  useEffect(() => {
+    const commonParams = {
+      game_uuid: uuid ?? null,
+      region: null,
+      limit: Number(itemsPerPage),
+    };
+
+    if (activeTab === 'my_bets' && userId) {
+      fetchMyBetsList({ ...commonParams, user_id: userId } as GetMyBetsListQueryParams);
+    } else if (activeTab === 'all_bets') {
+      fetchTotalBetsList({ ...commonParams, user_id: null } as GetTotalBetsListQueryParams);
+    } else if (activeTab === 'big_players') {
+      fetchHighBetsList({ ...commonParams, user_id: null, min_bet: 1 } as GetHighBetsListQueryParams);
+    }
+  }, [activeTab, fetchMyBetsList, fetchTotalBetsList, fetchHighBetsList, itemsPerPage, userId, uuid]);
+
+  const items: GameStatItem[] = useMemo(() => {
+    const dataMap: Record<string, typeof myBetsData | typeof totalBetsData | typeof highBetsData> = {
+      my_bets: myBetsData,
+      all_bets: totalBetsData,
+      big_players: highBetsData,
+    };
+
+    const data = dataMap[activeTab];
+    if (!data) return [];
+
+    return data.map(bet => ({
+      name: bet.slot_name || undefined,
+      amount: formatAmount(bet.amount),
+      imageSrc: bet.slot_image_url || undefined,
+      highlight: bet.type === 'win',
     }));
-  }, []);
+  }, [activeTab, myBetsData, totalBetsData, highBetsData]);
 
   return (
     <div className={s.stats}>
@@ -47,7 +91,7 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
           height={55}
         />
       </div>
-      <GameStatTable items={emptyTableData} />
+      <GameStatTable items={items} />
     </div>
   );
 };

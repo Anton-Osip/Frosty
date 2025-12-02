@@ -43,3 +43,12 @@
   color: #727e9b;
   white-space: nowrap;
 }
+
+.amountHighlight {
+  font-family: 'Suisse Intl', 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.16px;
+  color: #18f24e;
+  white-space: nowrap;
+}

@@ -38,3 +38,13 @@
 .rowHighlight .amount {
   color: #18f24e;
 }
+
+.emptyMessage {
+  padding: 24px 16px;
+  text-align: center;
+  font-family: 'Suisse Intl', 'Inter', 'Segoe UI', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--light-title, #f0f5ff);
+  background: var(--dark-sidebar, #131824);
+}

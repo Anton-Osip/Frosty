@@ -1,4 +1,4 @@
-export { GameStatTable } from './GameStatTable/GameStatTable';
+export { GameStatTable, type GameStatItem } from './GameStatTable/GameStatTable';
 export { Header } from './Header/Header';
 export { SegmentedTabs } from './SegmentedTabs/SegmentedTabs';
 export { SlotHeader } from './SlotHeader/SlotHeader';

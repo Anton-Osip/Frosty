@@ -5,3 +5,6 @@ export { useGamesStore } from './gamesStore';
 export { useGameInfoStore } from './gameInfoStore';
 export { useGameInitStore } from './gameInitStore';
 export { useProvidersStore } from './providersStore';
+export { useMyBetsStore } from './myBetsStore';
+export { useTotalBetsStore } from './totalBetsStore';
+export { useHighBetsStore } from './highBetsStore';

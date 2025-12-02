@@ -67,7 +67,6 @@ export const Slot = () => {
       toggleFavorite(uuid, userId);
     }
   }, [uuid, userId, toggleFavorite]);
-
   return (
     <div className={s.wrapper}>
       <SlotHeader
@@ -99,6 +98,7 @@ export const Slot = () => {
         itemsPerPage={itemsPerPage}
         onTabChange={handleTabChange}
         onItemsPerPageChange={handleItemsPerPageChange}
+        uuid={uuid}
       />
     </div>
   );
