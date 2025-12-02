@@ -2,10 +2,15 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: 8px;
 }
 
 .segmentsAndDropdown {
   display: grid;
-  grid-template-columns: auto 80px;
+  grid-template-columns: auto 75px;
   gap: 8px;
+}
+
+.statsDropdown > button {
+  border-radius: 16px;
 }

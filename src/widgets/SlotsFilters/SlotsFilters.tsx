@@ -15,7 +15,7 @@ type SlotsFiltersProps = {
 };
 
 const POPULAR_OPTIONS: Option[] = [
-  { label: 'Популярные', value: 'all' },
+  { label: 'Популярное', value: 'all' },
   { label: 'Топ недели', value: 'week' },
 ];
 

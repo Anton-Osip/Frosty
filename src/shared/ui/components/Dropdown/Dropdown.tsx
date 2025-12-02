@@ -23,7 +23,7 @@ export const Dropdown = ({
   value,
   onChange,
   variant = 'default',
-  height = 38,
+  height = 39,
   className,
   scrollable = false,
 }: DropdownProps) => {
