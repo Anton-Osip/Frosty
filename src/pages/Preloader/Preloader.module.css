@@ -14,16 +14,16 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -49%);
 }
 
 .logoAnimation {
-  width: min(57dvw, 26dvh);
+  width: min(26dvw, 13dvh);
   aspect-ratio: 1/1;
   z-index: 10;
 }
 
 .chipAnimation {
-  width: min(57dvw, 26dvh);
+  width: min(34dvw, 16dvh);
   aspect-ratio: 1/1;
 }
