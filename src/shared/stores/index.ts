@@ -8,3 +8,6 @@ export { useProvidersStore } from './providersStore';
 export { useMyBetsStore } from './myBetsStore';
 export { useTotalBetsStore } from './totalBetsStore';
 export { useHighBetsStore } from './highBetsStore';
+export { useTopPlayersTodayStore } from './topPlayersTodayStore';
+export { useGameBigWinsStore } from './gameBigWinsStore';
+export { useGameLuckyBetsStore } from './gameLuckyBetsStore';

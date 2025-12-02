@@ -5,6 +5,7 @@ import { ChevronHorizontal } from '../../icons';
 type Option = {
   label: string;
   value: string;
+  number?: number;
 };
 
 type DropdownProps = {
@@ -93,6 +94,7 @@ export const Dropdown = ({
                   <span className={s.optionContent}>
                     <span className={s.optionRadio} aria-hidden='true' />
                     <span className={s.optionLabel}>{option.label}</span>
+                    {option.number && <div className={s.optionNumber}>{option.number}</div>}
                   </span>
                 </button>
               </li>

@@ -91,6 +91,7 @@ export const Slot = () => {
         onTabChange={handleTabChange}
         itemsPerPage={itemsPerPage}
         onItemsPerPageChange={handleItemsPerPageChange}
+        gameUuid={uuid}
       />
 
       <SlotsStats

@@ -15,8 +15,10 @@ type SlotsFiltersProps = {
 };
 
 const POPULAR_OPTIONS: Option[] = [
-  { label: 'Популярное', value: 'all' },
-  { label: 'Топ недели', value: 'week' },
+  { label: 'Новые', value: 'new' },
+  { label: 'Популярные', value: 'popular' },
+  { label: 'От А до Z', value: 'a_to_z' },
+  { label: 'От Z до А', value: 'z_to_a' },
 ];
 
 export const SlotsFilters = ({
@@ -38,6 +40,7 @@ export const SlotsFilters = ({
     ...(data?.map(provider => ({
       label: provider.label ?? provider.provider,
       value: provider.provider,
+      number: provider.game_count,
     })) ?? []),
   ];
 

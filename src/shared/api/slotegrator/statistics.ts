@@ -91,3 +91,124 @@ export const getHighBetsList = async (params: GetHighBetsListQueryParams): Promi
   const response = await apiClient.get<Bet[]>(`/slotegrator/statistics/high_bets_list?${searchParams.toString()}`);
   return response.data;
 };
+
+export interface GetGameTopPlayersTodayQueryParams {
+  game_uuid: string;
+  limit: number;
+  region?: string | null;
+  user_id?: number | null;
+}
+
+export interface TopPlayer {
+  user_id: number;
+  user_name: string;
+  is_hidden: number;
+  total_bet: number;
+  bet_count: number;
+  date: number;
+  user_avatar_url: string | null;
+}
+
+export interface GetGameTopPlayersTodayResponse {
+  top_players_today: TopPlayer[];
+}
+
+export const getGameTopPlayersToday = async (
+  params: GetGameTopPlayersTodayQueryParams,
+): Promise<GetGameTopPlayersTodayResponse> => {
+  const searchParams = new URLSearchParams();
+
+  searchParams.set('game_uuid', params.game_uuid);
+  searchParams.set('limit', params.limit.toString());
+
+  if (params.region !== undefined && params.region !== null) {
+    searchParams.set('region', params.region);
+  }
+  if (params.user_id !== undefined && params.user_id !== null) {
+    searchParams.set('user_id', params.user_id.toString());
+  }
+
+  const response = await apiClient.get<GetGameTopPlayersTodayResponse>(
+    `/slotegrator/statistics/game/top_players_today?${searchParams.toString()}`,
+  );
+  return response.data;
+};
+
+export interface GetGameBigWinsQueryParams {
+  game_uuid: string;
+  limit: number;
+  region?: string | null;
+  user_id?: number | null;
+}
+
+export interface BigWin {
+  user_id: number;
+  user_name: string;
+  is_hidden: number;
+  payout: number;
+  date: number;
+  user_avatar_url: string | null;
+}
+
+export interface GetGameBigWinsResponse {
+  big_wins: BigWin[];
+}
+
+export const getGameBigWins = async (params: GetGameBigWinsQueryParams): Promise<GetGameBigWinsResponse> => {
+  const searchParams = new URLSearchParams();
+
+  searchParams.set('game_uuid', params.game_uuid);
+  searchParams.set('limit', params.limit.toString());
+
+  if (params.region !== undefined && params.region !== null) {
+    searchParams.set('region', params.region);
+  }
+  if (params.user_id !== undefined && params.user_id !== null) {
+    searchParams.set('user_id', params.user_id.toString());
+  }
+
+  const response = await apiClient.get<GetGameBigWinsResponse>(
+    `/slotegrator/statistics/game/big_wins?${searchParams.toString()}`,
+  );
+  return response.data;
+};
+
+export interface GetGameLuckyBetsQueryParams {
+  game_uuid: string;
+  limit: number;
+  region?: string | null;
+  user_id?: number | null;
+}
+
+export interface LuckyBet {
+  user_id: number;
+  user_name: string;
+  is_hidden: number;
+  average_payout: number;
+  bet_count: number;
+  date: number;
+  user_avatar_url: string | null;
+}
+
+export interface GetGameLuckyBetsResponse {
+  lucky_bets: LuckyBet[];
+}
+
+export const getGameLuckyBets = async (params: GetGameLuckyBetsQueryParams): Promise<GetGameLuckyBetsResponse> => {
+  const searchParams = new URLSearchParams();
+
+  searchParams.set('game_uuid', params.game_uuid);
+  searchParams.set('limit', params.limit.toString());
+
+  if (params.region !== undefined && params.region !== null) {
+    searchParams.set('region', params.region);
+  }
+  if (params.user_id !== undefined && params.user_id !== null) {
+    searchParams.set('user_id', params.user_id.toString());
+  }
+
+  const response = await apiClient.get<GetGameLuckyBetsResponse>(
+    `/slotegrator/statistics/game/lucky_bets?${searchParams.toString()}`,
+  );
+  return response.data;
+};

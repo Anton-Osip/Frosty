@@ -6,7 +6,7 @@ import type { GetGamesQueryParams } from '../../shared/api/slotegrator/games.ts'
 
 export const Slots = () => {
   const [providerFilter, setProviderFilter] = useState('all');
-  const [popularFilter, setPopularFilter] = useState('all');
+  const [popularFilter, setPopularFilter] = useState('popular');
   const [activeTab, setActiveTab] = useState('big_players');
   const [itemsPerPage, setItemsPerPage] = useState('10');
   const [searchQuery, setSearchQuery] = useState('');
@@ -39,11 +39,15 @@ export const Slots = () => {
     const params: GetGamesQueryParams = {
       search: debouncedSearchQuery || undefined,
       sort_order:
-        popularFilter === 'week'
-          ? 'popular'
-          : popularFilter !== 'all'
-            ? (popularFilter as 'asc' | 'desc' | 'popular' | 'new')
-            : undefined,
+        popularFilter === 'new'
+          ? 'new'
+          : popularFilter === 'popular'
+            ? 'popular'
+            : popularFilter === 'a_to_z'
+              ? 'asc'
+              : popularFilter === 'z_to_a'
+                ? 'desc'
+                : undefined,
       only_favorites: false,
       user_id: userId,
       region: null,
@@ -85,11 +89,15 @@ export const Slots = () => {
         search: debouncedSearchQuery || undefined,
         providers: providerFilter !== 'all' ? [providerFilter] : undefined,
         sort_order:
-          popularFilter === 'week'
-            ? 'popular'
-            : popularFilter !== 'all'
-              ? (popularFilter as 'asc' | 'desc' | 'popular' | 'new')
-              : undefined,
+          popularFilter === 'new'
+            ? 'new'
+            : popularFilter === 'popular'
+              ? 'popular'
+              : popularFilter === 'a_to_z'
+                ? 'asc'
+                : popularFilter === 'z_to_a'
+                  ? 'desc'
+                  : undefined,
         only_favorites: false,
         user_id: userId,
         region: null,
