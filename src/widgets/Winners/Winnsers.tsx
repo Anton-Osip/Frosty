@@ -1,6 +1,7 @@
 import s from './Winners.module.css';
-import { PlaceIcon } from '../../shared/ui/icons/PlaceIcon/PlaceIcon.tsx';
-
+import place1 from '../../assets/images/icons/place1.svg'
+import place2 from '../../assets/images/icons/place2.svg'
+import place3 from '../../assets/images/icons/place3.svg'
 type Place = 1 | 2 | 3;
 
 type WinnerData = {
@@ -9,16 +10,15 @@ type WinnerData = {
   place: Place;
 };
 
-const PLACE_HEIGHTS: Record<Place, string> = {
-  1: '47%',
-  2: '42.4%',
-  3: '37.8%',
+const PLACE_IMAGE: Record<Place, string> = {
+  1: place1,
+  2: place2,
+  3: place3,
 };
-
-const PLACE_COLORS: Record<Place, string> = {
-  1: '#ffc300',
-  2: '#b8b8ff',
-  3: '#ff6600',
+const PLACE_RATIO: Record<Place, string> = {
+  1: '128/102',
+  2: '91/92',
+  3: '91/82',
 };
 
 const winnersData: WinnerData[] = [
@@ -38,13 +38,10 @@ export const Winners = () => {
               <div className={s.name}>{winner.name}</div>
               <div className={s.amount}>{winner.amount}</div>
             </div>
-            <PlaceIcon
-              height={PLACE_HEIGHTS[winner.place]}
-              width='100%'
-              className={s[`place${winner.place}`]}
-              text={winner.place}
-              textColor={PLACE_COLORS[winner.place]}
-            />
+
+            <div style={{ aspectRatio: PLACE_RATIO[winner.place] }} className={s[`place${winner.place}`]}>
+              <img src={PLACE_IMAGE[winner.place]} alt="place" style={{ width: '100%',height: '100%' }} />
+            </div>
           </div>
         ))}
       </div>

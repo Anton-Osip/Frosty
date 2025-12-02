@@ -66,10 +66,24 @@ export const SlotHeader = ({
       </div>
 
       <div className={s.buttons}>
-        <Button onClick={onPlay} variant='accent' width='100%' height='39px' borderRadius={10}>
+        <Button
+          onClick={onPlay}
+          variant='accent'
+          width='100%'
+          height='39px'
+          style={{ minHeight: 'auto' }}
+          borderRadius={10}
+        >
           Играть
         </Button>
-        <Button onClick={onDemo} variant='dark' width='100%' height='39px' borderRadius={10}>
+        <Button
+          style={{ minHeight: 'auto' }}
+          onClick={onDemo}
+          variant='dark'
+          width='100%'
+          height='39px'
+          borderRadius={10}
+        >
           Демо
         </Button>
       </div>

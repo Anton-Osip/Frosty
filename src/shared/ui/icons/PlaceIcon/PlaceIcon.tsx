@@ -6,6 +6,7 @@ type PlaceIconProps = SVGProps<SVGSVGElement> & {
   textColor?: string;
   width?: number | string;
   height?: number | string;
+  aspectRatio?: number | string;
 };
 
 export const PlaceIcon = ({
@@ -13,11 +14,20 @@ export const PlaceIcon = ({
   textColor = '#FFC300',
   width = 128,
   height: heightProp,
+  aspectRatio: aspectRatioProp,
   className,
   style,
   ...props
 }: PlaceIconProps) => {
-  const aspectRatio = 128 / 104;
+  const defaultAspectRatio = 128 / 104;
+  const numericAspectRatio =
+    typeof aspectRatioProp === 'number' && aspectRatioProp > 0 ? aspectRatioProp : defaultAspectRatio;
+  const cssAspectRatio =
+    aspectRatioProp !== undefined
+      ? typeof aspectRatioProp === 'number'
+        ? `${numericAspectRatio}`
+        : aspectRatioProp
+      : `${defaultAspectRatio}`;
 
   let svgStyle: CSSProperties | undefined;
   let svgWidth: number | string | undefined;
@@ -51,12 +61,12 @@ export const PlaceIcon = ({
   } else if (typeof width === 'number') {
     // Если высота не задана и width - число, вычисляем высоту
     svgWidth = width;
-    svgHeight = width / aspectRatio;
+    svgHeight = width / numericAspectRatio;
     svgStyle = style;
   } else {
     // Для строковых значений width (проценты, px, em и т.д.) используем aspect-ratio
     svgStyle = {
-      aspectRatio: `${aspectRatio}`,
+      aspectRatio: cssAspectRatio,
       width: typeof width === 'string' ? width : '100%',
       display: 'block',
       flexShrink: 0,
