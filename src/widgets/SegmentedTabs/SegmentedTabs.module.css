@@ -2,17 +2,25 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
+  position: relative;
   gap: 0;
   padding: 8px;
   border-radius: 16px;
   background: var(--dark-sidebar, #131824);
-  position: relative;
   overflow-x: auto;
   overflow-y: hidden;
   height: 55px;
   scrollbar-width: none;
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
+}
+
+.root:after {
+  left: 0;
+}
+
+.root:before {
+  right: 0;
 }
 
 .root::-webkit-scrollbar {
@@ -34,7 +42,7 @@
   font-family: 'Suisse Intl', 'Inter', 'Segoe UI', sans-serif;
   font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.16px;
   color: #727e9b;
   white-space: nowrap;
   transition: color 0.25s ease-out;
@@ -43,6 +51,7 @@
 .tab:hover {
   background: var(--dark-on-h, #2b3247);
 }
+
 .tab:hover .label {
   color: var(--text-primary);
 }
@@ -56,10 +65,12 @@
 }
 
 .fadeRight {
-  position: absolute;
-  inset-block: 0;
-  right: 0;
+  position: sticky;
+  right: -10px;
+  flex-shrink: 0;
+  height: 50px;
   width: 55px;
-  background: transparent;
+  background: linear-gradient(90deg, rgba(19, 24, 36, 0) 0%, #131824 100%);
   pointer-events: none;
+  margin-left: auto;
 }

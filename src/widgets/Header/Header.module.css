@@ -38,5 +38,10 @@
 .chevron {
   width: 10px;
   height: 20px;
-  transition: color 0.2s ease;
+  transition: stroke 0.2s ease;
+  stroke: #727e9b;
+}
+
+.chevron:hover {
+  stroke: #f0f5ff;
 }

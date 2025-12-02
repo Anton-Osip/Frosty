@@ -26,7 +26,7 @@
   color: var(--light-title);
   font-size: 16px;
   font-weight: 600;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.16px;
   cursor: pointer;
   box-sizing: border-box;
   transition: background-color 0.2s ease;
@@ -165,7 +165,7 @@
 .optionActive .optionRadio::after {
   content: '';
   position: absolute;
-  inset: 3px;
+  inset: 5px;
   border-radius: inherit;
   background: #1873f2;
 }

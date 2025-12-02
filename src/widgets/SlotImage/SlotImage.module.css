@@ -1,5 +1,6 @@
 .wrapper {
   position: relative;
+  aspect-ratio: 114/149;
   border-radius: 10px;
   overflow: hidden;
   transition:

@@ -3,7 +3,7 @@
   align-items: center;
   gap: 10px;
   width: 100%;
-  padding: 13px 14px 12px;
+  padding: 12px 14px;
   border: 2px solid var(--dark-on);
   border-radius: 14px;
   background: #0f1520;
@@ -33,7 +33,7 @@
   line-height: 1;
   padding: 0;
   min-width: 0;
-  letter-spacing: -0.05px;
+  letter-spacing: -0.16px;
 }
 
 .input::placeholder {

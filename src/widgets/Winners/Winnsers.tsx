@@ -1,7 +1,7 @@
 import s from './Winners.module.css';
-import place1 from '../../assets/images/icons/place1.svg'
-import place2 from '../../assets/images/icons/place2.svg'
-import place3 from '../../assets/images/icons/place3.svg'
+import place1 from '../../assets/images/icons/place1.svg';
+import place2 from '../../assets/images/icons/place2.svg';
+import place3 from '../../assets/images/icons/place3.svg';
 type Place = 1 | 2 | 3;
 
 type WinnerData = {
@@ -40,7 +40,7 @@ export const Winners = () => {
             </div>
 
             <div style={{ aspectRatio: PLACE_RATIO[winner.place] }} className={s[`place${winner.place}`]}>
-              <img src={PLACE_IMAGE[winner.place]} alt="place" style={{ width: '100%',height: '100%' }} />
+              <img src={PLACE_IMAGE[winner.place]} alt='place' style={{ width: '100%', height: '100%' }} />
             </div>
           </div>
         ))}

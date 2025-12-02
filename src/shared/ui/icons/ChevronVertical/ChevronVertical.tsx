@@ -14,7 +14,7 @@ export const ChevronVertical = ({ className = '', ...props }) => {
       <g clipPath='url(#clip0_411_271)'>
         <path
           d='M1.00001 1L7 6.99995L1 13'
-          stroke='#727E9B'
+          stroke='targetColor'
           strokeWidth='2'
           strokeLinecap='round'
           strokeLinejoin='round'

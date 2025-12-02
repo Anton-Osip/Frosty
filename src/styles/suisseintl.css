@@ -1,13 +1,143 @@
 @font-face {
   font-family: 'Suisse Intl';
   font-style: normal;
-  font-weight: 700; /* Bold web font */
+  font-weight: 100;
   font-display: swap;
-  src: url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.eot');
-  src:
-    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.eot?#iefix') format('embedded-opentype'),
-    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.woff2') format('woff2'),
-    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.woff') format('woff'),
-    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.ttf') format('truetype'),
-    url('../assets/SuisseIntl-Bold/Web Fonts/d1a580023d40c546276decde1c711e60.svg#SuisseIntl-Bold') format('svg');
+  src: url('../assets/fonts/SuisseIntl-Thin.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 100;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-ThinItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-Ultralight.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 200;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-UltralightItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-LightItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-RegularItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 450;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-Book.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 450;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-BookItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-MediumItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-SemiBoldItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-BoldItalic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-Black.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: italic;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../assets/fonts/SuisseIntl-BlackItalic.otf') format('opentype');
 }
