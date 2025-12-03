@@ -69,7 +69,7 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
     title: 'Игра не доступна!',
     description: 'К сожалению, данный провайдер не доступен для вашего региона.',
     button: {
-      label: 'назад',
+      label: 'Назад',
       onClick: () => {
         window.history.back();
       },

@@ -102,7 +102,7 @@ export const SlotPlay = () => {
   };
 
   return (
-    <>
+    <div className={s.container}>
       {!isFullscreen && <Header />}
       <div className={`${s.wrapper} ${isFullscreen ? s.fullscreen : s.withHeader}`}>
         <div className={s.gameContainer}>
@@ -126,6 +126,6 @@ export const SlotPlay = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };

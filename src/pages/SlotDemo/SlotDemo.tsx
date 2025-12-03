@@ -54,16 +54,13 @@ export const SlotDemo = () => {
     }
   }, [error, navigate, setErrorPage]);
 
-  // Таймаут на 6 секунд: если игра не запустилась, перенаправляем на ошибку
   useEffect(() => {
     if (!uuid) {
       return;
     }
 
-    // Если началась загрузка игры, запускаем таймер
     if (isDemoLoading && !demoUrl && !error) {
       timeoutRef.current = setTimeout(() => {
-        // Проверяем, что игра все еще не загрузилась
         if (isDemoLoading || !demoUrl) {
           setErrorPage('game_block');
           navigate(ROUTES.ERROR, { replace: true });
@@ -71,7 +68,6 @@ export const SlotDemo = () => {
       }, 6000);
     }
 
-    // Если игра загрузилась или произошла ошибка, очищаем таймер
     if (demoUrl || error) {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -79,7 +75,6 @@ export const SlotDemo = () => {
       }
     }
 
-    // Очистка таймера при размонтировании или изменении uuid
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -101,7 +96,7 @@ export const SlotDemo = () => {
   };
 
   return (
-    <>
+    <div className={s.container}>
       {!isFullscreen && <Header />}
       <div className={`${s.wrapper} ${isFullscreen ? s.fullscreen : s.withHeader}`}>
         <div className={s.gameContainer}>
@@ -125,6 +120,6 @@ export const SlotDemo = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
