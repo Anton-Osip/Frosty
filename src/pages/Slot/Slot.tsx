@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import s from './Slot.module.css';
 import { SlotHeader, SlotTabsSection, SlotsStats } from '../../widgets';
-import { useAuthStore, useGameInfoStore, useSlotsAccessStore } from '../../shared/stores';
+import { useAuthStore, useGameInfoStore, useSlotsAccessStore, useGameViewStore } from '../../shared/stores';
 import { Button } from '../../shared/ui/components';
 import { getSlotPlayRoute, getSlotDemoRoute } from '../../shared/config/routes';
 
@@ -12,12 +12,17 @@ export const Slot = () => {
   const { userId } = useAuthStore();
   const { fetchGameInfo, data, isLoading, toggleFavorite, isTogglingFavorite } = useGameInfoStore();
   const { fetchSlotsAccess, data: slotsAccessData } = useSlotsAccessStore();
+  const { setFullscreen } = useGameViewStore();
 
   const [activeTabSlot, setActiveTabSlot] = useState('big_wins');
   const [itemsPerPage, setItemsPerPage] = useState('10');
   const [activeTab, setActiveTab] = useState('big_players');
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [isSlotsAccessModalOpen, setIsSlotsAccessModalOpen] = useState(false);
+
+  useEffect(() => {
+    setFullscreen(isToggleOn);
+  }, [isToggleOn, setFullscreen]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

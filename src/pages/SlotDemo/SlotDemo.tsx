@@ -2,10 +2,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-react';
 import s from './SlotDemo.module.css';
-import { useGameInitStore } from '../../shared/stores';
+import { useErrorPageStore, useGameInitStore, useGameViewStore } from '../../shared/stores';
 import { ROUTES } from '../../shared/config/routes';
 import chipAnimation from '../../assets/anomation/chip.json';
 import logoAnimation from '../../assets/anomation/logo.json';
+import { Header } from '../../widgets';
 
 const LoadingScreen = () => (
   <div className={s.loadingScreen}>
@@ -18,28 +19,27 @@ export const SlotDemo = () => {
   const { id: uuid } = useParams();
   const navigate = useNavigate();
   const { initDemoGame, demoUrl, isDemoLoading, error, reset } = useGameInitStore();
+  const setErrorPage = useErrorPageStore(state => state.setErrorPage);
+  const { isFullscreen } = useGameViewStore();
   const hasInitializedRef = useRef<string | null>(null);
+  const timeoutRef = useRef<number | null>(null);
 
-  // Сбрасываем состояние при переходе на страницу или изменении uuid
   useEffect(() => {
     if (!uuid) {
       return;
     }
 
-    // Если это новый uuid, сбрасываем состояние
     if (hasInitializedRef.current !== uuid) {
       reset();
       hasInitializedRef.current = uuid;
     }
   }, [uuid, reset]);
 
-  // Инициализируем демо игру когда есть uuid
   useEffect(() => {
     if (!uuid) {
       return;
     }
 
-    // Инициализируем только если еще не инициализировали для этого uuid
     if (hasInitializedRef.current === uuid && !isDemoLoading && !demoUrl && !error) {
       initDemoGame({ game_uuid: uuid }).catch(err => {
         console.error('Failed to initialize demo game:', err);
@@ -47,41 +47,76 @@ export const SlotDemo = () => {
     }
   }, [uuid, initDemoGame, isDemoLoading, demoUrl, error]);
 
-  // При ошибке сразу уходим на страницу ошибок
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => {
-        navigate(ROUTES.ERROR, { replace: true });
-      }, 100);
-      return () => clearTimeout(timer);
+      setErrorPage('game_block');
+      navigate(ROUTES.ERROR, { replace: true });
     }
-  }, [error, navigate]);
+  }, [error, navigate, setErrorPage]);
 
-  // Если ошибка, показываем загрузку пока идет редирект
-  if (error) {
-    return <LoadingScreen />;
-  }
+  // Таймаут на 6 секунд: если игра не запустилась, перенаправляем на ошибку
+  useEffect(() => {
+    if (!uuid) {
+      return;
+    }
 
-  // Если нет uuid - показываем загрузку
+    // Если началась загрузка игры, запускаем таймер
+    if (isDemoLoading && !demoUrl && !error) {
+      timeoutRef.current = setTimeout(() => {
+        // Проверяем, что игра все еще не загрузилась
+        if (isDemoLoading || !demoUrl) {
+          setErrorPage('game_block');
+          navigate(ROUTES.ERROR, { replace: true });
+        }
+      }, 6000);
+    }
+
+    // Если игра загрузилась или произошла ошибка, очищаем таймер
+    if (demoUrl || error) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    }
+
+    // Очистка таймера при размонтировании или изменении uuid
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, [uuid, isDemoLoading, demoUrl, error, navigate, setErrorPage]);
+
   if (!uuid) {
     return <LoadingScreen />;
   }
 
-  // Пока идет загрузка или еще нет URL - показываем загрузку
   if (isDemoLoading || !demoUrl) {
     return <LoadingScreen />;
   }
 
-  // Когда URL получен - показываем игру во фрейме
+  const handleClose = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className={s.wrapper}>
-      <iframe
-        src={demoUrl}
-        className={s.gameFrame}
-        title='Slot Demo'
-        allow='fullscreen; autoplay; encrypted-media'
-        allowFullScreen
-      />
+    <div className={`${s.wrapper} ${isFullscreen ? s.fullscreen : s.withHeader}`}>
+      {!isFullscreen && <Header />}
+      <div className={s.gameContainer}>
+        <button className={s.closeButton} onClick={handleClose} aria-label='Закрыть'>
+          <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
+            <path d='M12 4L4 12M4 4L12 12' stroke='#fff' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
+          </svg>
+        </button>
+        <iframe
+          src={demoUrl}
+          className={s.gameFrame}
+          title='Slot Demo'
+          allow='fullscreen; autoplay; encrypted-media'
+          allowFullScreen
+        />
+      </div>
     </div>
   );
 };

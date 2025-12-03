@@ -13,3 +13,4 @@ export { useGameBigWinsStore } from './gameBigWinsStore';
 export { useGameLuckyBetsStore } from './gameLuckyBetsStore';
 export { useErrorPageStore } from './errorPageStore';
 export { useSlotsAccessStore } from './slotsAccessStore';
+export { useGameViewStore } from './gameViewStore';

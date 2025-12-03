@@ -8,7 +8,7 @@ interface ErrorPageButtonConfig {
   onClick: () => void;
 }
 
-type setErrorArg = 'geo_block' | 'invalid_data' | 'unexpected_error';
+type setErrorArg = 'geo_block' | 'invalid_data' | 'unexpected_error' | 'game_block';
 
 interface ErrorPageState {
   title: string;
@@ -62,6 +62,16 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
       icon: (): ReactNode => createElement(TelegramIcon, { size: 20 }),
       onClick: () => {
         window.open('https://t.me/frosted', '_blank');
+      },
+    },
+  },
+  game_block: {
+    title: 'Игра не доступна!',
+    description: 'К сожалению, данный провайдер не доступен для вашего региона.',
+    button: {
+      label: 'назад',
+      onClick: () => {
+        window.history.back();
       },
     },
   },

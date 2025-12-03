@@ -39,7 +39,9 @@ export const GameStatTable = ({ items, className, isLoading = false }: Props) =>
             ))}
           </>
         ) : items.length === 0 ? (
-          <div className={s.emptyMessage}>Нет данных для отображения</div>
+          <div className={s.emptyMessage}>
+            <span>Нет данных для отображения</span>
+          </div>
         ) : (
           items.map((item, index) => (
             <GameStatRow
