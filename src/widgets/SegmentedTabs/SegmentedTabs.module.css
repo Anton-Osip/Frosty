@@ -1,26 +1,45 @@
+.wrapper {
+  position: relative;
+  padding: 8px;
+  border-radius: 16px;
+  background: var(--dark-sidebar, #131824);
+  height: 55px;
+  overflow: hidden;
+}
+
+.wrapper:after,
+.wrapper:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 55px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  flex: 0 0 55px;
+}
+
+.wrapper:after {
+  left: 0;
+  background: linear-gradient(90deg, #131824 0%, rgba(19, 24, 36, 0) 100%);
+}
+
+.wrapper:before {
+  right: 0;
+  background: linear-gradient(90deg, rgba(19, 24, 36, 0) 0%, #131824 100%);
+}
+
 .root {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  position: relative;
   gap: 0;
-  padding: 8px;
-  border-radius: 16px;
-  background: var(--dark-sidebar, #131824);
+  height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 55px;
   scrollbar-width: none;
   scroll-behavior: smooth;
   scroll-snap-type: x proximity;
-}
-
-.root:after {
-  left: 0;
-}
-
-.root:before {
-  right: 0;
 }
 
 .root::-webkit-scrollbar {
@@ -58,19 +77,10 @@
 
 .tabActive {
   background: var(--dark-on, #212738);
+  position: relative;
+  z-index: 5;
 }
 
 .tabActive .label {
   color: var(--light-title, #f0f5ff);
-}
-
-.fadeRight {
-  position: sticky;
-  right: -10px;
-  flex-shrink: 0;
-  height: 50px;
-  width: 55px;
-  background: linear-gradient(90deg, rgba(19, 24, 36, 0) 0%, #131824 100%);
-  pointer-events: none;
-  margin-left: auto;
 }
