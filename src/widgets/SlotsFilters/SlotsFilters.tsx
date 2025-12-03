@@ -1,6 +1,6 @@
 import { SearchInput, Dropdown } from '../../shared/ui/components';
 import s from './SlotsFilters.module.css';
-import { useProvidersStore } from '../../shared/stores';
+import { useAuthStore, useGamesStore, useProvidersStore } from '../../shared/stores';
 import { useEffect } from 'react';
 
 type Option = { label: string; value: string };
@@ -29,15 +29,16 @@ export const SlotsFilters = ({
   onPopularChange,
   onSearchChange,
 }: SlotsFiltersProps) => {
-  const { data, fetchProviders } = useProvidersStore();
-
+  const { fetchProviders } = useProvidersStore();
+  const { data: gamesData } = useGamesStore();
+  const { userId } = useAuthStore();
   useEffect(() => {
-    fetchProviders();
-  }, [fetchProviders]);
+    fetchProviders({ user_id: userId, region: null });
+  }, [fetchProviders, userId]);
 
   const providerOptions: Option[] = [
     { label: 'Провайдеры', value: 'all' },
-    ...(data?.map(provider => ({
+    ...(gamesData?.providers.map(provider => ({
       label: provider.label ?? provider.provider,
       value: provider.provider,
       number: provider.game_count,
