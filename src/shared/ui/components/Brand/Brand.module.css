@@ -24,8 +24,8 @@
   letter-spacing: -0.2px;
 }
 
-@media screen and (max-width: 380px) {
-  .brandName {
+@media screen and (max-width: 350px) {
+  .brandNameHidden {
     display: none;
   }
 }

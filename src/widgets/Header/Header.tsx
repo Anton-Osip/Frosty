@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import s from './Header.module.css';
 import { Brand, BalanceCard, UserPhoto } from '../../shared/ui/components';
-import { ChevronVertical } from '../../shared/ui/icons';
 import { useBalanceStore } from '../../shared/stores';
 
 export const Header = () => {
@@ -19,7 +18,6 @@ export const Header = () => {
         <button className={s.userButton} onClick={handleChevronVerticalClick}>
           <div className={s.userButtonContent}>
             <UserPhoto />
-            <ChevronVertical className={s.chevron} />
           </div>
         </button>
       </div>
