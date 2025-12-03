@@ -1,24 +1,21 @@
 import { create } from 'zustand';
-import type { ReactNode } from 'react';
+import { createElement, type ReactNode } from 'react';
+import { TelegramIcon } from '../ui/icons';
 
 interface ErrorPageButtonConfig {
   label: ReactNode | string;
-  /**
-   * Опциональная иконка слева от текста.
-   */
-  icon?: ReactNode;
-  /**
-   * Обработчик клика по кнопке.
-   */
+  icon?: ReactNode | (() => ReactNode);
   onClick: () => void;
 }
+
+type setErrorArg = 'geo_block' | 'invalid_data' | 'unexpected_error';
 
 interface ErrorPageState {
   title: string;
   description: string;
   button: ErrorPageButtonConfig;
 
-  setErrorPage: (payload: { title?: string; description?: string; button?: Partial<ErrorPageButtonConfig> }) => void;
+  setErrorPage: (error: setErrorArg) => void;
 
   reset: () => void;
 }
@@ -34,18 +31,56 @@ const defaultState: Pick<ErrorPageState, 'title' | 'description' | 'button'> = {
   },
 };
 
+const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description' | 'button'>> = {
+  geo_block: {
+    title: 'Ошибка доступа!',
+    description: 'Доступ к приложению ограничен для вашего региона.',
+    button: {
+      label: 'Frosty Casino',
+      icon: (): ReactNode => createElement(TelegramIcon, { size: 20 }),
+      onClick: () => {
+        window.open('https://t.me/frosted', '_blank');
+      },
+    },
+  },
+  unexpected_error: {
+    title: 'Ошибка доступа!',
+    description: 'Перезапустите мини-приложение',
+    button: {
+      label: 'Frosty Casino',
+      icon: (): ReactNode => createElement(TelegramIcon, { size: 20 }),
+      onClick: () => {
+        window.open('https://t.me/frosted', '_blank');
+      },
+    },
+  },
+  invalid_data: {
+    title: 'Ошибка доступа!',
+    description: 'Перезапустите мини-приложение',
+    button: {
+      label: 'Frosty Casino',
+      icon: (): ReactNode => createElement(TelegramIcon, { size: 20 }),
+      onClick: () => {
+        window.open('https://t.me/frosted', '_blank');
+      },
+    },
+  },
+};
+
 export const useErrorPageStore = create<ErrorPageState>(set => ({
   ...defaultState,
 
-  setErrorPage: ({ title, description, button }) =>
-    set(state => ({
-      title: title ?? state.title,
-      description: description ?? state.description,
+  setErrorPage: (error: setErrorArg) => {
+    set({
+      title: errorData[error].title,
+      description: errorData[error].description,
       button: {
-        ...state.button,
-        ...(button ?? {}),
+        label: errorData[error].button.label,
+        icon: errorData[error].button.icon ?? null,
+        onClick: errorData[error].button.onClick,
       },
-    })),
+    });
+  },
 
   reset: () => set({ ...defaultState }),
 }));

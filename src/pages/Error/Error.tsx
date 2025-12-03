@@ -21,7 +21,7 @@ export const Error = () => {
         borderRadius={10}
         className={s.telegramButton}
       >
-        {button.icon}
+        {typeof button.icon === 'function' ? button.icon() : button.icon}
         {button.label}
       </Button>
     </div>
