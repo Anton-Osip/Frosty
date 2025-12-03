@@ -56,7 +56,7 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
     } else if (activeTab === 'all_bets') {
       fetchTotalBetsList({ ...commonParams, user_id: null } as GetTotalBetsListQueryParams);
     } else if (activeTab === 'big_players') {
-      fetchHighBetsList({ ...commonParams, user_id: null, min_bet: 1 } as GetHighBetsListQueryParams);
+      fetchHighBetsList({ ...commonParams, user_id: null } as GetHighBetsListQueryParams);
     }
   }, [activeTab, fetchMyBetsList, fetchTotalBetsList, fetchHighBetsList, itemsPerPage, userId, uuid]);
 

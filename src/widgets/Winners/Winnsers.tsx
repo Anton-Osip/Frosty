@@ -43,8 +43,8 @@ const formatAmount = (amount: number): string => {
 export const Winners = ({ data, isLoading }: WinnersProps) => {
   const winnersData: WinnerData[] = useMemo(() => {
     const placeMapping: [number, Place][] = [
-      [0, 2],
-      [1, 1],
+      [0, 1],
+      [1, 2],
       [2, 3],
     ];
 
@@ -56,7 +56,7 @@ export const Winners = ({ data, isLoading }: WinnersProps) => {
       }));
     }
 
-    return placeMapping.map(([dataIndex, place]) => {
+    const mapped = placeMapping.map(([dataIndex, place]) => {
       const item = data[dataIndex];
       if (!item) {
         return {
@@ -85,6 +85,16 @@ export const Winners = ({ data, isLoading }: WinnersProps) => {
         userId: item.user_id,
       };
     });
+
+    // Сортируем в порядке отображения [2, 1, 3]
+    return PLACES.map(
+      place =>
+        mapped.find(w => w.place === place) || {
+          name: '—',
+          amount: '—',
+          place,
+        },
+    );
   }, [data]);
 
   return (
@@ -100,19 +110,12 @@ export const Winners = ({ data, isLoading }: WinnersProps) => {
                 <div className={s.avatarSkeleton}>
                   <div className={s.skeletonShimmer} />
                 </div>
+              ) : winner.avatarUrl ? (
+                <div className={s.avatar}>
+                  <img src={winner.avatarUrl} alt={winner.name} className={s.avatarImage} />
+                </div>
               ) : (
-                <div
-                  className={s.avatar}
-                  style={
-                    winner.avatarUrl
-                      ? {
-                          backgroundImage: `url(${winner.avatarUrl})`,
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center',
-                        }
-                      : {}
-                  }
-                ></div>
+                <div className={s.avatar} />
               )}
               {isLoading ? (
                 <div className={s.nameSkeleton}>

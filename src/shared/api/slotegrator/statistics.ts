@@ -76,7 +76,9 @@ export const getHighBetsList = async (params: GetHighBetsListQueryParams): Promi
   const searchParams = new URLSearchParams();
 
   searchParams.set('limit', params.limit.toString());
-  searchParams.set('min_bet', params.min_bet.toString());
+  if (params.min_bet !== undefined && params.min_bet !== null) {
+    searchParams.set('min_bet', params.min_bet.toString());
+  }
 
   if (params.game_uuid !== undefined && params.game_uuid !== null) {
     searchParams.set('game_uuid', params.game_uuid);
