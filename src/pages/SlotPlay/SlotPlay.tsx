@@ -102,22 +102,30 @@ export const SlotPlay = () => {
   };
 
   return (
-    <div className={`${s.wrapper} ${isFullscreen ? s.fullscreen : s.withHeader}`}>
+    <>
       {!isFullscreen && <Header />}
-      <div className={s.gameContainer}>
-        <button className={s.closeButton} onClick={handleClose} aria-label='Закрыть'>
-          <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
-            <path d='M12 4L4 12M4 4L12 12' stroke='#fff' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round' />
-          </svg>
-        </button>
-        <iframe
-          src={gameUrl}
-          className={s.gameFrame}
-          title='Slot Game'
-          allow='fullscreen; autoplay; encrypted-media'
-          allowFullScreen
-        />
+      <div className={`${s.wrapper} ${isFullscreen ? s.fullscreen : s.withHeader}`}>
+        <div className={s.gameContainer}>
+          <button className={s.closeButton} onClick={handleClose} aria-label='Закрыть'>
+            <svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
+              <path
+                d='M12 4L4 12M4 4L12 12'
+                stroke='#fff'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              />
+            </svg>
+          </button>
+          <iframe
+            src={gameUrl}
+            className={s.gameFrame}
+            title='Slot Game'
+            allow='fullscreen; autoplay; encrypted-media'
+            allowFullScreen
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
