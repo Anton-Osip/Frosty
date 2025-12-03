@@ -39,9 +39,9 @@ const formatAmount = (amount: number): string => {
 };
 
 export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPageChange, uuid }: SlotsStatsProps) => {
-  const { fetchMyBetsList, data: myBetsData } = useMyBetsStore();
-  const { fetchTotalBetsList, data: totalBetsData } = useTotalBetsStore();
-  const { fetchHighBetsList, data: highBetsData } = useHighBetsStore();
+  const { fetchMyBetsList, data: myBetsData, isLoading: isMyBetsLoading } = useMyBetsStore();
+  const { fetchTotalBetsList, data: totalBetsData, isLoading: isTotalBetsLoading } = useTotalBetsStore();
+  const { fetchHighBetsList, data: highBetsData, isLoading: isHighBetsLoading } = useHighBetsStore();
   const { userId } = useAuthStore();
 
   useEffect(() => {
@@ -59,6 +59,17 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
       fetchHighBetsList({ ...commonParams, user_id: null, min_bet: 1 } as GetHighBetsListQueryParams);
     }
   }, [activeTab, fetchMyBetsList, fetchTotalBetsList, fetchHighBetsList, itemsPerPage, userId, uuid]);
+
+  const isLoading = useMemo(() => {
+    if (activeTab === 'my_bets') {
+      return isMyBetsLoading;
+    } else if (activeTab === 'all_bets') {
+      return isTotalBetsLoading;
+    } else if (activeTab === 'big_players') {
+      return isHighBetsLoading;
+    }
+    return false;
+  }, [activeTab, isMyBetsLoading, isTotalBetsLoading, isHighBetsLoading]);
 
   const items: GameStatItem[] = useMemo(() => {
     const dataMap: Record<string, typeof myBetsData | typeof totalBetsData | typeof highBetsData> = {
@@ -91,7 +102,7 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
           height={55}
         />
       </div>
-      <GameStatTable items={items} />
+      <GameStatTable items={items} isLoading={isLoading} />
     </div>
   );
 };

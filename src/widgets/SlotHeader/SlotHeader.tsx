@@ -49,8 +49,21 @@ export const SlotHeader = ({
         <div className={s.descriptionHeartToggle}>
           <div className={s.descriptionHeart}>
             <div className={s.titleDescription}>
-              <h1 className={s.title}>{name || `Детали слота ${id}`}</h1>
-              {description && <p className={s.description}>{description}</p>}
+              {isLoading ? (
+                <>
+                  <div className={s.skeletonTitle}>
+                    <div className={s.skeletonShimmer} />
+                  </div>
+                  <div className={s.skeletonDescription}>
+                    <div className={s.skeletonShimmer} />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h1 className={s.title}>{name || `Детали слота ${id}`}</h1>
+                  {description && <p className={s.description}>{description}</p>}
+                </>
+              )}
             </div>
             <button
               className={s.heartButton}

@@ -102,6 +102,25 @@
   margin: 0;
 }
 
+.skeletonTitle {
+  width: 70%;
+  height: 28px;
+  border-radius: 4px;
+  background: var(--dark-on, #212738);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeletonDescription {
+  width: 90%;
+  height: 20px;
+  border-radius: 4px;
+  background: var(--dark-on, #212738);
+  position: relative;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
 .heartButton {
   width: 24px;
   height: 24px;

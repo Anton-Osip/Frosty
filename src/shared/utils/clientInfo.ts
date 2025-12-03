@@ -105,3 +105,16 @@ export const getDeviceType = (): string => {
 
   return 'desktop';
 };
+
+export const isMobile = (): boolean => {
+  const userAgent = navigator.userAgent;
+  const width = window.innerWidth || screen.width;
+
+  return (
+    userAgent.includes('Mobile') ||
+    userAgent.includes('Android') ||
+    userAgent.includes('iPhone') ||
+    userAgent.includes('iPad') ||
+    width <= 768
+  );
+};
