@@ -11,3 +11,4 @@ export { useHighBetsStore } from './highBetsStore';
 export { useTopPlayersTodayStore } from './topPlayersTodayStore';
 export { useGameBigWinsStore } from './gameBigWinsStore';
 export { useGameLuckyBetsStore } from './gameLuckyBetsStore';
+export { useErrorPageStore } from './errorPageStore';

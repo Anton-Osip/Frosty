@@ -1,30 +1,28 @@
 import s from './Error.module.css';
-import { BrandLogo, TelegramIcon } from '../../shared/ui/icons';
+import { BrandLogo } from '../../shared/ui/icons';
 import { Button } from '../../shared/ui/components';
+import { useErrorPageStore } from '../../shared/stores';
 
 export const Error = () => {
-  const handleTelegramClick = () => {
-    // Логика для открытия Telegram
-    window.open('https://t.me/frosted', '_blank');
-  };
+  const { title, description, button } = useErrorPageStore();
 
   return (
     <div className={s.error}>
       <div className={s.icon}>
         <BrandLogo />
       </div>
-      <h2 className={s.title}>Ошибка доступа!</h2>
-      <p className={s.message}>Перезапустите мини-приложение</p>
+      <h2 className={s.title}>{title}</h2>
+      <p className={s.message}>{description}</p>
       <Button
-        onClick={handleTelegramClick}
+        onClick={button.onClick}
         variant='dark'
         width='170px'
         height='39px'
         borderRadius={10}
         className={s.telegramButton}
       >
-        <TelegramIcon size={20} />
-        <span>Frosty Casino</span>
+        {button.icon}
+        {button.label}
       </Button>
     </div>
   );
