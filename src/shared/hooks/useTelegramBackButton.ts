@@ -2,6 +2,10 @@ import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ROUTES } from '../config/routes';
 
+interface LocationState {
+  fromPreloader?: boolean;
+}
+
 export const useTelegramBackButton = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,7 +24,14 @@ export const useTelegramBackButton = () => {
 
         const BackButton = WebApp.BackButton;
 
-        const shouldShowBackButton = location.pathname !== ROUTES.ROOT && location.pathname !== ROUTES.SLOTS;
+        let shouldShowBackButton = location.pathname !== ROUTES.ROOT && location.pathname !== ROUTES.SLOTS;
+
+        if (location.pathname === ROUTES.ERROR) {
+          const locationState = location.state as LocationState | null;
+          if (locationState?.fromPreloader) {
+            shouldShowBackButton = false;
+          }
+        }
 
         if (shouldShowBackButton) {
           BackButton.show();
@@ -45,7 +56,7 @@ export const useTelegramBackButton = () => {
               navigate(ROUTES.SLOTS, { replace: false });
             }
           } else if (currentPath === ROUTES.ERROR) {
-            navigate(ROUTES.SLOTS, { replace: false });
+            navigate(-1);
           } else if (currentPath.startsWith('/slot/')) {
             navigate(ROUTES.SLOTS, { replace: false });
           } else {
@@ -71,5 +82,5 @@ export const useTelegramBackButton = () => {
       }
       isNavigatingRef.current = false;
     };
-  }, [location.pathname, navigate]);
+  }, [location.pathname, location.state, navigate]);
 };
