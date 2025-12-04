@@ -98,7 +98,11 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
           className={s.statsDropdown}
           options={ITEMS_PER_PAGE_OPTIONS}
           value={itemsPerPage}
-          onChange={onItemsPerPageChange}
+          onChange={option => {
+            if (!Array.isArray(option)) {
+              onItemsPerPageChange(option);
+            }
+          }}
           variant='default'
           height={55}
         />

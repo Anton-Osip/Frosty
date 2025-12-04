@@ -10,7 +10,7 @@ type SlotsFiltersProps = {
   popularFilter: string;
   searchQuery?: string;
   onProviderChange: (option: Option | Option[]) => void;
-  onPopularChange: (option: Option) => void;
+  onPopularChange: (option: Option | Option[]) => void;
   onSearchChange?: (value: string) => void;
 };
 
@@ -61,11 +61,7 @@ export const SlotsFilters = ({
           className={s.dropdown}
           options={POPULAR_OPTIONS}
           value={popularFilter}
-          onChange={option => {
-            if (!Array.isArray(option)) {
-              onPopularChange(option);
-            }
-          }}
+          onChange={onPopularChange}
           variant='default'
         />
       </div>

@@ -169,6 +169,14 @@
   width: 100%;
 }
 
+.optionLabel {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  flex: 1;
+  min-width: 0;
+}
+
 .optionRadio {
   position: relative;
   width: 19px;

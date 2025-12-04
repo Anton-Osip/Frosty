@@ -87,7 +87,11 @@ export const Slots = () => {
     [],
   );
   const handlePopularChange = useCallback(
-    (option: { label: string; value: string }) => setPopularFilter(option.value),
+    (option: { label: string; value: string } | { label: string; value: string }[]) => {
+      if (!Array.isArray(option)) {
+        setPopularFilter(option.value);
+      }
+    },
     [],
   );
   const handleItemsPerPageChange = useCallback(
