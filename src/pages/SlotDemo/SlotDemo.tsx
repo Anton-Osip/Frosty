@@ -22,6 +22,8 @@ export const SlotDemo = () => {
   const setErrorPage = useErrorPageStore(state => state.setErrorPage);
   const { isFullscreen } = useGameViewStore();
   const hasInitializedRef = useRef<string | null>(null);
+  const errorHandledRef = useRef<string | null>(null);
+  const loadingStartedRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!uuid) {
@@ -31,8 +33,16 @@ export const SlotDemo = () => {
     if (hasInitializedRef.current !== uuid) {
       reset();
       hasInitializedRef.current = uuid;
+      errorHandledRef.current = null;
+      loadingStartedRef.current = null;
     }
   }, [uuid, reset]);
+
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
 
   useEffect(() => {
     if (!uuid) {
@@ -40,6 +50,7 @@ export const SlotDemo = () => {
     }
 
     if (hasInitializedRef.current === uuid && !isDemoLoading && !demoUrl && !error) {
+      loadingStartedRef.current = uuid;
       initDemoGame({ game_uuid: uuid }).catch(err => {
         console.error('Failed to initialize demo game:', err);
       });
@@ -47,12 +58,21 @@ export const SlotDemo = () => {
   }, [uuid, initDemoGame, isDemoLoading, demoUrl, error]);
 
   useEffect(() => {
-    if (errorStatusCode === 500) {
-      setErrorPage('unexpected_error');
-      reset();
-      navigate(ROUTES.ERROR, { replace: true });
+    if (
+      !demoUrl &&
+      !isDemoLoading &&
+      hasInitializedRef.current === uuid &&
+      loadingStartedRef.current === uuid &&
+      errorHandledRef.current !== uuid
+    ) {
+      if (errorStatusCode === 500) {
+        errorHandledRef.current = uuid;
+        setErrorPage('unexpected_error');
+        reset();
+        navigate(ROUTES.ERROR, { replace: true });
+      }
     }
-  }, [errorStatusCode, navigate, reset, setErrorPage]);
+  }, [errorStatusCode, demoUrl, isDemoLoading, uuid, navigate, reset, setErrorPage]);
 
   if (!uuid) {
     return <LoadingScreen />;

@@ -17,7 +17,14 @@ export const Slot = () => {
   const { id: uuid } = useParams();
   const navigate = useNavigate();
   const { userId } = useAuthStore();
-  const { fetchGameInfo, data, isLoading, toggleFavorite, isTogglingFavorite } = useGameInfoStore();
+  const {
+    fetchGameInfo,
+    data,
+    isLoading,
+    toggleFavorite,
+    isTogglingFavorite,
+    reset: resetInfoStore,
+  } = useGameInfoStore();
   const { fetchSlotsAccess, data: slotsAccessData, errorStatusCode, reset } = useSlotsAccessStore();
   const { setFullscreen } = useGameViewStore();
   const setErrorPage = useErrorPageStore(state => state.setErrorPage);
@@ -31,6 +38,12 @@ export const Slot = () => {
   useEffect(() => {
     setFullscreen(isToggleOn);
   }, [isToggleOn, setFullscreen]);
+
+  useEffect(() => {
+    return () => {
+      resetInfoStore();
+    };
+  }, [resetInfoStore]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

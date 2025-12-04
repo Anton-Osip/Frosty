@@ -23,6 +23,8 @@ export const SlotPlay = () => {
   const setErrorPage = useErrorPageStore(state => state.setErrorPage);
   const { isFullscreen } = useGameViewStore();
   const hasInitializedRef = useRef<string | null>(null);
+  const errorHandledRef = useRef<string | null>(null);
+  const loadingStartedRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (!uuid) {
@@ -32,8 +34,16 @@ export const SlotPlay = () => {
     if (hasInitializedRef.current !== uuid) {
       reset();
       hasInitializedRef.current = uuid;
+      errorHandledRef.current = null;
+      loadingStartedRef.current = null;
     }
   }, [uuid, reset]);
+
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
 
   useEffect(() => {
     if (!uuid || !userId) {
@@ -41,6 +51,7 @@ export const SlotPlay = () => {
     }
 
     if (hasInitializedRef.current === uuid && !isLoading && !gameUrl && !error) {
+      loadingStartedRef.current = uuid;
       initGame({ user_id: userId, game_uuid: uuid }).catch(err => {
         console.error('Failed to initialize game:', err);
       });
@@ -48,16 +59,26 @@ export const SlotPlay = () => {
   }, [uuid, userId, initGame, isLoading, gameUrl, error]);
 
   useEffect(() => {
-    if (deniedDetail && deniedDetail.code === 'slots_access_denied') {
-      setErrorPage('game_block');
-      reset();
-      navigate(ROUTES.ERROR, { replace: true });
-    } else if (errorStatusCode === 500) {
-      setErrorPage('unexpected_error');
-      reset();
-      navigate(ROUTES.ERROR, { replace: true });
+    if (
+      !gameUrl &&
+      !isLoading &&
+      hasInitializedRef.current === uuid &&
+      loadingStartedRef.current === uuid &&
+      errorHandledRef.current !== uuid
+    ) {
+      if (deniedDetail && deniedDetail.code === 'slots_access_denied') {
+        errorHandledRef.current = uuid;
+        setErrorPage('game_block');
+        reset();
+        navigate(ROUTES.ERROR, { replace: true });
+      } else if (errorStatusCode === 500) {
+        errorHandledRef.current = uuid;
+        setErrorPage('unexpected_error');
+        reset();
+        navigate(ROUTES.ERROR, { replace: true });
+      }
     }
-  }, [deniedDetail, errorStatusCode, navigate, reset, setErrorPage]);
+  }, [deniedDetail, errorStatusCode, gameUrl, isLoading, uuid, navigate, reset, setErrorPage]);
 
   if (!uuid || !userId) {
     return <LoadingScreen />;

@@ -1,19 +1,24 @@
 import { BrowserRouter as Router, Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, type ReactNode } from 'react';
 import { Preloader, Slots, Error, Slot, SlotPlay, SlotDemo } from './pages';
 import { Header } from './widgets';
 import { ROUTES } from './shared/config/routes';
+import { useTelegramBackButton } from './shared/hooks/useTelegramBackButton';
 
-const AppLayout = () => (
-  <div className='page'>
-    <Header />
-    <main className='content'>
-      <Suspense fallback={<Preloader />}>
-        <Outlet />
-      </Suspense>
-    </main>
-  </div>
-);
+const AppLayout = () => {
+  useTelegramBackButton();
+
+  return (
+    <div className='page'>
+      <Header />
+      <main className='content'>
+        <Suspense fallback={<Preloader />}>
+          <Outlet />
+        </Suspense>
+      </main>
+    </div>
+  );
+};
 
 function App() {
   return (
@@ -24,13 +29,39 @@ function App() {
           <Route path={ROUTES.SLOTS} element={<Slots />} />
           <Route path={ROUTES.SLOT} element={<Slot />} />
         </Route>
-        <Route path={ROUTES.SLOT_PLAY} element={<SlotPlay />} />
-        <Route path={ROUTES.SLOT_DEMO} element={<SlotDemo />} />
-        <Route path={ROUTES.ERROR} element={<Error />} />
+        <Route
+          path={ROUTES.SLOT_PLAY}
+          element={
+            <TelegramBackButtonWrapper>
+              <SlotPlay />
+            </TelegramBackButtonWrapper>
+          }
+        />
+        <Route
+          path={ROUTES.SLOT_DEMO}
+          element={
+            <TelegramBackButtonWrapper>
+              <SlotDemo />
+            </TelegramBackButtonWrapper>
+          }
+        />
+        <Route
+          path={ROUTES.ERROR}
+          element={
+            <TelegramBackButtonWrapper>
+              <Error />
+            </TelegramBackButtonWrapper>
+          }
+        />
         <Route path='*' element={<Navigate to={ROUTES.ERROR} replace />} />
       </Routes>
     </Router>
   );
 }
+
+const TelegramBackButtonWrapper = ({ children }: { children: ReactNode }) => {
+  useTelegramBackButton();
+  return <>{children}</>;
+};
 
 export default App;
