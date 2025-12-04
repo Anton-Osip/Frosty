@@ -38,6 +38,12 @@
 
 .input::placeholder {
   color: var(--light-description);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.inputFocused::placeholder {
+  opacity: 0;
 }
 
 .input:focus {

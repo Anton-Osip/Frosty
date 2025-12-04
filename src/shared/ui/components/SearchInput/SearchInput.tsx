@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import s from './SearchInput.module.css';
 import { SearchIcon } from '../../icons';
 import type { InputHTMLAttributes } from 'react';
@@ -10,7 +11,9 @@ type SearchInputProps = {
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'>;
 
 export const SearchInput = ({ className, placeholder = 'Поиск', value, onChange, ...props }: SearchInputProps) => {
+  const [isFocused, setIsFocused] = useState(false);
   const rootClassName = className ? `${s.root} ${className}` : s.root;
+  const inputClassName = isFocused ? `${s.input} ${s.inputFocused}` : s.input;
 
   return (
     <label className={rootClassName}>
@@ -18,12 +21,14 @@ export const SearchInput = ({ className, placeholder = 'Поиск', value, onCh
         <SearchIcon />
       </span>
       <input
-        className={s.input}
+        className={inputClassName}
         type='search'
         placeholder={placeholder}
         aria-label={placeholder}
         value={value}
         onChange={e => onChange?.(e.target.value)}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         {...props}
       />
     </label>
