@@ -44,13 +44,12 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
     },
   },
   unexpected_error: {
-    title: 'Ошибка доступа!',
-    description: 'Перезапустите мини-приложение',
+    title: 'Ошибка сервера!',
+    description: 'Произошла внутренняя ошибка сервера. Пожалуйста, попробуйте позже или перезапустите мини-приложение.',
     button: {
-      label: 'Frosty Casino',
-      icon: (): ReactNode => createElement(TelegramIcon, { size: 20 }),
+      label: 'Назад',
       onClick: () => {
-        window.open('https://t.me/frosted', '_blank');
+        window.history.back();
       },
     },
   },
