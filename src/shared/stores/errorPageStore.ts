@@ -44,8 +44,8 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
     },
   },
   unexpected_error: {
-    title: 'Ошибка доступа!',
-    description: 'Перезапустите мини-приложение',
+    title: 'Ошибка сервера!',
+    description: 'Произошла внутренняя ошибка сервера. Пожалуйста, попробуйте позже или перезапустите мини-приложение.',
     button: {
       label: 'Назад',
       onClick: () => {

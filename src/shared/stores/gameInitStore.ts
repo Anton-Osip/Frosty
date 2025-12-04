@@ -7,8 +7,6 @@ import {
   type InitGameDeniedDetail,
   type GameInitError,
 } from '../api/slotegrator/gameInit';
-import { useErrorPageStore } from './errorPageStore';
-import { ROUTES } from '../config/routes';
 
 interface GameInitState {
   isLoading: boolean;
@@ -46,8 +44,6 @@ export const useGameInitStore = create<GameInitState>(set => ({
       });
     } catch (error) {
       const gameInitError = error as GameInitError;
-      const setErrorPage = useErrorPageStore.getState().setErrorPage;
-
       if (gameInitError.deniedDetail) {
         set({
           isLoading: false,
@@ -56,11 +52,6 @@ export const useGameInitStore = create<GameInitState>(set => ({
           deniedDetail: gameInitError.deniedDetail,
           gameUrl: null,
         });
-
-        if (gameInitError.deniedDetail.code === 'slots_access_denied') {
-          setErrorPage('game_block');
-          window.location.href = ROUTES.ERROR;
-        }
       } else {
         const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
         set({
@@ -70,11 +61,6 @@ export const useGameInitStore = create<GameInitState>(set => ({
           deniedDetail: null,
           gameUrl: null,
         });
-
-        if (gameInitError.statusCode === 500) {
-          setErrorPage('unexpected_error');
-          window.location.href = ROUTES.ERROR;
-        }
       }
     }
   },

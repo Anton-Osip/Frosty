@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import s from './Slots.module.css';
 import { SlotsSection, SlotsFilters, SlotsGrid, SlotsStats } from '../../widgets';
-import { useAuthStore, useGamesStore, useUserInfoStore } from '../../shared/stores';
+import { useAuthStore, useBalanceStore, useGamesStore, useUserInfoStore } from '../../shared/stores';
 import type { GetGamesQueryParams } from '../../shared/api/slotegrator/games.ts';
 import { isMobile } from '../../shared/utils/clientInfo';
 
 export const Slots = () => {
   const { userId } = useAuthStore();
   const { fetchUserInfo } = useUserInfoStore();
+  const { fetchBalance } = useBalanceStore();
   const { fetchGames, loadMore, data: gamesData, isLoading, isLoadingMore } = useGamesStore();
   const [providerFilter, setProviderFilter] = useState<string | string[]>('all');
   const [popularFilter, setPopularFilter] = useState('popular');
@@ -21,6 +22,12 @@ export const Slots = () => {
       fetchUserInfo(userId);
     }
   }, [fetchUserInfo, userId]);
+
+  useEffect(() => {
+    if (userId) {
+      fetchBalance(userId);
+    }
+  }, [fetchBalance, userId]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

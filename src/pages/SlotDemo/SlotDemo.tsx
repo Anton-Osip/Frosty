@@ -2,7 +2,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import Lottie from 'lottie-react';
 import s from './SlotDemo.module.css';
-import {  useGameInitStore, useGameViewStore } from '../../shared/stores';
+import { useErrorPageStore, useGameInitStore, useGameViewStore } from '../../shared/stores';
+import { ROUTES } from '../../shared/config/routes';
 import chipAnimation from '../../assets/anomation/chip.json';
 import logoAnimation from '../../assets/anomation/logo.json';
 import { Header } from '../../widgets';
@@ -17,7 +18,8 @@ const LoadingScreen = () => (
 export const SlotDemo = () => {
   const { id: uuid } = useParams();
   const navigate = useNavigate();
-  const { initDemoGame, demoUrl, isDemoLoading, error, reset } = useGameInitStore();
+  const { initDemoGame, demoUrl, isDemoLoading, error, reset, errorStatusCode } = useGameInitStore();
+  const setErrorPage = useErrorPageStore(state => state.setErrorPage);
   const { isFullscreen } = useGameViewStore();
   const hasInitializedRef = useRef<string | null>(null);
   const errorHandledRef = useRef<string | null>(null);
@@ -55,6 +57,22 @@ export const SlotDemo = () => {
     }
   }, [uuid, initDemoGame, isDemoLoading, demoUrl, error]);
 
+  useEffect(() => {
+    if (
+      !demoUrl &&
+      !isDemoLoading &&
+      hasInitializedRef.current === uuid &&
+      loadingStartedRef.current === uuid &&
+      errorHandledRef.current !== uuid
+    ) {
+      if (errorStatusCode === 500) {
+        errorHandledRef.current = uuid;
+        setErrorPage('unexpected_error');
+        reset();
+        navigate(ROUTES.ERROR, { replace: true });
+      }
+    }
+  }, [errorStatusCode, demoUrl, isDemoLoading, uuid, navigate, reset, setErrorPage]);
 
   if (!uuid) {
     return <LoadingScreen />;

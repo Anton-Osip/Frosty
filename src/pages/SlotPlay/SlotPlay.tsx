@@ -71,6 +71,11 @@ export const SlotPlay = () => {
         setErrorPage('game_block');
         reset();
         navigate(ROUTES.ERROR, { replace: true });
+      } else if (errorStatusCode === 500) {
+        errorHandledRef.current = uuid;
+        setErrorPage('unexpected_error');
+        reset();
+        navigate(ROUTES.ERROR, { replace: true });
       }
     }
   }, [deniedDetail, errorStatusCode, gameUrl, isLoading, uuid, navigate, reset, setErrorPage]);

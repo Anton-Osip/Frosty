@@ -1,21 +1,14 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import s from './Header.module.css';
 import { Brand, BalanceCard, UserPhoto } from '../../shared/ui/components';
 import { useBalanceStore, useAuthStore, useUserInfoStore } from '../../shared/stores';
 
 export const Header = () => {
-  const { data, fetchBalance } = useBalanceStore();
-  const { userId } = useAuthStore();
+  const { data } = useBalanceStore();
   const { userPhoto } = useAuthStore();
   const { data: userInfo } = useUserInfoStore();
 
   const avatarUrl = userPhoto || userInfo?.avatar_url || undefined;
-
-  useEffect(() => {
-    if (userId) {
-      fetchBalance(userId);
-    }
-  }, [fetchBalance, userId]);
 
   const handleChevronVerticalClick = useCallback(() => {
     // Логика открытия меню пользователя
