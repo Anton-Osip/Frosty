@@ -151,6 +151,12 @@
   background: #e1e4ea;
 }
 
+@media screen and (max-width: 395px) {
+  .option {
+    padding: 10px 12px;
+  }
+}
+
 .optionNumber {
   color: #727e9b;
   font-family: 'Suisse Intl', sans-serif;
