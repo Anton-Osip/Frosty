@@ -9,7 +9,7 @@ import { useAuthStore, useErrorPageStore } from '../../shared/stores';
 
 export const Preloader = () => {
   const navigate = useNavigate();
-  const { verify, isLoading, data, error } = useAuthStore();
+  const { verify, isLoading, data, error, reset } = useAuthStore();
   const { setErrorPage } = useErrorPageStore();
   useEffect(() => {
     verify();
@@ -23,12 +23,14 @@ export const Preloader = () => {
         navigate(ROUTES.SLOTS, { replace: true });
       } else {
         setErrorPage(data.reason);
+        reset();
         navigate(ROUTES.ERROR, { replace: true });
       }
     } else if (error) {
+      reset();
       navigate(ROUTES.ERROR, { replace: true });
     }
-  }, [isLoading, data, error, navigate, setErrorPage]);
+  }, [isLoading, data, error, navigate, setErrorPage, reset]);
 
   return (
     <div className={s.preloader}>

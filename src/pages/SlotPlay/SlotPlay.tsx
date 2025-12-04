@@ -19,11 +19,10 @@ export const SlotPlay = () => {
   const { id: uuid } = useParams();
   const navigate = useNavigate();
   const { userId } = useAuthStore();
-  const { initGame, gameUrl, isLoading, error, reset } = useGameInitStore();
+  const { initGame, gameUrl, isLoading, error, reset, deniedDetail, errorStatusCode } = useGameInitStore();
   const setErrorPage = useErrorPageStore(state => state.setErrorPage);
   const { isFullscreen } = useGameViewStore();
   const hasInitializedRef = useRef<string | null>(null);
-  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!uuid) {
@@ -49,45 +48,16 @@ export const SlotPlay = () => {
   }, [uuid, userId, initGame, isLoading, gameUrl, error]);
 
   useEffect(() => {
-    if (error) {
+    if (deniedDetail && deniedDetail.code === 'slots_access_denied') {
       setErrorPage('game_block');
+      reset();
+      navigate(ROUTES.ERROR, { replace: true });
+    } else if (errorStatusCode === 500) {
+      setErrorPage('unexpected_error');
+      reset();
       navigate(ROUTES.ERROR, { replace: true });
     }
-  }, [error, navigate, setErrorPage]);
-
-  // Таймаут на 6 секунд: если игра не запустилась, перенаправляем на ошибку
-  useEffect(() => {
-    if (!uuid || !userId) {
-      return;
-    }
-
-    // Если началась загрузка игры, запускаем таймер
-    if (isLoading && !gameUrl && !error) {
-      timeoutRef.current = setTimeout(() => {
-        // Проверяем, что игра все еще не загрузилась
-        if (isLoading || !gameUrl) {
-          setErrorPage('game_block');
-          navigate(ROUTES.ERROR, { replace: true });
-        }
-      }, 6000);
-    }
-
-    // Если игра загрузилась или произошла ошибка, очищаем таймер
-    if (gameUrl || error) {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-    }
-
-    // Очистка таймера при размонтировании или изменении uuid
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-    };
-  }, [uuid, userId, isLoading, gameUrl, error, navigate, setErrorPage]);
+  }, [deniedDetail, errorStatusCode, navigate, reset, setErrorPage]);
 
   if (!uuid || !userId) {
     return <LoadingScreen />;

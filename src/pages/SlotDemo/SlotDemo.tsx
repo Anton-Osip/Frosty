@@ -18,11 +18,10 @@ const LoadingScreen = () => (
 export const SlotDemo = () => {
   const { id: uuid } = useParams();
   const navigate = useNavigate();
-  const { initDemoGame, demoUrl, isDemoLoading, error, reset } = useGameInitStore();
+  const { initDemoGame, demoUrl, isDemoLoading, error, reset, errorStatusCode } = useGameInitStore();
   const setErrorPage = useErrorPageStore(state => state.setErrorPage);
   const { isFullscreen } = useGameViewStore();
   const hasInitializedRef = useRef<string | null>(null);
-  const timeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!uuid) {
@@ -48,40 +47,12 @@ export const SlotDemo = () => {
   }, [uuid, initDemoGame, isDemoLoading, demoUrl, error]);
 
   useEffect(() => {
-    if (error) {
-      setErrorPage('game_block');
+    if (errorStatusCode === 500) {
+      setErrorPage('unexpected_error');
+      reset();
       navigate(ROUTES.ERROR, { replace: true });
     }
-  }, [error, navigate, setErrorPage]);
-
-  useEffect(() => {
-    if (!uuid) {
-      return;
-    }
-
-    if (isDemoLoading && !demoUrl && !error) {
-      timeoutRef.current = setTimeout(() => {
-        if (isDemoLoading || !demoUrl) {
-          setErrorPage('game_block');
-          navigate(ROUTES.ERROR, { replace: true });
-        }
-      }, 6000);
-    }
-
-    if (demoUrl || error) {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-    }
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-    };
-  }, [uuid, isDemoLoading, demoUrl, error, navigate, setErrorPage]);
+  }, [errorStatusCode, navigate, reset, setErrorPage]);
 
   if (!uuid) {
     return <LoadingScreen />;
