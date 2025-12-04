@@ -36,31 +36,52 @@ export const useGameInfoStore = create<GameInfoState>(set => ({
   },
 
   toggleFavorite: async (uuid: string, userId: number) => {
-    set({ isTogglingFavorite: true, error: null });
+    set(state => {
+      const currentData = state.data;
+      const isFavorite = currentData?.is_favorite || false;
+
+      // Оптимистично меняем флаг избранного сразу
+      return {
+        isTogglingFavorite: true,
+        error: null,
+        data: currentData
+          ? {
+              ...currentData,
+              is_favorite: !isFavorite,
+            }
+          : null,
+      };
+    });
 
     try {
       const currentData = useGameInfoStore.getState().data;
       const isFavorite = currentData?.is_favorite || false;
 
       if (isFavorite) {
-        await removeFromFavorites(uuid, userId);
-      } else {
         await addToFavorites(uuid, userId);
+      } else {
+        await removeFromFavorites(uuid, userId);
       }
 
-      set(state => ({
+      const refreshed = await getGameInfo(uuid, { user_id: userId, region: null });
+
+      set({
         isTogglingFavorite: false,
-        data: state.data
-          ? {
-              ...state.data,
-              is_favorite: !isFavorite,
-            }
-          : null,
+        data: refreshed,
         error: null,
-      }));
+      });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
-      set({ isTogglingFavorite: false, error: errorMessage });
+      try {
+        const fallback = await getGameInfo(uuid, { user_id: userId, region: null });
+        set({
+          isTogglingFavorite: false,
+          data: fallback,
+          error: errorMessage,
+        });
+      } catch {
+        set({ isTogglingFavorite: false, error: errorMessage });
+      }
     }
   },
 

@@ -39,6 +39,25 @@
   width: 100%;
 }
 
+.loadMore {
+  min-width: 172px;
+}
+
+.loader {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .skeletonSlot {
   width: 100%;
   aspect-ratio: 114/149;

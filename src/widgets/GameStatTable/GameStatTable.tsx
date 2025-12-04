@@ -6,6 +6,7 @@ export type GameStatItem = {
   amount?: string;
   imageSrc?: string;
   highlight?: boolean;
+  gameUuid?: string;
 };
 
 type Props = {
@@ -51,6 +52,7 @@ export const GameStatTable = ({ items, className, isLoading = false }: Props) =>
               imageSrc={item.imageSrc}
               className={item.highlight ? s.rowHighlight : s.rowDefault}
               highlight={item.highlight}
+              gameUuid={item.gameUuid}
             />
           ))
         )}

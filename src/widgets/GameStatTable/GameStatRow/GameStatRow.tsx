@@ -1,5 +1,7 @@
 import type { CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './GameStatRow.module.css';
+import { getSlotRoute } from '../../../shared/config/routes';
 
 type Props = {
   name?: string;
@@ -7,9 +9,12 @@ type Props = {
   imageSrc?: string;
   className?: string;
   highlight?: boolean;
+  gameUuid?: string;
 };
 
-export const GameStatRow = ({ name = 'Dice', amount = '0,00', imageSrc, className, highlight }: Props) => {
+export const GameStatRow = ({ name = 'Dice', amount = '0,00', imageSrc, className, highlight, gameUuid }: Props) => {
+  const navigate = useNavigate();
+
   const rootClassName = [s.root, className ?? ''].filter(Boolean).join(' ');
   const amountClassName = highlight ? s.amountHighlight : s.amount;
 
@@ -21,8 +26,14 @@ export const GameStatRow = ({ name = 'Dice', amount = '0,00', imageSrc, classNam
       }
     : {};
 
+  const handleClick = () => {
+    if (!gameUuid) return;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate(getSlotRoute(gameUuid));
+  };
+
   return (
-    <div className={rootClassName}>
+    <div className={rootClassName} onClick={handleClick}>
       <div className={s.left}>
         <div className={s.thumb} style={thumbStyle} aria-hidden='true' />
         <span className={s.name} title={name}>

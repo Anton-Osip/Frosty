@@ -56,8 +56,15 @@ export const SlotsGrid = ({ slotsData, isLoading, isLoadingMore = false, onLoadM
       </div>
       {shouldShowButton && onLoadMore && (
         <div className={s.centeredButton}>
-          <Button variant='dark' size='md' onClick={onLoadMore}>
-            Смотреть больше
+          <Button
+            className={s.loadMore}
+            variant='dark'
+            size='md'
+            onClick={onLoadMore}
+            disabled={isLoadingMore}
+            aria-busy={isLoadingMore}
+          >
+            {isLoadingMore ? <span className={s.loader} aria-hidden='true' /> : 'Смотреть больше'}
           </Button>
         </div>
       )}

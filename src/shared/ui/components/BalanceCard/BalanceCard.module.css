@@ -46,7 +46,14 @@
   box-sizing: border-box;
   border-radius: 10px;
   background: var(--accent-main);
-  transition: background-color 0.2s ease-in-out;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+.balanceButton:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15);
 }
 
 .balanceButton:hover {

@@ -86,6 +86,7 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
       amount: formatAmount(bet.amount),
       imageSrc: bet.slot_image_url || undefined,
       highlight: bet.type === 'win',
+      gameUuid: bet.game_uuid || undefined,
     }));
   }, [activeTab, myBetsData, totalBetsData, highBetsData]);
 

@@ -37,6 +37,11 @@
   gap: 8px;
   align-items: center;
   width: 100%;
+  transition: transform 0.2s ease;
+}
+
+.winnerInfo:hover {
+  transform: scale(1.1);
 }
 
 .avatar {

@@ -5,7 +5,8 @@
   overflow: hidden;
   transition:
     transform 0.3s ease,
-    filter 0.3s ease;
+    filter 0.3s ease,
+    box-shadow 0.1s ease;
   will-change: transform;
 }
 
@@ -20,4 +21,9 @@
   cursor: pointer;
   transform: scale(1.05);
   filter: brightness(1.1);
+}
+
+.wrapper:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15);
 }

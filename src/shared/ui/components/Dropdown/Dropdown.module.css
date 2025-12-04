@@ -29,7 +29,14 @@
   letter-spacing: -0.16px;
   cursor: pointer;
   box-sizing: border-box;
-  transition: background-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+.trigger:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.15);
 }
 
 .trigger:hover {
@@ -75,7 +82,7 @@
   box-sizing: border-box;
   opacity: 0;
   min-width: 100%;
-  max-width: max-content;
+  width: 100%;
   transition:
     opacity 0.2s ease,
     transform 0.2s ease;
