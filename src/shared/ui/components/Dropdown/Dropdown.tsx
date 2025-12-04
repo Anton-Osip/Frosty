@@ -10,13 +10,14 @@ type Option = {
 
 type DropdownProps = {
   options: Option[];
-  value: string;
-  onChange: (option: Option) => void;
+  value: string | string[];
+  onChange: (option: Option | Option[]) => void;
   variant?: 'default' | 'hover';
   width?: number | string;
   height?: number | string;
   className?: string;
   scrollable?: boolean;
+  multiple?: boolean;
 };
 
 export const Dropdown = ({
@@ -27,11 +28,23 @@ export const Dropdown = ({
   height = 39,
   className,
   scrollable = false,
+  multiple = false,
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const selectedOption = options.find(option => option.value === value) || options[0];
+  const isMultiple = multiple;
+  const selectedValues = isMultiple ? (Array.isArray(value) ? value : []) : [];
+  const selectedValue = isMultiple ? '' : typeof value === 'string' ? value : '';
+
+  const selectedOption = isMultiple ? null : options.find(option => option.value === selectedValue) || options[0];
+
+  const getDisplayLabel = () => {
+    if (isMultiple) {
+      return 'Провайдеры';
+    }
+    return selectedOption?.label || '';
+  };
 
   const wrapperClassName = `${s.wrapper} ${s[variant]} ${className || ''}`.trim();
 
@@ -47,8 +60,37 @@ export const Dropdown = ({
   }, []);
 
   const handleOptionClick = (option: Option) => {
-    onChange(option);
-    setIsOpen(false);
+    if (isMultiple) {
+      let newValues: string[];
+
+      // Если кликнули на "all" (первая опция обычно "all")
+      if (option.value === options[0]?.value && options[0]?.value === 'all') {
+        if (selectedValues.includes('all')) {
+          // Снимаем выбор с "all"
+          newValues = [];
+        } else {
+          // Выбираем только "all"
+          newValues = ['all'];
+        }
+      } else {
+        // Если выбрана опция не "all"
+        if (selectedValues.includes('all')) {
+          // Если был выбран "all", заменяем его на выбранную опцию
+          newValues = [option.value];
+        } else {
+          // Обычная логика множественного выбора
+          newValues = selectedValues.includes(option.value)
+            ? selectedValues.filter(v => v !== option.value)
+            : [...selectedValues, option.value];
+        }
+      }
+
+      const selectedOptions = options.filter(opt => newValues.includes(opt.value));
+      onChange(selectedOptions);
+    } else {
+      onChange(option);
+      setIsOpen(false);
+    }
   };
 
   const containerHeight = typeof height === 'number' ? `${height}px` : height;
@@ -69,7 +111,7 @@ export const Dropdown = ({
         aria-expanded={isOpen}
         style={{ height: containerHeight }}
       >
-        <span className={s.label}>{selectedOption.label}</span>
+        <span className={s.label}>{getDisplayLabel()}</span>
         <span className={`${s.chevron} ${isOpen ? s.chevronOpen : ''}`} aria-hidden='true'>
           <ChevronHorizontal />
         </span>
@@ -81,7 +123,7 @@ export const Dropdown = ({
       >
         <ul className={`${s.list} ${scrollable ? s.listScrollable : ''}`.trim()}>
           {options.map(option => {
-            const isActive = option.value === value;
+            const isActive = isMultiple ? selectedValues.includes(option.value) : option.value === selectedValue;
 
             return (
               <li key={option.value} role='option'>

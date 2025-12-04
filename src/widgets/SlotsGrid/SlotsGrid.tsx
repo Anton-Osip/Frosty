@@ -46,7 +46,9 @@ export const SlotsGrid = ({ slotsData, isLoading, isLoadingMore = false, onLoadM
         {isLoading ? (
           skeletonItems
         ) : slotsData.length === 0 ? (
-          <div className={s.emptyMessage}>Игр не найдено</div>
+          <div className={s.emptyMessage}>
+            <span>Нет данных для отображения</span>
+          </div>
         ) : (
           <>
             {loadedSurfaceItems}

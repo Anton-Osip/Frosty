@@ -6,10 +6,10 @@ import { useEffect } from 'react';
 type Option = { label: string; value: string };
 
 type SlotsFiltersProps = {
-  providerFilter: string;
+  providerFilter: string | string[];
   popularFilter: string;
   searchQuery?: string;
-  onProviderChange: (option: Option) => void;
+  onProviderChange: (option: Option | Option[]) => void;
   onPopularChange: (option: Option) => void;
   onSearchChange?: (value: string) => void;
 };
@@ -37,7 +37,6 @@ export const SlotsFilters = ({
   }, [fetchProviders, userId]);
 
   const providerOptions: Option[] = [
-    { label: 'Провайдеры', value: 'all' },
     ...(gamesData?.providers.map(provider => ({
       label: provider.label ?? provider.provider,
       value: provider.provider,
@@ -56,12 +55,17 @@ export const SlotsFilters = ({
           value={providerFilter}
           onChange={onProviderChange}
           variant='default'
+          multiple
         />
         <Dropdown
           className={s.dropdown}
           options={POPULAR_OPTIONS}
           value={popularFilter}
-          onChange={onPopularChange}
+          onChange={option => {
+            if (!Array.isArray(option)) {
+              onPopularChange(option);
+            }
+          }}
           variant='default'
         />
       </div>

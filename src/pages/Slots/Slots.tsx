@@ -10,7 +10,7 @@ export const Slots = () => {
   const { fetchUserInfo } = useUserInfoStore();
   const { fetchBalance } = useBalanceStore();
   const { fetchGames, loadMore, data: gamesData, isLoading, isLoadingMore } = useGamesStore();
-  const [providerFilter, setProviderFilter] = useState('all');
+  const [providerFilter, setProviderFilter] = useState<string | string[]>('all');
   const [popularFilter, setPopularFilter] = useState('popular');
   const [activeTab, setActiveTab] = useState('big_players');
   const [itemsPerPage, setItemsPerPage] = useState('10');
@@ -41,7 +41,12 @@ export const Slots = () => {
     if (userId) {
       const data: GetGamesQueryParams = {
         search: debouncedSearchQuery || undefined,
-        providers: providerFilter !== 'all' ? [providerFilter] : undefined,
+        providers:
+          Array.isArray(providerFilter) && providerFilter.length > 0
+            ? providerFilter
+            : typeof providerFilter === 'string' && providerFilter !== 'all'
+              ? [providerFilter]
+              : undefined,
         sort_order:
           popularFilter === 'new'
             ? 'new'
@@ -67,7 +72,18 @@ export const Slots = () => {
   }, [fetchGames, userId, providerFilter, popularFilter, debouncedSearchQuery]);
 
   const handleProviderChange = useCallback(
-    (option: { label: string; value: string }) => setProviderFilter(option.value),
+    (option: { label: string; value: string } | { label: string; value: string }[]) => {
+      if (Array.isArray(option)) {
+        const values = option.map(opt => opt.value);
+        if (values.includes('all') || values.length === 0) {
+          setProviderFilter('all');
+        } else {
+          setProviderFilter(values);
+        }
+      } else {
+        setProviderFilter(option.value);
+      }
+    },
     [],
   );
   const handlePopularChange = useCallback(
@@ -106,7 +122,12 @@ export const Slots = () => {
       last_tx_count: lastGame.tx_count || null,
       last_created_at: lastGame.created_at || null,
       limit: parseInt(itemsPerPage, 9) || 9,
-      providers: providerFilter !== 'all' ? [providerFilter] : undefined,
+      providers:
+        Array.isArray(providerFilter) && providerFilter.length > 0
+          ? providerFilter
+          : typeof providerFilter === 'string' && providerFilter !== 'all'
+            ? [providerFilter]
+            : undefined,
     };
     loadMore(params);
   }, [gamesData, userId, isLoadingMore, debouncedSearchQuery, providerFilter, popularFilter, itemsPerPage, loadMore]);
