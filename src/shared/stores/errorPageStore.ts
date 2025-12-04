@@ -21,12 +21,12 @@ interface ErrorPageState {
 }
 
 const defaultState: Pick<ErrorPageState, 'title' | 'description' | 'button'> = {
-  title: 'Ошибка доступа!',
-  description: 'Перезапустите мини-приложение',
+  title: 'Ошибка сервера!',
+  description: 'Произошла внутренняя ошибка сервера. Пожалуйста, попробуйте позже или перезапустите мини-приложение.',
   button: {
-    label: 'Frosty Casino',
+    label: 'Назад',
     onClick: () => {
-      window.open('https://t.me/frosted', '_blank');
+      window.history.back();
     },
   },
 };

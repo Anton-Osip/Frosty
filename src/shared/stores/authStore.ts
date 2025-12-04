@@ -8,10 +8,12 @@ import {
   getScreenRes,
   getTimezone,
   getOS,
-  getBrowser,
   getDeviceType,
+  getBrowser,
 } from '../utils/clientInfo';
 import { verifyWebappUser, type VerifyWebappUserResponse } from '../api/auth/verifyWebappUser.ts';
+
+const SESSION_STORAGE_KEY = 'telegram_init_data';
 
 interface AuthState {
   isLoading: boolean;
@@ -53,49 +55,80 @@ const extractUserPhotoFromInitData = (initData: string): string | null => {
   }
 };
 
+const restoreFromSessionStorage = (): { userId: number | null; userPhoto: string | null } => {
+  try {
+    const savedInitData = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    if (!savedInitData) {
+      return { userId: null, userPhoto: null };
+    }
+
+    const userId = extractUserIdFromInitData(savedInitData);
+    const userPhoto = extractUserPhotoFromInitData(savedInitData);
+    return { userId, userPhoto };
+  } catch (error) {
+    console.error('Failed to restore from sessionStorage:', error);
+    return { userId: null, userPhoto: null };
+  }
+};
+
+const restoredData = restoreFromSessionStorage();
+
 export const useAuthStore = create<AuthState>(set => ({
   isLoading: false,
   error: null,
   data: null,
-  userId: null,
-  userPhoto: null,
+  userId: restoredData.userId,
+  userPhoto: restoredData.userPhoto,
 
   verify: async () => {
-    set({ isLoading: true, error: null });
+        set({ isLoading: true, error: null });
 
-    try {
-      const [webAppModule, clientIp] = await Promise.all([
-        import('@twa-dev/sdk'),
-        getIpWithTimeout(600),
-        Promise.resolve(getClientFingerprint()),
-      ]);
-      const WebApp = webAppModule.default;
-      const initData = WebApp.initData || '';
-      const userId = extractUserIdFromInitData(initData);
-      const userPhoto = extractUserPhotoFromInitData(initData);
-      const requestData = {
-        init_data: initData,
-        client_ip: clientIp,
-        userAgent: getUserAgent(),
-        language: getLanguage(),
-        platform: getPlatform(),
-        screenRes: getScreenRes(),
-        timezone: getTimezone(),
-        os: getOS(),
-        browser: getBrowser(),
-        deviceType: getDeviceType(),
-      };
+        try {
+          const [webAppModule , clientIp] = await Promise.all([
+            import('@twa-dev/sdk'),
+            getIpWithTimeout(600),
+            Promise.resolve(getClientFingerprint()),
+          ]);
+          const WebApp = webAppModule.default;
+          let initData = WebApp.initData || '';
+          
+          // Если initData пустой, пробуем восстановить из sessionStorage
+          if (!initData) {
+            const savedInitData = sessionStorage.getItem(SESSION_STORAGE_KEY);
+            if (savedInitData) {
+              initData = savedInitData;
+            }
+          } else {
+            sessionStorage.setItem(SESSION_STORAGE_KEY, initData);
+          }
+          
+          const userId = extractUserIdFromInitData(initData);
+          const userPhoto = extractUserPhotoFromInitData(initData);
 
-      const response = await verifyWebappUser(requestData);
+          const requestData = {
+            init_data: initData,
+            client_ip: clientIp,
+            userAgent: getUserAgent(),
+            language: getLanguage(),
+            platform: getPlatform(),
+            screenRes: getScreenRes(),
+            timezone: getTimezone(),
+            os: getOS(),
+            browser: getBrowser(),
+            deviceType: getDeviceType(),
+          };
 
-      set({ isLoading: false, data: response, error: null, userId, userPhoto });
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
-      set({ isLoading: false, error: errorMessage, data: null, userId: null, userPhoto: null });
-    }
-  },
+          const response = await verifyWebappUser(requestData);
+
+          set({ isLoading: false, data: response, error: null, userId, userPhoto });
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+          set({ isLoading: false, error: errorMessage, data: null, userId: null, userPhoto: null });
+        }
+      },
 
   reset: () => {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
     set({ isLoading: false, error: null, data: null, userId: null, userPhoto: null });
   },
 }));

@@ -20,6 +20,11 @@ const AppLayout = () => {
   );
 };
 
+const TelegramBackButtonWrapper = ({ children }: { children: ReactNode }) => {
+  useTelegramBackButton();
+  return <>{children}</>;
+};
+
 function App() {
   return (
     <Router>
@@ -58,10 +63,5 @@ function App() {
     </Router>
   );
 }
-
-const TelegramBackButtonWrapper = ({ children }: { children: ReactNode }) => {
-  useTelegramBackButton();
-  return <>{children}</>;
-};
 
 export default App;
