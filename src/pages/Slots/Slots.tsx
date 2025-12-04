@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import s from './Slots.module.css';
 import { SlotsSection, SlotsFilters, SlotsGrid, SlotsStats } from '../../widgets';
-import { useAuthStore,  useGamesStore, useUserInfoStore } from '../../shared/stores';
+import { useAuthStore, useGamesStore, useUserInfoStore } from '../../shared/stores';
 import type { GetGamesQueryParams } from '../../shared/api/slotegrator/games.ts';
 import { isMobile } from '../../shared/utils/clientInfo';
 

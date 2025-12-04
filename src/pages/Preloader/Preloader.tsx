@@ -24,11 +24,11 @@ export const Preloader = () => {
       } else {
         setErrorPage(data.reason);
         reset();
-        navigate(ROUTES.ERROR, { replace: true, state: { fromPreloader: true } });
+        navigate(ROUTES.ERROR, { replace: true });
       }
     } else if (error) {
       reset();
-      navigate(ROUTES.ERROR, { replace: true, state: { fromPreloader: true } });
+      navigate(ROUTES.ERROR, { replace: true });
     }
   }, [isLoading, data, error, navigate, setErrorPage, reset]);
 

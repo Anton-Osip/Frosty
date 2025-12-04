@@ -21,12 +21,12 @@ interface ErrorPageState {
 }
 
 const defaultState: Pick<ErrorPageState, 'title' | 'description' | 'button'> = {
-  title: 'Ошибка сервера!',
-  description: 'Произошла внутренняя ошибка сервера. Пожалуйста, попробуйте позже или перезапустите мини-приложение.',
+  title: 'Ошибка доступа!',
+  description: 'Перезапустите мини-приложение',
   button: {
-    label: 'Назад',
+    label: 'Frosty Casino',
     onClick: () => {
-      window.history.back();
+      window.open('https://t.me/frosted', '_blank');
     },
   },
 };
@@ -44,8 +44,8 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
     },
   },
   unexpected_error: {
-    title: 'Ошибка сервера!',
-    description: 'Произошла внутренняя ошибка сервера. Пожалуйста, попробуйте позже или перезапустите мини-приложение.',
+    title: 'Ошибка доступа!',
+    description: 'Перезапустите мини-приложение',
     button: {
       label: 'Назад',
       onClick: () => {

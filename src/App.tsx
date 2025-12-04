@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { Suspense, type ReactNode } from 'react';
+import { BrowserRouter as Router, Navigate, Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Suspense, useEffect, useRef, type ReactNode } from 'react';
 import { Preloader, Slots, Error, Slot, SlotPlay, SlotDemo } from './pages';
 import { Header } from './widgets';
 import { ROUTES } from './shared/config/routes';
@@ -25,9 +25,32 @@ const TelegramBackButtonWrapper = ({ children }: { children: ReactNode }) => {
   return <>{children}</>;
 };
 
+const RedirectToPreloader = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const hasChecked = useRef(false);
+
+  useEffect(() => {
+    if (hasChecked.current) return;
+    hasChecked.current = true;
+
+    // Проверяем, была ли это перезагрузка страницы
+    const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const isPageReload = navigationEntry?.type === 'reload';
+
+    // Если это перезагрузка и мы не на прелоадере или странице ошибки, перенаправляем на прелоадер
+    if (isPageReload && location.pathname !== ROUTES.ROOT && location.pathname !== ROUTES.ERROR) {
+      navigate(ROUTES.ROOT, { replace: true });
+    }
+  }, [navigate, location.pathname]);
+
+  return null;
+};
+
 function App() {
   return (
     <Router>
+      <RedirectToPreloader />
       <Routes>
         <Route path={ROUTES.ROOT} element={<Preloader />} />
         <Route element={<AppLayout />}>
