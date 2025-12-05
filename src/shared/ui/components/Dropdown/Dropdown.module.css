@@ -138,7 +138,7 @@
   font-family: 'Suisse Intl', sans-serif;
   border: none;
   color: #212738;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: -0.16px;
   padding: 10px 12px;
@@ -154,7 +154,7 @@
 .optionNumber {
   color: #727e9b;
   font-family: 'Suisse Intl', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
@@ -175,6 +175,7 @@
   overflow-wrap: break-word;
   flex: 1;
   min-width: 0;
+  font-size: 14px;
 }
 
 .optionRadio {
