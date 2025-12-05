@@ -50,10 +50,7 @@ export const SlotsGrid = ({ slotsData, isLoading, isLoadingMore = false, onLoadM
             <span>Нет данных для отображения</span>
           </div>
         ) : (
-          <>
-            {loadedSurfaceItems}
-            {isLoadingMore && skeletonItems}
-          </>
+          loadedSurfaceItems
         )}
       </div>
       {shouldShowButton && onLoadMore && (
