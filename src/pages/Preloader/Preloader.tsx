@@ -11,6 +11,7 @@ export const Preloader = () => {
   const navigate = useNavigate();
   const { verify, isLoading, data, error, reset } = useAuthStore();
   const { setErrorPage } = useErrorPageStore();
+
   useEffect(() => {
     verify();
   }, [verify]);

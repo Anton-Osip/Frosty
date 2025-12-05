@@ -4,10 +4,23 @@ import './index.css';
 import App from './App.tsx';
 
 import('@twa-dev/sdk')
-  .then(module => {
+  .then(async module => {
     const WebApp = module.default;
-    if (WebApp && WebApp.ready) {
+
+    if (WebApp && typeof WebApp.ready === 'function') {
       WebApp.ready();
+    }
+
+    const isMobile = WebApp && (WebApp.platform === 'android' || WebApp.platform === 'ios');
+
+    if (isMobile) {
+      if (WebApp && typeof WebApp.requestFullscreen === 'function') {
+        try {
+          await WebApp.requestFullscreen();
+        } catch {}
+      } else if (WebApp && typeof WebApp.expand === 'function') {
+        WebApp.expand();
+      }
     }
   })
   .catch(() => {});

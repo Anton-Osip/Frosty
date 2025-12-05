@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import s from './Slots.module.css';
 import { SlotsSection, SlotsFilters, SlotsGrid, SlotsStats } from '../../widgets';
-import { useAuthStore, useBalanceStore, useGamesStore, useUserInfoStore } from '../../shared/stores';
+import { useAuthStore, useGamesStore, useUserInfoStore } from '../../shared/stores';
 import type { GetGamesQueryParams } from '../../shared/api/slotegrator/games.ts';
 import { isMobile } from '../../shared/utils/clientInfo';
 
 export const Slots = () => {
   const { userId } = useAuthStore();
   const { fetchUserInfo } = useUserInfoStore();
-  const { fetchBalance } = useBalanceStore();
   const { fetchGames, loadMore, data: gamesData, isLoading, isLoadingMore } = useGamesStore();
   const [providerFilter, setProviderFilter] = useState<string | string[]>('all');
   const [popularFilter, setPopularFilter] = useState('popular');
@@ -24,12 +23,6 @@ export const Slots = () => {
   }, [fetchUserInfo, userId]);
 
   useEffect(() => {
-    if (userId) {
-      fetchBalance(userId);
-    }
-  }, [fetchBalance, userId]);
-
-  useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
     }, 500);
@@ -38,37 +31,35 @@ export const Slots = () => {
   }, [searchQuery]);
 
   useEffect(() => {
-    if (userId) {
-      const data: GetGamesQueryParams = {
-        search: debouncedSearchQuery || undefined,
-        providers:
-          Array.isArray(providerFilter) && providerFilter.length > 0
-            ? providerFilter
-            : typeof providerFilter === 'string' && providerFilter !== 'all'
-              ? [providerFilter]
-              : undefined,
-        sort_order:
-          popularFilter === 'new'
-            ? 'new'
-            : popularFilter === 'popular'
-              ? 'popular'
-              : popularFilter === 'a_to_z'
-                ? 'asc'
-                : popularFilter === 'z_to_a'
-                  ? 'desc'
-                  : undefined,
-        only_favorites: false,
-        user_id: userId,
-        region: null,
-        is_mobile: isMobile(),
-        last_name: null,
-        last_uuid: null,
-        last_tx_count: null,
-        last_created_at: null,
-        limit: 9,
-      };
-      fetchGames(data);
-    }
+    const data: GetGamesQueryParams = {
+      search: debouncedSearchQuery || undefined,
+      providers:
+        Array.isArray(providerFilter) && providerFilter.length > 0
+          ? providerFilter
+          : typeof providerFilter === 'string' && providerFilter !== 'all'
+            ? [providerFilter]
+            : undefined,
+      sort_order:
+        popularFilter === 'new'
+          ? 'new'
+          : popularFilter === 'popular'
+            ? 'popular'
+            : popularFilter === 'a_to_z'
+              ? 'asc'
+              : popularFilter === 'z_to_a'
+                ? 'desc'
+                : undefined,
+      only_favorites: false,
+      user_id: userId,
+      region: null,
+      is_mobile: isMobile(),
+      last_name: null,
+      last_uuid: null,
+      last_tx_count: null,
+      last_created_at: null,
+      limit: 9,
+    };
+    fetchGames(data);
   }, [fetchGames, userId, providerFilter, popularFilter, debouncedSearchQuery]);
 
   const handleProviderChange = useCallback(

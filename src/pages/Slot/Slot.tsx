@@ -56,7 +56,7 @@ export const Slot = () => {
   }, [fetchSlotsAccess, userId]);
 
   useEffect(() => {
-    if (userId && uuid) {
+    if (uuid) {
       fetchGameInfo(uuid, { region: null, user_id: userId });
     }
   }, [fetchGameInfo, userId, uuid]);
