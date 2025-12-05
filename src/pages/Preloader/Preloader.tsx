@@ -24,9 +24,9 @@ export const Preloader = () => {
       if (data.ok) {
         const from = location.state?.from;
         if (from) {
-           navigate(from, { replace: true });
+          navigate(from, { replace: true });
         } else {
-           navigate(ROUTES.SLOTS, { replace: true });
+          navigate(ROUTES.SLOTS, { replace: true });
         }
       } else {
         setErrorPage(data.reason);

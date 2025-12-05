@@ -17,7 +17,7 @@ export const Slots = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
 
-  useVerify()
+  useVerify();
 
   useEffect(() => {
     if (userId) {

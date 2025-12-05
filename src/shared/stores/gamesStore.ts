@@ -23,12 +23,12 @@ export const useGamesStore = create<GamesState>(set => ({
     try {
       const response = await getGames(params);
       const uniqueGames = response.games.filter(
-        (game, index, self) => index === self.findIndex(g => g.uuid === game.uuid)
+        (game, index, self) => index === self.findIndex(g => g.uuid === game.uuid),
       );
-      set({ 
-        isLoading: false, 
-        data: { ...response, games: uniqueGames }, 
-        error: null 
+      set({
+        isLoading: false,
+        data: { ...response, games: uniqueGames },
+        error: null,
       });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
@@ -44,19 +44,19 @@ export const useGamesStore = create<GamesState>(set => ({
       set(state => {
         if (!state.data) {
           const uniqueGames = response.games.filter(
-            (game, index, self) => index === self.findIndex(g => g.uuid === game.uuid)
+            (game, index, self) => index === self.findIndex(g => g.uuid === game.uuid),
           );
-          return { 
-            isLoadingMore: false, 
-            data: { ...response, games: uniqueGames }, 
-            error: null 
+          return {
+            isLoadingMore: false,
+            data: { ...response, games: uniqueGames },
+            error: null,
           };
         }
-        
+
         const existingUuids = new Set(state.data.games.map(game => game.uuid));
-        
+
         const newGames = response.games.filter(game => !existingUuids.has(game.uuid));
-        
+
         return {
           isLoadingMore: false,
           data: {

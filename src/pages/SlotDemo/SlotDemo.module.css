@@ -51,31 +51,6 @@
   border-radius: 20px;
 }
 
-.closeButton {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10000;
-  transition: background-color 0.2s;
-}
-
-.closeButton:hover {
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.closeButton:active {
-  background: rgba(0, 0, 0, 0.9);
-}
-
 .loading,
 .error {
   display: flex;

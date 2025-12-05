@@ -35,7 +35,7 @@ export const Slot = () => {
   const [activeTab, setActiveTab] = useState('big_players');
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [isSlotsAccessModalOpen, setIsSlotsAccessModalOpen] = useState(false);
-  useVerify()
+  useVerify();
   useEffect(() => {
     setFullscreen(isToggleOn);
   }, [isToggleOn, setFullscreen]);
