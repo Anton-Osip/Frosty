@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import s from './Preloader.module.css';
 import chipAnimation from '../../assets/anomation/chip.json';
@@ -9,6 +9,7 @@ import { useAuthStore, useErrorPageStore } from '../../shared/stores';
 
 export const Preloader = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { verify, isLoading, data, error, reset } = useAuthStore();
   const { setErrorPage } = useErrorPageStore();
 
@@ -21,7 +22,8 @@ export const Preloader = () => {
 
     if (data) {
       if (data.ok) {
-        navigate(ROUTES.SLOTS, { replace: true });
+        const from = location.state?.from || ROUTES.SLOTS;
+        navigate(from, { replace: true });
       } else {
         setErrorPage(data.reason);
         reset();
@@ -31,7 +33,7 @@ export const Preloader = () => {
       reset();
       navigate(ROUTES.ERROR, { replace: true, state: { fromPreloader: true } });
     }
-  }, [isLoading, data, error, navigate, setErrorPage, reset]);
+  }, [isLoading, data, error, navigate, setErrorPage, reset, location]);
 
   return (
     <div className={s.preloader}>

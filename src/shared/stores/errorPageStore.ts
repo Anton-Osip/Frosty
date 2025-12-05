@@ -21,12 +21,12 @@ interface ErrorPageState {
 }
 
 const defaultState: Pick<ErrorPageState, 'title' | 'description' | 'button'> = {
-  title: 'Ошибка доступа!',
-  description: 'Перезапустите мини-приложение',
+  title: 'Игра не доступна!',
+  description: 'К сожалению, данный провайдер не доступен для вашего региона.',
   button: {
-    label: 'Frosty Casino',
+    label: 'Назад',
     onClick: () => {
-      window.open('https://t.me/frosted', '_blank');
+      window.history.back();
     },
   },
 };

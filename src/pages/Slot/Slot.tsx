@@ -12,6 +12,7 @@ import {
 import { Button } from '../../shared/ui/components';
 import { getSlotPlayRoute, getSlotDemoRoute } from '../../shared/config/routes';
 import { ROUTES } from '../../shared/config/routes';
+import { useVerify } from '../../shared/hooks/useVerify.ts';
 
 export const Slot = () => {
   const { id: uuid } = useParams();
@@ -34,7 +35,7 @@ export const Slot = () => {
   const [activeTab, setActiveTab] = useState('big_players');
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [isSlotsAccessModalOpen, setIsSlotsAccessModalOpen] = useState(false);
-
+  useVerify()
   useEffect(() => {
     setFullscreen(isToggleOn);
   }, [isToggleOn, setFullscreen]);

@@ -4,6 +4,7 @@ import { SlotsSection, SlotsFilters, SlotsGrid, SlotsStats } from '../../widgets
 import { useAuthStore, useGamesStore, useUserInfoStore } from '../../shared/stores';
 import type { GetGamesQueryParams } from '../../shared/api/slotegrator/games.ts';
 import { isMobile } from '../../shared/utils/clientInfo';
+import { useVerify } from '../../shared/hooks/useVerify.ts';
 
 export const Slots = () => {
   const { userId } = useAuthStore();
@@ -15,6 +16,8 @@ export const Slots = () => {
   const [itemsPerPage, setItemsPerPage] = useState('10');
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
+
+  useVerify()
 
   useEffect(() => {
     if (userId) {

@@ -21,6 +21,7 @@ interface AuthState {
   userPhoto: string | null;
   verify: () => Promise<void>;
   reset: () => void;
+  isVerify: boolean;
 }
 
 const extractUserIdFromInitData = (initData: string): number | null => {
@@ -59,9 +60,10 @@ export const useAuthStore = create<AuthState>(set => ({
   data: null,
   userId: null,
   userPhoto: null,
+  isVerify: false,
 
   verify: async () => {
-    set({ isLoading: true, error: null });
+    set({ isLoading: true, error: null, isVerify: true });
 
     try {
       const [webAppModule, clientIp] = await Promise.all([
