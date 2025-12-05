@@ -26,6 +26,9 @@
 }
 
 .emptyMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   height: 100%;
   min-height: 250px;
   border-radius: 10px;
@@ -34,8 +37,8 @@
   flex: 1;
   padding: 24px 16px;
   text-align: center;
-  font-family: 'Suisse Intl', 'Inter', 'Segoe UI', sans-serif;
-  font-size: 16px;
+  font-family: 'Suisse Intl', sans-serif;
+  font-size: 20px;
   font-weight: 400;
   color: var(--light-title, #f0f5ff);
   background: var(--dark-sidebar, #131824);
