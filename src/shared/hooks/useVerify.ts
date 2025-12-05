@@ -9,7 +9,7 @@ export const useVerify = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (!isVerify) {
+    if (!isVerify && location.pathname !== ROUTES.ROOT) {
       navigate(ROUTES.ROOT, { state: { from: location }, replace: true });
     }
   }, [isVerify, navigate, location]);
