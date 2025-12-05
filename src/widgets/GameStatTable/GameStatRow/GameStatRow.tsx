@@ -32,6 +32,13 @@ export const GameStatRow = ({ name = 'Dice', amount = '0,00', imageSrc, classNam
     navigate(getSlotRoute(gameUuid));
   };
 
+  // Форматируем число без дробной части
+  const formatAmount = (value: string): string => {
+    const numValue = parseFloat(value.replace(',', '.'));
+    if (isNaN(numValue)) return value;
+    return Math.floor(numValue).toString();
+  };
+
   return (
     <div className={rootClassName} onClick={handleClick}>
       <div className={s.left}>
@@ -40,7 +47,7 @@ export const GameStatRow = ({ name = 'Dice', amount = '0,00', imageSrc, classNam
           {name}
         </span>
       </div>
-      <span className={amountClassName}>{amount} ₽</span>
+      <span className={amountClassName}>{formatAmount(amount)} ₽</span>
     </div>
   );
 };
