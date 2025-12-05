@@ -141,7 +141,7 @@
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.16px;
-  padding: 10px 16px;
+  padding: 10px 12px;
   cursor: pointer;
   text-align: left;
   box-sizing: border-box;
@@ -151,11 +151,6 @@
   background: #e1e4ea;
 }
 
-@media screen and (max-width: 395px) {
-  .option {
-    padding: 10px 12px;
-  }
-}
 
 .optionNumber {
   color: #727e9b;
