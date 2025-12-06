@@ -22,7 +22,7 @@
 .header.mobile.android {
   padding-top: calc(
     var(--tg-header-height, 0px) + var(--tg-content-safe-area-inset-top, 0px) +
-      var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px)) - 10px
+      var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px)) - 12px
   ) !important;
 }
 
