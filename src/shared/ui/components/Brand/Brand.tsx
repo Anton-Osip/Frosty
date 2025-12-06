@@ -16,7 +16,9 @@ export const Brand = () => {
       <div className={s.logo}>
         <FrostyLogo />
       </div>
-      <span className={`${s.brandName}  ${data?.balance && data.balance > 99999 ? s.brandNameHidden : ''}`}>Frosty</span>
+      <span className={`${s.brandName}  ${data?.balance && data.balance > 99999 ? s.brandNameHidden : ''}`}>
+        Frosty
+      </span>
     </div>
   );
 };
