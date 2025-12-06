@@ -117,21 +117,6 @@ export const Header = () => {
     // Инициализируем safe area
     updateSafeArea();
 
-    // Подписываемся на события изменения safe area
-    import('@twa-dev/sdk')
-      .then(module => {
-        const WebApp = module.default;
-        if (WebApp && (WebApp.platform === 'android' || WebApp.platform === 'ios')) {
-          // Слушаем события изменения safe area
-          if (typeof WebApp.onEvent === 'function') {
-            WebApp.onEvent('contentSafeAreaChanged', updateSafeArea);
-            WebApp.onEvent('safeAreaChanged', updateSafeArea);
-            WebApp.onEvent('viewportChanged', updateSafeArea);
-          }
-        }
-      })
-      .catch(() => {});
-
     // Также обновляем после небольшой задержки (на случай если WebApp еще не загружен)
     const timeoutId = setTimeout(updateSafeArea, 100);
 
