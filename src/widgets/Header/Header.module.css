@@ -15,21 +15,21 @@
 /* Safe area для мобильных устройств */
 .header.mobile {
   /* Базовый padding + высота хедера Telegram */
-  padding-top: calc(var(--tg-header-height, 0px) + var(--tg-content-safe-area-inset-top, 0px) + 12px) !important;
+  padding-top: calc(var(--tg-header-height, 0px) + var(--tg-content-safe-area-inset-top, 0px) - 15px) !important;
 }
 
 /* Android: суммируем хедер Telegram, contentSafeAreaInset и safeAreaInset */
 .header.mobile.android {
   padding-top: calc(
     var(--tg-header-height, 0px) + var(--tg-content-safe-area-inset-top, 0px) +
-      var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px)) + 12px
+      var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px)) - 15px
   ) !important;
 }
 
 /* iOS: используем только высоту хедера Telegram и системную safe area (без contentSafeAreaInset) */
 .header.mobile.ios {
   padding-top: calc(
-    var(--tg-header-height, 56px) + var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px)) + 12px
+    var(--tg-header-height, 56px) + var(--tg-safe-area-inset-top, env(safe-area-inset-top, 0px)) - 15px
   ) !important;
 }
 
