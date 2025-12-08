@@ -9,7 +9,6 @@ import {
   useGameViewStore,
   useErrorPageStore,
 } from '../../shared/stores';
-import { Button } from '../../shared/ui/components';
 import { getSlotPlayRoute, getSlotDemoRoute } from '../../shared/config/routes';
 import { ROUTES } from '../../shared/config/routes';
 import { useVerify } from '../../shared/hooks/useVerify.ts';
@@ -29,13 +28,20 @@ export const Slot = () => {
   const { fetchSlotsAccess, data: slotsAccessData, errorStatusCode, reset } = useSlotsAccessStore();
   const { setFullscreen } = useGameViewStore();
   const setErrorPage = useErrorPageStore(state => state.setErrorPage);
-
   const [activeTabSlot, setActiveTabSlot] = useState('big_wins');
   const [itemsPerPage, setItemsPerPage] = useState('10');
   const [activeTab, setActiveTab] = useState('big_players');
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [isSlotsAccessModalOpen, setIsSlotsAccessModalOpen] = useState(false);
   useVerify();
+
+  useEffect(() => {
+    if (isSlotsAccessModalOpen) {
+      setErrorPage('slot_access');
+      navigate(ROUTES.ERROR);
+    }
+  }, [isSlotsAccessModalOpen, navigate, setErrorPage]);
+
   useEffect(() => {
     setFullscreen(isToggleOn);
   }, [isToggleOn, setFullscreen]);
@@ -155,26 +161,6 @@ export const Slot = () => {
         onItemsPerPageChange={handleItemsPerPageChange}
         uuid={uuid}
       />
-
-      {isSlotsAccessModalOpen && (
-        <div className={s.modalOverlay}>
-          <div className={s.modal}>
-            <h2 className={s.modalTitle}>Доступ к слотам ограничен</h2>
-            <p className={s.modalText}>
-              Промокоды без депозита работают только в TG-играх. Чтобы открыть доступ к слотам — пополните баланс.
-            </p>
-            <Button
-              variant='accent'
-              width='100%'
-              height='44px'
-              borderRadius={999}
-              onClick={() => setIsSlotsAccessModalOpen(false)}
-            >
-              Понятно
-            </Button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

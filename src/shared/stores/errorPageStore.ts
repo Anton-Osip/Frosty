@@ -8,7 +8,7 @@ interface ErrorPageButtonConfig {
   onClick: () => void;
 }
 
-type setErrorArg = 'geo_block' | 'invalid_data' | 'unexpected_error' | 'game_block';
+type setErrorArg = 'geo_block' | 'invalid_data' | 'unexpected_error' | 'game_block' | 'slot_access';
 
 interface ErrorPageState {
   title: string;
@@ -67,6 +67,16 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
   game_block: {
     title: 'Игра не доступна!',
     description: 'К сожалению, данный провайдер не доступен для вашего региона.',
+    button: {
+      label: 'Назад',
+      onClick: () => {
+        window.history.back();
+      },
+    },
+  },
+  slot_access: {
+    title: 'Доступ к слотам ограничен!',
+    description: 'Промокоды без депозита работают только в TG-играх. Чтобы открыть доступ к слотам — пополните баланс.',
     button: {
       label: 'Назад',
       onClick: () => {
