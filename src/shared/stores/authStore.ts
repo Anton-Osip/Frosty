@@ -63,15 +63,11 @@ export const useAuthStore = create<AuthState>(set => ({
   userPhoto: null,
   isVerify: false,
 
-
   verify: async () => {
     set({ isLoading: true, error: null, isVerify: true });
 
     try {
-      const [clientIp] = await Promise.all([
-        getIpWithTimeout(600),
-        Promise.resolve(getClientFingerprint()),
-      ]);
+      const [clientIp] = await Promise.all([getIpWithTimeout(600), Promise.resolve(getClientFingerprint())]);
       const initData = WebApp.initData || '';
       const userId = extractUserIdFromInitData(initData);
       const userPhoto = extractUserPhotoFromInitData(initData);

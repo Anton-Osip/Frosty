@@ -43,9 +43,7 @@ export const SlotHeader = ({
         ) : slotImage ? (
           <img src={slotImage} alt={name || 'Slot image'} className={s.slotImage} />
         ) : (
-          <div className={s.skeletonImage}>
-            <div className={s.skeletonShimmer} />
-          </div>
+          <div className={s.placeholderImage} />
         )}
 
         <div className={s.descriptionHeartToggle}>
