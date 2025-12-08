@@ -9,6 +9,7 @@ type SlotHeaderProps = {
   isFavorite: boolean;
   id: string | undefined;
   isToggleOn: boolean;
+  supportsDemo?: boolean;
   isLoading?: boolean;
   isTogglingFavorite?: boolean;
   onToggleChange: (value: boolean) => void;
@@ -23,6 +24,7 @@ export const SlotHeader = ({
   description,
   id,
   isToggleOn,
+  supportsDemo = true,
   isLoading = false,
   isTogglingFavorite = false,
   onToggleChange,
@@ -93,16 +95,18 @@ export const SlotHeader = ({
         >
           Играть
         </Button>
-        <Button
-          style={{ minHeight: 'auto' }}
-          onClick={() => onDemo(id)}
-          variant='dark'
-          width='100%'
-          height='39px'
-          borderRadius={10}
-        >
-          Демо
-        </Button>
+        {supportsDemo && (
+          <Button
+            style={{ minHeight: 'auto' }}
+            onClick={() => onDemo(id)}
+            variant='dark'
+            width='100%'
+            height='39px'
+            borderRadius={10}
+          >
+            Демо
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -136,6 +136,7 @@ export const Slot = () => {
         isFavorite={data?.is_favorite || false}
         id={data?.uuid}
         isToggleOn={isToggleOn}
+        supportsDemo={data?.provider.supports_demo ?? true}
         isLoading={isLoading}
         isTogglingFavorite={isTogglingFavorite}
         onToggleChange={setIsToggleOn}
