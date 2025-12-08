@@ -23,8 +23,8 @@ interface ErrorPageState {
 const SESSION_STORAGE_KEY = 'error_page_state';
 
 const baseDefaultState: Pick<ErrorPageState, 'title' | 'description' | 'button'> = {
-  title: 'Игра не доступна!',
-  description: 'К сожалению, данный провайдер не доступен для вашего региона.',
+  title: 'Игра недоступна!',
+  description: 'К сожалению, данный провайдер недоступен для вашего региона.',
   button: {
     label: 'Назад',
     onClick: () => {
@@ -67,8 +67,8 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
     },
   },
   game_block: {
-    title: 'Игра не доступна!',
-    description: 'К сожалению, данный провайдер не доступен для вашего региона.',
+    title: 'Игра недоступна!',
+    description: 'К сожалению, данный провайдер недоступен для вашего региона.',
     button: {
       label: 'Назад',
       onClick: () => {

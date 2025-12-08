@@ -7,4 +7,4 @@ export { SlotsGrid } from './SlotsGrid/SlotsGrid';
 export { SlotsSection } from './SlotsSection/SlotsSection';
 export { SlotsStats } from './SlotsStats/SlotsStats';
 export { SlotTabsSection } from './SlotTabsSection/SlotTabsSection';
-export { Winners } from './Winners/Winnsers.tsx';
+export { Winners } from './Winners/Winners';
