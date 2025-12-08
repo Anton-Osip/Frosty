@@ -62,6 +62,7 @@ export const useAuthStore = create<AuthState>(set => ({
   userPhoto: null,
   isVerify: false,
 
+
   verify: async () => {
     set({ isLoading: true, error: null, isVerify: true });
 
