@@ -86,6 +86,7 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
     if (!data) return [];
 
     return data.map(bet => ({
+      id: bet.id,
       name: bet.slot_name || undefined,
       amount: formatAmount(bet.amount),
       imageSrc: bet.slot_image_url || undefined,

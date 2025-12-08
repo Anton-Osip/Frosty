@@ -2,6 +2,7 @@ import s from './GameStatTable.module.css';
 import { GameStatRow } from './GameStatRow/GameStatRow.tsx';
 
 export type GameStatItem = {
+  id?: string | number;
   name?: string;
   amount?: string;
   imageSrc?: string;
@@ -44,9 +45,9 @@ export const GameStatTable = ({ items, className, isLoading = false }: Props) =>
             <span>Нет данных для отображения</span>
           </div>
         ) : (
-          items.map((item, index) => (
+          items.map(item => (
             <GameStatRow
-              key={`${item.name ?? 'game'}-${index}`}
+              key={item.id}
               name={item.name}
               amount={item.amount}
               imageSrc={item.imageSrc}
