@@ -88,7 +88,6 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
   },
 };
 
-// Функция для загрузки состояния из sessionStorage
 const loadStateFromSession = (): Pick<ErrorPageState, 'title' | 'description' | 'button'> | null => {
   try {
     const savedErrorType = sessionStorage.getItem(SESSION_STORAGE_KEY);
@@ -101,7 +100,6 @@ const loadStateFromSession = (): Pick<ErrorPageState, 'title' | 'description' | 
   return null;
 };
 
-// Функция для сохранения типа ошибки в sessionStorage
 const saveErrorTypeToSession = (errorType: setErrorArg) => {
   try {
     sessionStorage.setItem(SESSION_STORAGE_KEY, errorType);
@@ -110,7 +108,6 @@ const saveErrorTypeToSession = (errorType: setErrorArg) => {
   }
 };
 
-// Функция для очистки sessionStorage
 const clearSessionStorage = () => {
   try {
     sessionStorage.removeItem(SESSION_STORAGE_KEY);
@@ -119,17 +116,14 @@ const clearSessionStorage = () => {
   }
 };
 
-// Инициализация состояния: пытаемся загрузить из sessionStorage, иначе используем baseDefaultState
 const defaultState = loadStateFromSession() || baseDefaultState;
 
 export const useErrorPageStore = create<ErrorPageState>(set => ({
   ...defaultState,
 
   setErrorPage: (error: setErrorArg) => {
-    // Сохраняем тип ошибки в sessionStorage
     saveErrorTypeToSession(error);
-    
-    // Обновляем состояние
+
     set({
       title: errorData[error].title,
       description: errorData[error].description,
@@ -142,7 +136,6 @@ export const useErrorPageStore = create<ErrorPageState>(set => ({
   },
 
   reset: () => {
-    // Очищаем sessionStorage при сбросе
     clearSessionStorage();
     set({ ...baseDefaultState });
   },

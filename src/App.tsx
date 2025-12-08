@@ -8,18 +8,18 @@ import { useBalanceStore, useAuthStore } from './shared/stores';
 
 const AppLayout = () => {
   useTelegramBackButton();
-  
+
   const { fetchBalance } = useBalanceStore();
   const { userId } = useAuthStore();
 
   useEffect(() => {
     if (userId) {
       fetchBalance(userId);
-      
+
       const intervalId = setInterval(() => {
         fetchBalance(userId);
       }, 5000);
-      
+
       return () => {
         clearInterval(intervalId);
       };
