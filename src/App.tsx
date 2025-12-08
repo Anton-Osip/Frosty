@@ -1,12 +1,30 @@
 import { BrowserRouter as Router, Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { Suspense, type ReactNode } from 'react';
+import { Suspense, useEffect, type ReactNode } from 'react';
 import { Preloader, Slots, Error, Slot, SlotPlay, SlotDemo } from './pages';
 import { Header } from './widgets';
 import { ROUTES } from './shared/config/routes';
 import { useTelegramBackButton } from './shared/hooks/useTelegramBackButton';
+import { useBalanceStore, useAuthStore } from './shared/stores';
 
 const AppLayout = () => {
   useTelegramBackButton();
+  
+  const { fetchBalance } = useBalanceStore();
+  const { userId } = useAuthStore();
+
+  useEffect(() => {
+    if (userId) {
+      fetchBalance(userId);
+      
+      const intervalId = setInterval(() => {
+        fetchBalance(userId);
+      }, 5000);
+      
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [fetchBalance, userId]);
 
   return (
     <div className='page'>
