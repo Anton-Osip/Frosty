@@ -23,21 +23,24 @@
   margin: 0 16px;
   padding: 24px 20px 20px;
   border-radius: 20px;
-  background: linear-gradient(145deg, #071b3a, #041024);
+  background: var(--bg-slot-section);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
   text-align: center;
 }
 
 .modalTitle {
   margin: 0 0 12px;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   color: #ffffff;
 }
 
 .modalText {
+  color: var(--light-description);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.16px;
   margin: 0 0 20px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.8);
 }
