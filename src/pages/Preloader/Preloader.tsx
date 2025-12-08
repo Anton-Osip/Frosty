@@ -34,6 +34,7 @@ export const Preloader = () => {
         navigate(ROUTES.ERROR, { replace: true, state: { fromPreloader: true } });
       }
     } else if (error) {
+      setErrorPage('invalid_data');
       reset();
       navigate(ROUTES.ERROR, { replace: true, state: { fromPreloader: true } });
     }

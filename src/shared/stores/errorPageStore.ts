@@ -20,7 +20,9 @@ interface ErrorPageState {
   reset: () => void;
 }
 
-const defaultState: Pick<ErrorPageState, 'title' | 'description' | 'button'> = {
+const SESSION_STORAGE_KEY = 'error_page_state';
+
+const baseDefaultState: Pick<ErrorPageState, 'title' | 'description' | 'button'> = {
   title: 'Игра не доступна!',
   description: 'К сожалению, данный провайдер не доступен для вашего региона.',
   button: {
@@ -86,10 +88,48 @@ const errorData: Record<setErrorArg, Pick<ErrorPageState, 'title' | 'description
   },
 };
 
+// Функция для загрузки состояния из sessionStorage
+const loadStateFromSession = (): Pick<ErrorPageState, 'title' | 'description' | 'button'> | null => {
+  try {
+    const savedErrorType = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    if (savedErrorType && savedErrorType in errorData) {
+      return errorData[savedErrorType as setErrorArg];
+    }
+  } catch (error) {
+    console.error('Ошибка при загрузке состояния из sessionStorage:', error);
+  }
+  return null;
+};
+
+// Функция для сохранения типа ошибки в sessionStorage
+const saveErrorTypeToSession = (errorType: setErrorArg) => {
+  try {
+    sessionStorage.setItem(SESSION_STORAGE_KEY, errorType);
+  } catch (error) {
+    console.error('Ошибка при сохранении в sessionStorage:', error);
+  }
+};
+
+// Функция для очистки sessionStorage
+const clearSessionStorage = () => {
+  try {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+  } catch (error) {
+    console.error('Ошибка при очистке sessionStorage:', error);
+  }
+};
+
+// Инициализация состояния: пытаемся загрузить из sessionStorage, иначе используем baseDefaultState
+const defaultState = loadStateFromSession() || baseDefaultState;
+
 export const useErrorPageStore = create<ErrorPageState>(set => ({
   ...defaultState,
 
   setErrorPage: (error: setErrorArg) => {
+    // Сохраняем тип ошибки в sessionStorage
+    saveErrorTypeToSession(error);
+    
+    // Обновляем состояние
     set({
       title: errorData[error].title,
       description: errorData[error].description,
@@ -101,5 +141,9 @@ export const useErrorPageStore = create<ErrorPageState>(set => ({
     });
   },
 
-  reset: () => set({ ...defaultState }),
+  reset: () => {
+    // Очищаем sessionStorage при сбросе
+    clearSessionStorage();
+    set({ ...baseDefaultState });
+  },
 }));
