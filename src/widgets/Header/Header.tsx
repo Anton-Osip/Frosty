@@ -4,21 +4,14 @@ import { Brand, BalanceCard, UserPhoto } from '../../shared/ui/components';
 import { useBalanceStore, useAuthStore, useUserInfoStore } from '../../shared/stores';
 
 export const Header = () => {
-  const { data, fetchBalance } = useBalanceStore();
+  const { data } = useBalanceStore();
   const { userPhoto } = useAuthStore();
   const { data: userInfo } = useUserInfoStore();
-  const { userId } = useAuthStore();
   const [isMobile, setIsMobile] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
 
   const avatarUrl = userPhoto || userInfo?.avatar_url || undefined;
-
-  useEffect(() => {
-    if (userId) {
-      fetchBalance(userId);
-    }
-  }, [fetchBalance, userId]);
 
   useEffect(() => {
     const updateSafeArea = () => {
