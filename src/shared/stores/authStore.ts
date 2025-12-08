@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import WebApp from '@twa-dev/sdk';
 import {
   getIpWithTimeout,
   getClientFingerprint,
@@ -67,12 +68,10 @@ export const useAuthStore = create<AuthState>(set => ({
     set({ isLoading: true, error: null, isVerify: true });
 
     try {
-      const [webAppModule, clientIp] = await Promise.all([
-        import('@twa-dev/sdk'),
+      const [clientIp] = await Promise.all([
         getIpWithTimeout(600),
         Promise.resolve(getClientFingerprint()),
       ]);
-      const WebApp = webAppModule.default;
       const initData = WebApp.initData || '';
       const userId = extractUserIdFromInitData(initData);
       const userPhoto = extractUserPhotoFromInitData(initData);
