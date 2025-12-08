@@ -102,6 +102,4 @@ export const useAuthStore = create<AuthState>(set => ({
   reset: () => {
     set({ isLoading: false, error: null, data: null, userId: null, userPhoto: null });
   },
-
-
 }));
