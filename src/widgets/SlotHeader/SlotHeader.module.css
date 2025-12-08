@@ -43,7 +43,7 @@
   width: 34%;
   aspect-ratio: 3/4;
   border-radius: 8px;
-  background: var(--light-desc-dark, #313b52);
+  background: var(--dark-on-h);
   flex-shrink: 0;
 }
 
