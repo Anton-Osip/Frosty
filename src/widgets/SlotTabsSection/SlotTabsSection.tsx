@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import s from './SlotTabsSection.module.css';
 import { SegmentedTabs, Winners } from '../';
 import { useGameBigWinsStore, useGameLuckyBetsStore, useTopPlayersTodayStore } from '../../shared/stores';
-
+import { useAuthStore } from '../../shared/stores';
 type Option = { label: string; value: string };
 
 type SlotTabsSectionProps = {
@@ -25,9 +25,10 @@ export const SlotTabsSection = ({ activeTabSlot, onTabChangeSlot, gameUuid }: Sl
   const { fetchGameBigWins, data: bigWinsData, isLoading: isBigWinsLoading } = useGameBigWinsStore();
   const { fetchGameLuckyBets, data: luckyBetsData, isLoading: isLuckyBetsLoading } = useGameLuckyBetsStore();
   const { fetchTopPlayersToday, data: topPlayersData, isLoading: isTopPlayersLoading } = useTopPlayersTodayStore();
+  const { userId } = useAuthStore();
 
   useEffect(() => {
-    if (!gameUuid) {
+    if (!gameUuid || !userId) {
       return;
     }
 
@@ -35,7 +36,7 @@ export const SlotTabsSection = ({ activeTabSlot, onTabChangeSlot, gameUuid }: Sl
       game_uuid: gameUuid,
       limit: 3,
       region: null,
-      user_id: null,
+      user_id: userId,
     };
 
     if (activeTabSlot === 'big_wins') {
@@ -45,7 +46,7 @@ export const SlotTabsSection = ({ activeTabSlot, onTabChangeSlot, gameUuid }: Sl
     } else if (activeTabSlot === 'lucky_bets') {
       fetchTopPlayersToday(commonParams);
     }
-  }, [activeTabSlot, gameUuid, fetchGameBigWins, fetchGameLuckyBets, fetchTopPlayersToday]);
+  }, [activeTabSlot, gameUuid, fetchGameBigWins, fetchGameLuckyBets, fetchTopPlayersToday, userId]);
 
   const winnersData = useMemo(() => {
     if (activeTabSlot === 'big_wins') {

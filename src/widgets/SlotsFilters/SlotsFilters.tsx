@@ -32,6 +32,7 @@ export const SlotsFilters = ({
   const { fetchProviders } = useProvidersStore();
   const { data: gamesData } = useGamesStore();
   const { userId } = useAuthStore();
+
   useEffect(() => {
     fetchProviders({ user_id: userId, region: null });
   }, [fetchProviders, userId]);

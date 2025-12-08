@@ -45,18 +45,22 @@ export const SlotsStats = ({ activeTab, itemsPerPage, onTabChange, onItemsPerPag
   const { userId } = useAuthStore();
 
   useEffect(() => {
+    if (!userId) {
+      return;
+    }
+
     const commonParams = {
       game_uuid: uuid ?? null,
       region: null,
       limit: Number(itemsPerPage),
     };
 
-    if (activeTab === 'my_bets' && userId) {
+    if (activeTab === 'my_bets') {
       fetchMyBetsList({ ...commonParams, user_id: userId } as GetMyBetsListQueryParams);
     } else if (activeTab === 'all_bets') {
-      fetchTotalBetsList({ ...commonParams, user_id: null } as GetTotalBetsListQueryParams);
+      fetchTotalBetsList({ ...commonParams, user_id: userId } as GetTotalBetsListQueryParams);
     } else if (activeTab === 'big_players') {
-      fetchHighBetsList({ ...commonParams, user_id: null } as GetHighBetsListQueryParams);
+      fetchHighBetsList({ ...commonParams, user_id: userId } as GetHighBetsListQueryParams);
     }
   }, [activeTab, fetchMyBetsList, fetchTotalBetsList, fetchHighBetsList, itemsPerPage, userId, uuid]);
 
