@@ -7,6 +7,7 @@ import { ROUTES } from '../../shared/config/routes';
 import chipAnimation from '../../assets/anomation/chip.json';
 import logoAnimation from '../../assets/anomation/logo.json';
 import { Header } from '../../widgets';
+import { useVerify } from '../../shared/hooks/useVerify';
 
 const LoadingScreen = () => (
   <div className={s.loadingScreen}>
@@ -24,6 +25,7 @@ export const SlotDemo = () => {
   const hasInitializedRef = useRef<string | null>(null);
   const errorHandledRef = useRef<string | null>(null);
   const loadingStartedRef = useRef<string | null>(null);
+  useVerify();
 
   useEffect(() => {
     if (!uuid) {

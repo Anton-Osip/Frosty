@@ -48,16 +48,16 @@ export const useTelegramBackButton = () => {
 
           const currentPath = location.pathname;
 
-          if (currentPath.startsWith('/slot/') && (currentPath.includes('/play') || currentPath.includes('/demo'))) {
+          if (currentPath.startsWith('/game/') && (currentPath.includes('/play') || currentPath.includes('/demo'))) {
             const slotId = currentPath.split('/')[2];
             if (slotId) {
-              navigate(`/slot/${slotId}`, { replace: false });
+              navigate(`/game/${slotId}`, { replace: false });
             } else {
               navigate(ROUTES.SLOTS, { replace: false });
             }
           } else if (currentPath === ROUTES.ERROR) {
             navigate(-1);
-          } else if (currentPath.startsWith('/slot/')) {
+          } else if (currentPath.startsWith('/game/')) {
             navigate(ROUTES.SLOTS, { replace: false });
           } else {
             navigate(-1);
